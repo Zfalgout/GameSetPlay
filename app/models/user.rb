@@ -13,4 +13,10 @@ class User < ActiveRecord::Base
 		format: { with: VALID_EMAIL_REGEX },
 		uniqueness: {case_sensitive: false}
 
+	#Ensure the user has a secure password.
+	has_secure_password
+
+	#Ensure the password is of a minimum length
+	validates :password, length: { minimum: 6 }
+
 end
