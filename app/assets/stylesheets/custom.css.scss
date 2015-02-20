@@ -42,8 +42,40 @@ textarea {
 }
 
 #logo:hover {
-  color: #52ADDA;
+  color: #C9C9C9;
   text-decoration: none;
+}
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #FFF;
+}
+
+footer a {
+  color: #FFF;
+}
+
+footer a:hover {
+  color: #C9C9C9;
+  text-decoration: none;
+}
+
+footer small {
+  float: left;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 15px;
 }
 
 /* typography */
