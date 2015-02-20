@@ -19,4 +19,8 @@ class User < ActiveRecord::Base
 	#Ensure the password is of a minimum length
 	validates :password, length: { minimum: 6 }
 
+	#Ensure that the zip is valid.
+
+	#Ensure that 
+
 end
