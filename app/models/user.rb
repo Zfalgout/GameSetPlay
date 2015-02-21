@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
 	#Ensure the user has a secure password.
 	has_secure_password
 
-	#Ensure the password is of a minimum length
-	validates :password, length: { minimum: 6 }
+	#Allow for blank passwords on edit.
+    validates :password, length: { minimum: 6 }, allow_blank: true
 
 	#Ensure that the zip is valid.
 
@@ -53,5 +53,5 @@ class User < ActiveRecord::Base
       return false if remember_digest.nil?
       BCrypt::Password.new(remember_digest).is_password?(remember_token)
     end
-
+  
 end
