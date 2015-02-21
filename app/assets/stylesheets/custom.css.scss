@@ -126,14 +126,29 @@ input {
   height: auto !important;
 }
 
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+  }
+}
+
+#session_remember_me {
+  width: auto;
+  margin-left: 0;
+}
+
 /* sidebar */
 
 aside {
   section.user_info {
     margin-top: 20px;
+    background-color: #C9C9C9;
   }
   section {
-    padding: 10px 0;
+    
     margin-top: 20px;
     &:first-child {
       border: 0;
@@ -155,8 +170,8 @@ aside {
 }
 
 .gravatar {
-  float: left;
-  margin-right: 10px;
+  float: center;
+  margin: 10px;
 }
 
 .gravatar_edit {

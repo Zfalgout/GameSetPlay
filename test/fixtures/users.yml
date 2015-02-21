@@ -1,1 +1,4 @@
-#empty
+zack:
+   name: Zack Falgout
+   email: zack.falgout@ttu.edu
+   password_digest: <% User.digest("CS7000") %>
