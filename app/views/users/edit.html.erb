@@ -28,6 +28,13 @@
         <%= gravatar_for @user %>
         <a href="http://gravatar.com/emails" target=_blank>change</a>
       </div>
+
+      <div class="delete profile">
+        <% if current_user?(@user) %>
+    |   <%= link_to "Delete Profile", @user, method: :delete,
+                    class: "btn btn-sm btn-danger", data: { confirm: "You sure?" } %>
+        <% end %>
+      </div
     </div>
   </div>
 </div>
