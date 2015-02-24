@@ -31,7 +31,7 @@
 
       <div class="delete profile">
         <% if current_user?(@user) %>
-    |   <%= link_to "Delete Profile", @user, method: :delete,
+        <%= link_to "Delete Profile", @user, method: :delete,
                     class: "btn btn-sm btn-danger", data: { confirm: "You sure?" } %>
         <% end %>
       </div
