@@ -50,7 +50,12 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+                                   :password_confirmation, :age, :zip, :NTRP_rating,
+                                   :years_played, :about, :gender, :preference_of_play,
+                                   :user_rating, :wins, :losses, :win_pct, :total_matches_played,
+                                   :tournament_matches_won, :tournament_matches_lost, 
+                                   :tournaments_won, :challenge_matches_won, :challenge_matches_lost,
+                                   :challenges_posted, :challenges_accepted, :num_friends)
     end
 
     def logged_in_user

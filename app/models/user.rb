@@ -27,9 +27,11 @@ class User < ActiveRecord::Base
 	# Allow for blank passwords on edit.
     validates :password, length: { minimum: 6 }, allow_blank: true
 
-    validates_format_of :password, :with => /\A(?=.*[a-z])(?=.*\d).+\Z/i, message: "Must contain at least one letter and one number."
+    #Password REGEX such that a valid password contains at least one letter and one number.
+    validates_format_of :password, :with => /\A(?=.*[a-z])(?=.*\d).+\Z/i, message: "must contain at least one letter and one number.", allow_blank: true
 
 	# Place other profile validations here....
+	validates :zip, presence: true, length: { maximum: 5, minimum: 5 } 
 	#
 	#
 	#

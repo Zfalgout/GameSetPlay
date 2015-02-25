@@ -8,12 +8,33 @@
     <div class="col-md-6 col-md-offset-3">
       <%= form_for(@user) do |f| %>
         <%= render 'shared/error_messages' %>
-
+        
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
 
+        <%= f.label :Age %>
+        <%= f.text_field :age, class: 'form-control' %>
+
         <%= f.label :email %>
         <%= f.email_field :email, class: 'form-control' %>
+
+        <%= f.label :zip %>
+        <%= f.number_field :zip, class: 'form-control' %>
+
+        <%= f.label :NTRP_rating %>
+        <%= f.text_field :NTRP_rating, class: 'form-control' %>
+
+        <%= f.label :Preference_of_play %>
+        <%= f.text_field :preference_of_play, class: 'form-control' %>
+
+        <%= f.label :Years_played %>
+        <%= f.text_field :years_played, class: 'form-control' %>
+
+        <%= f.label :Gender %>
+        <%= f.text_field :gender, class: 'form-control' %>
+
+        <%= f.label :About %>
+        <%= f.text_field :about, class: 'form-control' %>
 
         <%= f.label :password %>
         <%= f.password_field :password, class: 'form-control' %>
@@ -21,7 +42,8 @@
         <%= f.label :password_confirmation, "Confirmation" %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-        <%= f.submit "Save changes", class: "btn btn-primary" %>
+        <%= f.submit "Save Changes", class: "btn btn-primary" %>
+
       <% end %>
 
       <div class="gravatar_edit">
@@ -34,8 +56,10 @@
         <%= link_to "Delete Profile", @user, method: :delete,
                     class: "btn btn-sm btn-danger", data: { confirm: "You sure?" } %>
         <% end %>
+
       </div
     </div>
   </div>
 </div>
 </div>
+ 

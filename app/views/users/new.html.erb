@@ -1,6 +1,6 @@
 <% provide(:title, 'Sign up') %>
 
-<div class="center jumbotron">
+<div class="jumbotron">
 
 <h1>Sign up</h1>
 
@@ -21,9 +21,8 @@
 	      <%= f.label :zip %>
 	      <%= f.number_field :zip, class: 'form-control' %>
 
-
-	      <%= f.label :NTRP_rating %>
-	      <%= f.text_field :NTRP_rating, :in => 2..8, class: 'form-control' %>
+		  <%= f.label :NTRP_rating %>
+	      <%= f.text_field :NTRP_rating, class: 'form-control' %>
 
 	      <%= f.label :Preference_of_play %>
 	      <%= f.text_field :preference_of_play, class: 'form-control' %>
