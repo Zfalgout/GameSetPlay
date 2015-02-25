@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222162111) do
+ActiveRecord::Schema.define(version: 20150225011936) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "birthday"
     t.decimal  "user_rating"
     t.decimal  "NTRP_rating"
     t.integer  "wins"
@@ -30,8 +29,6 @@ ActiveRecord::Schema.define(version: 20150222162111) do
     t.integer  "challenge_matches_lost"
     t.integer  "challenges_posted"
     t.integer  "challenges_accepted"
-    t.string   "city"
-    t.string   "state"
     t.integer  "zip"
     t.integer  "num_friends"
     t.integer  "years_played"
