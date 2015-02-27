@@ -41,15 +41,30 @@ class User < ActiveRecord::Base
     validates_format_of :password, :with => /\A(?=.*[a-z])(?=.*\d).+\Z/i, message: "must contain at least one letter and one number.", allow_blank: true
 
 	# Place other profile validations here....
-	validates :zip, presence: true, length: { maximum: 5, minimum: 5 } 
-	#
-	#
-	#
-	#
-	#
-	#
-	#
-	#
+	#validates :zip, presence: true, length: { maximum: 5, minimum: 5 } 
+
+	#validates :wins, default: 0
+
+	#validates :losses, default: 0
+
+	#validates :win_pct, default: 0
+
+	#validates :total_matches_played, default: 0
+
+	#validates :tournament_matches_won, default: 0
+
+	#validates :tournament_matches_lost, default: 0
+
+	#validates :tournaments_won, default: 0
+
+	#validates :challenge_matches_won, default: 0
+
+	#validates :challenge_matches_lost, default: 0
+
+	#validates :challenges_posted, default: 0
+
+	#validates :challenges_accepted, default: 0
+
 
 	# Returns the hash digest of the given string.
   def User.digest(string)
