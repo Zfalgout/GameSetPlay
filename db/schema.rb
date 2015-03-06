@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226162829) do
+ActiveRecord::Schema.define(version: 20150306202342) do
+
+  create_table "matches", force: :cascade do |t|
+    t.integer  "player1"
+    t.integer  "player2"
+    t.text     "location"
+    t.datetime "time"
+    t.string   "type"
+    t.boolean  "public"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "matches", ["user_id", "created_at"], name: "index_matches_on_user_id_and_created_at"
+  add_index "matches", ["user_id"], name: "index_matches_on_user_id"
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"

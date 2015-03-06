@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player1: 1
+  player2: 1
+  location: MyText
+  time: 2015-03-06 14:23:42
+  type: 
+  public: false
+
+two:
+  player1: 1
+  player2: 1
+  location: MyText
+  time: 2015-03-06 14:23:42
+  type: 
+  public: false

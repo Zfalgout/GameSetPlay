@@ -1,0 +1,12 @@
+<li id="matches-<%= match.id %>">
+  <%= link_to gravatar_for(match.user), match.user %>
+  <span class="user"><%= link_to match.user.name, match.user %></span>
+  <span class="player1"><%= match.player1 %></span>
+  <span class="location"><%= match.location %></span>
+  <span class="time"><%= match.time %></span>
+  <span class="type"><%= match.type %></span>
+  <span class="public"><%= match.public %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+  </span>
+</li>
