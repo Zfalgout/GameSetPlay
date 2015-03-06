@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306202342) do
+ActiveRecord::Schema.define(version: 20150306224450) do
 
   create_table "matches", force: :cascade do |t|
     t.integer  "player1"
     t.integer  "player2"
     t.text     "location"
     t.datetime "time"
-    t.string   "type"
-    t.boolean  "public"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "game_type"
+    t.boolean  "open"
   end
 
   add_index "matches", ["user_id", "created_at"], name: "index_matches_on_user_id_and_created_at"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20150306202342) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
+
+  create_table "user_matches", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "match_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_matches", ["match_id"], name: "index_user_matches_on_match_id"
+  add_index "user_matches", ["user_id", "match_id"], name: "index_user_matches_on_user_id_and_match_id", unique: true
+  add_index "user_matches", ["user_id"], name: "index_user_matches_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

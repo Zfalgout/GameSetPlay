@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   delete 'logout' => 'sessions#destroy'
 
+  get 'new_match' => 'matches#new'
+
   resources :users do
     member do
       get :following, :followers
@@ -31,4 +33,5 @@ Rails.application.routes.draw do
   resources :account_activations, only:  [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :relationships, only: [:create, :destroy]
+  resources :matches
 end

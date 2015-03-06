@@ -1,0 +1,32 @@
+<% provide(:title, 'New Match') %>
+
+<div class="jumbotron">
+
+<h1>Create a new match</h1>
+
+	<div class="row">
+	  <div class="col-md-6 col-md-offset-3">
+	    <%= form_for(@match) do |f| %>
+	      <%= render 'shared/match_error_messages' %>
+	    	
+	      <%= f.label :player2, "Your Opponent" %>
+	      <%= f.text_field :player2, class: 'form-control' %>
+
+	      <%= f.label :location, "The location of the match." %>
+	      <%= f.text_area :location, class: 'form-control' %>
+
+	      <%= f.label :time, "The date and time for the match" %>
+	      <%= f.datetime_select :time, class: 'form-control' %>
+
+	      <%= f.label :game_type, "Is this a signles or doubles match?" %>
+	      <%= f.text_field :game_type, class: 'form-control' %>
+
+		  <%= f.label :open, "Is this match open to the public?" %>
+	      <%= f.text_field :open, class: 'form-control' %>
+
+	      <%= f.submit "Create the match", class: "btn btn-primary" %>
+	    <% end %>
+	  </div>
+	</div>
+
+</div>

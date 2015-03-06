@@ -19,13 +19,13 @@
 	    </section>
 	  </aside>
 	  <div class="col-md-8">
-	    <% if @user.matches.any? %>
+	    <%# if @user.matches.any? %>
 	      <h3>Matches (<%= @user.matches.count %>)</h3>
 	      <ol class="matches">
 	        <%= render @matches %>
 	      </ol>
 	      <%= will_paginate @matches %>
-	    <% end %>
+	    <%# end %>
 	  </div>
 	</div>
 </div> 

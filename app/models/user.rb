@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-has_many :matches, dependent: :destroy
+	has_many :user_matches
+	has_many :matches, through: :user_matches
+
 
 	attr_accessor :remember_token, :activation_token, :reset_token
 
@@ -43,7 +45,7 @@ has_many :matches, dependent: :destroy
     validates_format_of :password, :with => /\A(?=.*[a-z])(?=.*\d).+\Z/i, message: "must contain at least one letter and one number.", allow_blank: true
 
 	# Place other profile validations here....
-	#validates :zip, presence: true, length: { maximum: 5, minimum: 5 } 
+	validates :zip, presence: true, length: { maximum: 5, minimum: 5 } 
 
 	#validates :wins, default: 0
 

@@ -22,15 +22,15 @@ User.create!(name:  "User One",
 
   users = User.order(:created_at).take(6)
   
-  50.times do
+  5.times do
     user_id = 1 
     player1 = 2
     location = Faker::Lorem.sentence(5)
     time =  Time.zone.now
-    type = "singles"
-    public = true
+    game_type = "singles"
+    open = true
 
     users.each { |user| user.matches.create!(user_id: user_id, player1: player1, 
-      location: location, time: time, type: type, public: public) }
+      location: location, time: time, game_type: game_type, open: open) }
   end
 end
