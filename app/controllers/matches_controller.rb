@@ -14,6 +14,8 @@ class MatchesController < ApplicationController
 
 	def create
 	  @match = Match.new(match_params)
+	  @match.player1 = session[:user_id]
+	  @match.user_id = session[:user_id]
 	  if @match.save
 	    #Email Setup
 	    #@match.send_email
@@ -23,6 +25,10 @@ class MatchesController < ApplicationController
 	    render 'new'
       end
     end
+
+    def current_user
+	  @current_user ||= User.find_by_remember_token(cookies[:remember_token])
+	end
 
 private
 

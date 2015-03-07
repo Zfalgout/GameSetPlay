@@ -16,13 +16,14 @@
 	      <%= f.text_area :location, class: 'form-control' %>
 
 	      <%= f.label :time, "The date and time for the match" %>
-	      <%= f.datetime_select :time, class: 'form-control' %>
+	      <%= f.datetime_local_field :time, class: 'form-control' %>
 
 	      <%= f.label :game_type, "Is this a signles or doubles match?" %>
 	      <%= f.text_field :game_type, class: 'form-control' %>
 
-		  <%= f.label :open, "Is this match open to the public?" %>
-	      <%= f.text_field :open, class: 'form-control' %>
+		  <%= f.label :open, "This is a public match." %><%= f.radio_button :open, 0, :checked => true, :value => 0 %>
+	      <%= f.label :open, "This is a private match." %>
+	      <%= f.radio_button :open, 1, :value => 1 %>
 
 	      <%= f.submit "Create the match", class: "btn btn-primary" %>
 	    <% end %>
