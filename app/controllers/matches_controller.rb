@@ -5,11 +5,11 @@ class MatchesController < ApplicationController
     end
 
     def index
-	    @match = Match.paginate(page: params[:page])
+	    @matches = Match.paginate(page: params[:page])
 	end
 
 	def show
-	  @match = Match.find(params[:id])
+	  @match = Match.find_by(id: params[:id])
 	end
 
 	def create

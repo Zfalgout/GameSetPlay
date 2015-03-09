@@ -232,6 +232,34 @@ aside {
   padding: 0;
 }
 
+/* matches */
+
+.matches {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+  .location {
+    margin-top: 5em;
+    padding-top: 0;
+  }
+  .player1 {
+    display: block;
+    margin-left: 60px;
+    img {
+      display: block;
+      padding: 5px 0;
+    }
+  }
+  .timestamp {
+    color: $gray-light;
+    display: block;
+    margin-left: 60px;
+  }
+}
+
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
