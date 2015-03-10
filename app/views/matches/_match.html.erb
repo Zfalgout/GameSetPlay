@@ -1,12 +1,13 @@
-<li id="match-<%= match.id %>">
-  <%#= link_to gravatar_for(match.user), match.user %>
-  <span class="user"><%#= link_to match.user.name, match.user %></span>
-  <span class="player1"><%= match.player1 %></span>
-  <span class="player2"><%= match.player2 %></span>
-  <span class="time"><%= match.time %></span>
-  <span class="location"><%= match.location %></span>
-  <span class="game_type"><%= match.game_type %></span>
+<li class="matches" id="match-<%= match.id %>">
+  <span class="player1">Player 1: <%=  match.player1 %></span>
+  <span class="player2">Player 2: <%= match.player2 %></span>
+  <span class="time">Date and Time: <%= match.time %></span>
+  <span class="location">Location: <%= match.location %></span>
+  <span class="game_type">Game Type: <%= match.game_type %></span>
   <span class="timestamp">
-    Posted <%= time_ago_in_words(match.created_at) %> ago.
+    Created <%= time_ago_in_words(match.created_at) %> ago.
   </span>
+  <% if match.time < Time.now %>
+  <span> <%= button_to "Enter match scores", "#", class: "btn btn-success" %>
+  <% end %>
 </li>

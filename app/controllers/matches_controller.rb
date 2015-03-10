@@ -17,7 +17,7 @@ class MatchesController < ApplicationController
 	  @match.player1 = session[:user_id]
 	  @match.user_id = session[:user_id]
 	  if @match.save
-	    #Email Setup
+		#Email Setup
 	    #@match.send_email
 	    flash[:info] = "Your opponent has been notified."
 	    redirect_to root_url
@@ -25,10 +25,6 @@ class MatchesController < ApplicationController
 	    render 'new'
       end
     end
-
-    def current_user
-	  @current_user ||= User.find_by_remember_token(cookies[:remember_token])
-	end
 
 private
 
