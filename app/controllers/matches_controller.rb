@@ -13,17 +13,18 @@ class MatchesController < ApplicationController
 	end
 
 	def create
-	 @match = Match.new(match_params)
-	  @match.player1 = session[:user_id]
-	  @match.user_id = session[:user_id]
-	  if @match.save
+		current_user.matches.create(user_id: current_user.id, player1: current_user.id, player2: 5, time: Time.zone.now, game_type: "singles", open: true, location: "The park")
+	 #@match = Match.new(match_params)
+	  #@match.player1 = session[:user_id]
+	  #@match.user_id = session[:user_id]
+	  #if @match.save
 		#Email Setup
 	    #@match.send_email
-	    flash[:info] = "Your opponent has been notified."
+	   # flash[:info] = "Your opponent has been notified."
 	    redirect_to root_url
-	  else
-	    render 'new'
-      end
+	  #else
+	  #  render 'new'
+      #end
     end
 
 private
