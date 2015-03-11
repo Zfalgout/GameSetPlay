@@ -7,7 +7,7 @@
   <span class="timestamp">
     Created <%= time_ago_in_words(match.created_at) %> ago.
   </span>
-  <% if match.time < Time.now %>
-  <span> <%= button_to "Enter match scores", "#", class: "btn btn-success" %>
+  <% if (match.time < Time.now) && current_user?(@user) %>
+    <span> <%= button_to "Enter match scores", "#", class: "btn btn-success" %>
   <% end %>
 </li>

@@ -5,7 +5,7 @@ class MatchesController < ApplicationController
     end
 
     def index
-	    @matches = Match.paginate(page: params[:page])
+	   @matches = Match.paginate(page: params[:page])
 	end
 
 	def show
