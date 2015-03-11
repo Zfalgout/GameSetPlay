@@ -13,8 +13,14 @@ class MatchesController < ApplicationController
 	end
 
 	def create
-		current_user.matches.create(user_id: current_user.id, player1: current_user.id, player2: 5, time: Time.zone.now, game_type: "singles", open: true, location: "The park")
-	 #@match = Match.new(match_params)
+	  @user = User.fourth
+	  @location = "the court"
+	  @game_type = "singles"
+	  @open = true
+	  @time = Time.zone.now
+	  #current_user.matches.create!(match_params)
+	  @match = current_user.challenge(@user, @location, @game_type, @open, @time)
+	  #@match = Match.new(match_params)
 	  #@match.player1 = session[:user_id]
 	  #@match.user_id = session[:user_id]
 	  #if @match.save

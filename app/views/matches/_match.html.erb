@@ -1,6 +1,6 @@
 <li class="matches" id="match-<%= match.id %>">
-  <span class="player1">Player 1: <%=  match.player1 %></span>
-  <span class="player2">Player 2: <%= match.player2 %></span>
+  <span class="player1">Player 1: <%= User.find_by(id: [match.player1]).name %></span>
+  <span class="player2">Player 2: <%= User.find_by(id: [match.player2]).name %></span>
   <span class="time">Date and Time: <%= match.time %></span>
   <span class="location">Location: <%= match.location %></span>
   <span class="game_type">Game Type: <%= match.game_type %></span>
