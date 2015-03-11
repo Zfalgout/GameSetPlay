@@ -13,7 +13,7 @@ class MatchesController < ApplicationController
 	end
 
 	def create
-	  @match = Match.new(match_params)
+	 @match = Match.new(match_params)
 	  @match.player1 = session[:user_id]
 	  @match.user_id = session[:user_id]
 	  if @match.save

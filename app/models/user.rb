@@ -149,6 +149,11 @@ class User < ActiveRecord::Base
 	    following.include?(other_user)
 	  end
 
+	  # Challenges a user to a match.
+	  def challenge(other_user)
+	    matches.create(player1: current_user.id, user_id: current_user.id, player2: other_user.id)
+	  end
+
     #Private methods to work in account activation.
     private
 
