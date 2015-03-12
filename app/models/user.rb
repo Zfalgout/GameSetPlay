@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
 
 	  # Challenges a user to a match.
 	  def challenge(other_user, location, game_type, open, time)
-	    matches.create!(player1: self.id, user_id: self.id, player2: other_user.id, location: location, game_type: game_type, open: open, time: time)
+	    matches.create(player1: self.id, user_id: self.id, player2: other_user.id, location: location, game_type: game_type, open: open, time: time)
 	  end
 
     #Private methods to work in account activation.
