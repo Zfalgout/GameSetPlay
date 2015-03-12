@@ -13,10 +13,10 @@ class MatchesController < ApplicationController
 	end
 
 	def create
-	   @match = Match.new(match_params)
+	  @match = Match.new(match_params)
 	  #@user = User.find_by(name: params[:player2])
 	  #@user = User.find_by(name: [match.player2]).id
-	  @user = User.fourth
+	  @user = User.find_by(name: "Destiny Fritsch")
 	  @location = @match.location
 	  #@location = "the court"
 	  @game_type = @match.game_type
