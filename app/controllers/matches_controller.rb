@@ -16,28 +16,36 @@ class MatchesController < ApplicationController
 	  @match = Match.new(match_params)
 
 	  #Set the variables.
-	  #@user.matches.paginate(page: params[:page])
-	  @opponent = User.second
+	  #@opponent = User.second
+	  #@opponent = User.find_by(name: 'Hilda Koch')
+	  @name = @match.player2
+	  @opponent = User.find_by(name: "#{@name}")
 	  @location = @match.location
 	  @game_type = @match.game_type
 	  @open = @match.open
 	  @time = @match.time
-
-	  #Create the match with the given variables.
-	  @match = current_user.challenge(@opponent, @location, @game_type, @open, @time)
 
 	  #Do not allow a match between a user and itslef.
 	  if (@opponent == current_user)
 	  	flash[:danger] = "You cannot play yourself."
 	  	@match.destroy
 	  	redirect_to root_url
-	  elsif @match.save  #match creation
+	  elsif (@opponent == nil)  #Ensure the user exists in the database.
+	  	flash[:danger] = "That user was not found in our database. #{@name} #{@match.player2} #{@match.location} #{@match.game_type}"
+	  	@match.destroy
+	  	redirect_to root_url
+	  else
+	  #Create the match with the given variables.
+	  @match = current_user.challenge(@opponent, @location, @game_type, @open, @time)
+		
+		if @match.save  #match creation
 		#Email Setup
 	    #@match.send_email
 	    flash[:info] = "Your opponent has been notified."
 	    redirect_to root_url
-	  else
-	    render 'new' #In case of errors.
+	    else
+		  render 'new' #In case of errors.
+	    end
       end
     end
 

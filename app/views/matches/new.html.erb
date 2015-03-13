@@ -9,8 +9,6 @@
 	  	<%#= form_for (current_user.matches.build) do |f| %>
 	    <%= form_for @match do |f| %>
 	      <%= render 'shared/match_error_messages' %>
-	      <%= hidden_field_tag :user_id, current_user.id %>
-	      <%= hidden_field_tag :player1, current_user.id %>
 	    	
 	      <%= f.label :player2, "Your Opponent" %>
 	      <%= f.text_field :player2, class: 'form-control' %>
