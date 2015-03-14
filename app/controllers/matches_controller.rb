@@ -16,8 +16,6 @@ class MatchesController < ApplicationController
 	  @match = Match.new(match_params)
 
 	  #Set the variables.
-	  #@opponent = User.second
-	  #@opponent = User.find_by(name: 'Hilda Koch')
 	  @name = @match.player2
 	  @opponent = User.find_by(name: "#{@name}")
 	  @location = @match.location
@@ -31,7 +29,7 @@ class MatchesController < ApplicationController
 	  	@match.destroy
 	  	redirect_to root_url
 	  elsif (@opponent == nil)  #Ensure the user exists in the database.
-	  	flash[:danger] = "That user was not found in our database. #{@name} #{@match.player2} #{@match.location} #{@match.game_type}"
+	  	flash[:danger] = "That user was not found in our database."
 	  	@match.destroy
 	  	redirect_to root_url
 	  else
@@ -44,6 +42,7 @@ class MatchesController < ApplicationController
 	    flash[:info] = "Your opponent has been notified."
 	    redirect_to root_url
 	    else
+	      @match.player2 = @name
 		  render 'new' #In case of errors.
 	    end
       end

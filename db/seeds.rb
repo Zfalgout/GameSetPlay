@@ -25,7 +25,7 @@ User.create!(name:  "User One",
   5.times do
     user_id = 1
     player1 = 1 
-    player2 = 2
+    player2 = User.first.name
     location = Faker::Lorem.sentence(5)
     time =  Time.zone.now
     game_type = "singles"

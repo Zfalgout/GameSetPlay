@@ -1,35 +1,45 @@
 
-<div class="jumbotron center">
+<div class="jumbotron">
 	<% if logged_in? %>
   <div class="row">
     <aside class="col-md-4">
-      <section class="user_info">
-        <%#= render 'shared/user_info' %>
-      </section>
+      <section>
+        <h1>
+          <%= gravatar_for current_user %>
+          <%= current_user.name %>
+        </h1>
+
       <section class="stats">
         <%= render 'shared/stats' %>
       </section>
+
+      <section class="user_stats">
+        <%= render 'shared/user_stats' %>
+      </section>
+
       <%#= Look ahead to matches 
       <section class="match_form">
         <%#= render 'shared/match_form' CLOSE ERB HERE
-      </section>
-    </aside>
+      </section> %>
+    </aside> 
     <div class="col-md-8">
       <h3>Match Feed</h3>
-      <%#= render 'shared/feed' CLOSE ERB HERE
+      <%#= render 'shared/feed' %>
     </div>
-      %>
+
   </div>
   <% else %>
-		<link href='http://fonts.googleapis.com/css?family=Playfair+Display+SC:900italic' rel='stylesheet' type='text/css'><h1>Game! Set! Play!</h1>
-		<h2>
-			Welcome to GameSetPlay!!
-		</h2>
+    <div align = "center">
+  		<link href='http://fonts.googleapis.com/css?family=Playfair+Display+SC:900italic' rel='stylesheet' type='text/css'><h1>Game! Set! Play!</h1>
+  		<h2>
+  			Welcome to GameSetPlay!!
+  		</h2>
 
-		<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+  		<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
 
-		<%= link_to "Log In!", login_path, class: "btn btn-lg btn-primary" %>
-   <% end %>
+  		<%= link_to "Log In!", login_path, class: "btn btn-lg btn-primary" %>
+     <% end %>
+  </div>
 </div>
 
 <%= link_to image_tag("Tennis Court.JPG", alt: "Tennis Court", :size => "120x90"),
