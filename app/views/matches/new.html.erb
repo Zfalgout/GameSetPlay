@@ -18,15 +18,20 @@
 	      <%= f.label :time, "The date and time for the match" %>
 	      <%= f.datetime_local_field :time, class: 'form-control' %>
 
-	      <%= f.label :game_type, "Is this a singles or doubles match?" %>
-	      <%= f.text_field :game_type, class: 'form-control' %>
+	    <div class="center">
+		  <%= f.label :game_type, "This is a singles match." %>
+		  <%= f.radio_button :game_type, "Singles", :checked => true, :value => "Singles" %>
+
+	      <%= f.label :game_type, "This is a doubles match." %>
+	      <%= f.radio_button :game_type, "Doubles", :value => "Doubles" %>
+	  	</div>
 
 	    <div class="center">
 		  <%= f.label :open, "This is a public match." %>
-		  <%= f.radio_button :open, 0, :checked => true, :value => 0 %>
+		  <%= f.radio_button :open, 1, :checked => true, :value => 1 %>
 
 	      <%= f.label :open, "This is a private match." %>
-	      <%= f.radio_button :open, 1, :value => 1 %>
+	      <%= f.radio_button :open, 0, :value => 0 %>
 	  	</div>
 	      <%= f.submit "Create the match", class: "btn btn-primary" %>
 	    <% end %>
