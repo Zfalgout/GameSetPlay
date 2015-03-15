@@ -154,6 +154,14 @@ class User < ActiveRecord::Base
 	    matches.create(player1: self.id, user_id: self.id, player2: other_user.id, location: location, game_type: game_type, open: open, time: time)
 	  end
 
+	  # Returns a user's status feed.
+	  def feed
+	    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+	    Match.where("user_id IN (#{following_ids})
+	                     OR user_id = :user_id", user_id: id)
+		  end
+
     #Private methods to work in account activation.
     private
 
