@@ -154,6 +154,16 @@ class User < ActiveRecord::Base
 	    matches.create(player1: self.id, user_id: self.id, player2: other_user.id, location: location, game_type: game_type, open: open, time: time)
 	  end
 
+	  # Creates an open challenge.
+	  def open_challenge(location, game_type, open, time)
+	    matches.create(player1: self.id, user_id: self.id, location: location, game_type: game_type, open: open, time: time)
+	  end
+
+	  # Creates a private doubles challenge.
+	  def doubles_challenge(partner, opponent1, opponent2, location, game_type, open, time)
+	    matches.create(player1: self.id, user_id: self.id, player2: partner.id, player3: opponent1.id, player4: opponent2.id, location: location, game_type: game_type, open: open, time: time)
+	  end
+
 	  # Returns a user's status feed.
 	  def feed
 	    following_ids = "SELECT followed_id FROM relationships

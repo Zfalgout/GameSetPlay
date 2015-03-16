@@ -1,15 +1,28 @@
 <li class="matches" id="match-<%= match.id %>">
   <span class="player1">Player 1: <%= User.find_by(id: [match.player1]).name %></span>
-  <%#<span class="player2">Player 2: <%= User.find_by(id: [match.player2.id]).name </span> %>
-  <%#<span class="player2">Player 2: <%= User.find_by(id: [match.player2]).name  </span> %>
-  <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span> 
+  
+  <% if (match.open == 0 && match.game_type == "Singles") %>
+    <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
+  <% end %>
+  
+  <% if (match.game_type == "Doubles" && match.open == 0) %>
+    <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
+    <span class="player3">Player 3: <%= User.find_by(id: match.player3).name %> </span>
+    <span class="player4">Player 4: <%= User.find_by(id: match.player4).name %> </span>
+  <% end %> 
+  
   <span class="time">Date and Time: <%= match.time %></span>
+  
   <span class="location">Location: <%= match.location %></span>
+  
   <span class="game_type">Game Type: <%= match.game_type %></span>
+  
   <span class="timestamp">
     Created <%= time_ago_in_words(match.created_at) %> ago.
   </span>
+  
   <% if (match.time < Time.now) && current_user?(@user) %>
     <span> <%= button_to "Enter match scores", "#", class: "btn btn-success" %>
   <% end %>
+
 </li>
