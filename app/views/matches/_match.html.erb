@@ -1,14 +1,16 @@
 <li class="matches" id="match-<%= match.id %>">
   <span class="player1">Player 1: <%= User.find_by(id: [match.player1]).name %></span>
   
-  <% if (match.open == 0 && match.game_type == "Singles") %>
+  <% if (match.game_type == "Singles" && match.open == 0) %>
     <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
-  <% end %>
-  
-  <% if (match.game_type == "Doubles" && match.open == 0) %>
+  <% elsif (match.game_type == "Doubles" && match.open == 0) %>
     <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
     <span class="player3">Player 3: <%= User.find_by(id: match.player3).name %> </span>
     <span class="player4">Player 4: <%= User.find_by(id: match.player4).name %> </span>
+  <% elsif (match.game_type == "Singles" && match.open == 1) %>
+
+  <% elsif (match.game_type == "Doubles" && match.open == 1) %>
+
   <% end %> 
   
   <span class="time">Date and Time: <%= match.time %></span>

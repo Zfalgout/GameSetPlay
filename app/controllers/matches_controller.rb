@@ -105,17 +105,18 @@ class MatchesController < ApplicationController
 			    end
 		
 	   #Doubles/Public  
-	   #elsif (@game_type == "Doubles" && @open == 1)
-	   	#@match = current_user.double_open_challenge(@location, @game_type, @open, @time)
+	   elsif (@game_type == "Doubles" && @open == 1)
+		   	@match = current_user.open_challenge(@location, @game_type, @open, @time)
 
-	   		#Email Setup
-		    #@match.send_email
-		    #flash[:info] = "Your opponent has been notified."
-		    #redirect_to root_url
-		    #else
-		    #  @match.player2 = @name
-			#  render 'new' #In case of errors.
-		    #end
+		   		
+		   		if @match.save  #match creation
+					#Email Setup
+				    #@match.send_email
+				    flash[:info] = "Your match has been created."
+				    redirect_to root_url
+				    else
+					  render 'new' #In case of errors.
+			    end
 		  	
 	   end
     end
