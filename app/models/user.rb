@@ -170,7 +170,7 @@ class User < ActiveRecord::Base
                      WHERE  follower_id = :user_id"
 	    Match.where("user_id IN (#{following_ids})
 	                     OR user_id = :user_id", user_id: id)
-		  end
+	  end
 
     #Private methods to work in account activation.
     private

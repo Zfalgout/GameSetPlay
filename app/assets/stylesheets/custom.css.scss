@@ -159,6 +159,10 @@ input {
 
 /* sidebar */
 
+player {
+  overflow: auto;
+}
+
 aside {
   section.user_info {
     margin-top: 20px;
