@@ -17,16 +17,14 @@ class MatchesController < ApplicationController
 	end
 
 	def update
-    #@match = Match.find(params[:id])
-    #if @match.update_attributes(user_params)
-      #flash[:success] = "Scores updated"
-      #redirect_to root_url
-    #else
-      #render 'edit'
-    #end
-    	@match = Match.find(params[:id])
-    	redirect_to root_url
-  	end
+    @match = Match.find(params[:id])
+	    if @match.update_attributes(match_params)
+	      flash[:success] = "Scores updated"
+	      redirect_to root_url
+	    else
+	      render 'edit'
+	    end
+	end
 
 	def create
 	  @match = Match.new(match_params)
@@ -141,6 +139,6 @@ private
 
 	def match_params
       params.require(:match).permit(:player1, :player2, :player3, :player4, :location,
-                                   :time, :game_type, :open)
+                                   :time, :game_type, :open, :winner, :loser, :score)
     end
 end

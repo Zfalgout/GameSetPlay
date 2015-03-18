@@ -19,10 +19,25 @@
   
   <span class="game_type">Game Type: <%= match.game_type %></span>
   
+  <% if (match.time < Time.now) %>
+    <% if (match.score != nil) %>
+      <span class="score">Score: <%= match.score %></span>
+    <% end %>
+
+    <% if (match.winner != nil) %>
+      <span class="winner">Winner: <%= match.winner %></span>
+    <% end %>
+
+    <% if (match.loser != nil) %>
+      <span class="loser">Loser: <%= match.loser %></span>
+    <% end %>
+
+  <% end %>
+
   <span class="timestamp">
     Created <%= time_ago_in_words(match.created_at) %> ago.
   </span>
-  
+
   <% if (match.time < Time.now) && current_user?(@user) %>
     <span> <%= button_to "Enter match scores", edit_match_path(match), class: "btn btn-success" %>
   <% end %>
