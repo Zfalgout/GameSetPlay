@@ -24,7 +24,7 @@
   </span>
   
   <% if (match.time < Time.now) && current_user?(@user) %>
-    <span> <%= button_to "Enter match scores", "#", class: "btn btn-success" %>
+    <span> <%= button_to "Enter match scores", match_path(match), class: "btn btn-success" %>
   <% end %>
 
 </li>

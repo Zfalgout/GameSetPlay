@@ -1,0 +1,39 @@
+<% provide(:title, "Edit user") %>
+
+<div class="jumbotron">
+
+<h1>Update your profile</h1>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for(@match) do |f| %>
+        <%#= render 'shared/error_messages' %>
+        
+        <%= f.label :score %>
+        <%= f.text_field :score, class: 'form-control' %>
+
+        <%= f.label :winner %>
+        <%= f.text_field :winner, class: 'form-control' %>
+
+        <%= f.label :loser %>
+        <%= f.email_field :loser, class: 'form-control' %>
+
+      <% end %>
+
+      <%#= <div class="gravatar_edit">
+        <%= gravatar_for @user CLOSE ERB
+        <a href="http://gravatar.com/emails" target=_blank>change</a>
+      </div>
+      %>
+
+      <div class="delete profile">
+        <% if current_user?(@user) %>
+        <%= link_to "Delete Profile", @user, method: :delete,
+                    class: "btn btn-sm btn-danger", data: { confirm: "You sure?" } %>
+        <% end %>
+
+      </div
+    </div>
+  </div>
+</div>
+</div>
