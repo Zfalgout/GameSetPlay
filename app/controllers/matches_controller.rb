@@ -13,6 +13,10 @@ class MatchesController < ApplicationController
 	end
 
 	def edit
+		@match = Match.find(params[:id])
+	end
+
+	def update
     #@match = Match.find(params[:id])
     #if @match.update_attributes(user_params)
       #flash[:success] = "Scores updated"
@@ -21,6 +25,7 @@ class MatchesController < ApplicationController
       #render 'edit'
     #end
     	@match = Match.find(params[:id])
+    	redirect_to root_url
   	end
 
 	def create

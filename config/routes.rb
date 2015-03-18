@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   get 'new_match' => 'matches#new'
 
-  post 'edit_match' => 'matches#edit'
+  #post 'edit_match' => 'matches#edit'
 
   resources :users do
     member do
