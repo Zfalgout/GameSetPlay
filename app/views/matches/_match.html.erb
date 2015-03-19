@@ -38,8 +38,8 @@
     Created <%= time_ago_in_words(match.created_at) %> ago.
   </span>
 
-  <% if (match.time < Time.now) && (current_user == User.find_by(id: match.player1) || current_user == User.find_by(id: match.player2) || current_user == User.find_by(id: match.player3) || current_user ==  User.find_by(id: match.player4)) %>
-    <span> <%= button_to "Enter match scores", edit_match_path(match), class: "btn btn-success" %>
-  <% end %>
+    <% if (match.time < Time.now) && (current_user == User.find_by(id: match.player1) || current_user == User.find_by(id: match.player2) || current_user == User.find_by(id: match.player3) || current_user ==  User.find_by(id: match.player4)) %>
+      <span> <%= button_to "Enter match scores", edit_match_path(match), class: "btn btn-success" %> </span>
+    <% end %>
 
 </li>

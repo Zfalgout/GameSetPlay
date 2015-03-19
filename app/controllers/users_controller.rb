@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @match = @user.matches.find_by(id: params[:id])
     @matches = @user.matches.paginate(page: params[:page])
   end
 
