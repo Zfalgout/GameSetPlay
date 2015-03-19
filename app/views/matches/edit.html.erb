@@ -8,34 +8,17 @@
   <div class="row">
     <player class="col-md-3 pull-left">
       <section>
-        <h1> <%= @player1.name %> </h1>
+        <% @user = @player1 %>
+        <h1> <%= @user.name %> </h1>
       </section>
       <section class="user_stats">
-          <%#= render 'users/user_stats' %>
-          <li> Age: <%= @player1.age %> </li>
-          <li> Zip: <%= @player1.zip %> </li>
-          <li> NTRP Rating: <%= @player1.NTRP_rating %> </li>
-          <li> Preference of Play: <%= @player1.preference_of_play %> </li>
-          <li> Years Played: <%= @player1.years_played %> </li>
-          <li> Gender: <%= @player1.gender %> </li> 
-          <li> About: <%= @player1.about %> </li>
-          <li> Total Wins: <%= @player1.wins %>
-          <li> Total Losses: <%= @player1.losses %>
-          <li> Win Percentage: <%= @player1.win_pct %>
-          <li> Total Matches Played: <%= @player1.total_matches_played %>
-          <li> Tournament Matches Won: <%= @player1.tournament_matches_won %>
-          <li> Tournament Matches Lost: <%= @player1.tournament_matches_lost %>
-          <li> Tournaments Won: <%= @player1.tournaments_won %>
-          <li> Challenges Won: <%= @player1.challenge_matches_won %>
-          <li> Challenges Lost: <%= @player1.challenge_matches_lost %>
-          <li> Posted Challenges: <%= @player1.challenges_posted %>
-          <li> Challenges Accepted: <%= @player1.challenges_accepted %>
+          <%= render 'users/user_stats' %>
       </section>
     </player>
 
     <div class="col-md-6 center">
       <%= form_for(@match) do |f| %>
-        <%#= render 'shared/error_messages' %>
+        <%= render 'shared/error_messages' %>
         
         <%= f.label :score %>
         <%= f.text_field :score, class: 'form-control' %>
@@ -52,29 +35,12 @@
     </div>
 
         <player class="col-md-3 pull-right">
+          <% @user = @player2 %>
           <section>
-            <h1> <%= @player2.name %> </h1>
+            <h1> <%= @user.name %> </h1>
           </section>
           <section class="user_stats">
-              <%#= render 'users/user_stats' %>
-              <li> Age: <%= @player2.age %> </li>
-              <li> Zip: <%= @player2.zip %> </li>
-              <li> NTRP Rating: <%= @player2.NTRP_rating %> </li>
-              <li> Preference of Play: <%= @player2.preference_of_play %> </li>
-              <li> Years Played: <%= @player2.years_played %> </li>
-              <li> Gender: <%= @player2.gender %> </li> 
-              <li> About: <%= @player2.about %> </li>
-              <li> Total Wins: <%= @player2.wins %>
-              <li> Total Losses: <%= @player2.losses %>
-              <li> Win Percentage: <%= @player2.win_pct %>
-              <li> Total Matches Played: <%= @player2.total_matches_played %>
-              <li> Tournament Matches Won: <%= @player2.tournament_matches_won %>
-              <li> Tournament Matches Lost: <%= @player2.tournament_matches_lost %>
-              <li> Tournaments Won: <%= @player2.tournaments_won %>
-              <li> Challenges Won: <%= @player2.challenge_matches_won %>
-              <li> Challenges Lost: <%= @player2.challenge_matches_lost %>
-              <li> Posted Challenges: <%= @player2.challenges_posted %>
-              <li> Challenges Accepted: <%= @player2.challenges_accepted %>
+              <%= render 'users/user_stats' %>
           </section>
         </player>
       </div>
