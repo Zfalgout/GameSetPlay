@@ -139,6 +139,11 @@ class MatchesController < ApplicationController
 	   end
     end
 
+def open
+	@matches = Match.where(open: 1).all.paginate(page: params[:page])
+	#@matches = Match.paginate(page: params[:page])
+end
+
 private
 
 	def match_params

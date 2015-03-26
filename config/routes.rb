@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
   get 'new_match' => 'matches#new'
 
+  get 'open' => 'matches#open'
+
   resources :users do
     member do
       get :following, :followers
