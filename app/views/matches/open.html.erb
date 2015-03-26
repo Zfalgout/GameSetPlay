@@ -3,9 +3,18 @@
 <div class="jumbotron">
 
   <h1>Open Matches</h1>
+  <div class = "row">
+  <div class="col-md-5 pull-left">
+    <h2> Singles Matches </h2>
+    <%= render @singlesMatches %>
+    <%= will_paginate @singlesMatches %>
+  </div>
 
-    <%= render @matches %>
+  <div class="col-md-5 pull-right">
+  <h2> Doubles Matches </h2>
+    <%= render @doublesMatches %>
+    <%= will_paginate @doublesMatches %>
+  </div>
+  </div>
 
-<%= will_paginate %>
-  
 </div>
