@@ -238,6 +238,13 @@ aside {
 
 /* matches */
 
+.thing {
+  margin-left: auto;
+  margin-right: auto;
+  width: 28%;
+  overflow: auto;
+}
+
 .matches {
   list-style: decimal-leading-zero;
   padding: 0;
