@@ -6,15 +6,16 @@
   <div class = "row">
   <div class="col-md-5 pull-left">
     <h2> Singles Matches </h2>
-    <%= render @matches %>
+    <%= render @singlesMatches %>
     <%= will_paginate  %>
   </div>
 
   <div class="col-md-5 pull-right">
   <h2> Doubles Matches </h2>
     <%= render @doublesMatches %>
-    <%= will_paginate @matches%>
+    <%= will_paginate %>
   </div>
+
   </div>
 
 </div>

@@ -1,4 +1,5 @@
 <li class="matches" id="match-<%= match.id %>">
+  
   <span class="player1">Player 1: <%= User.find_by(id: [match.player1]).name %></span>
   
   <% if (match.game_type == "Singles" && match.open == 0) %>
@@ -38,6 +39,15 @@
     Created <%= time_ago_in_words(match.created_at) %> ago.
   </span>
 
+  <% if (match.game_type == 'Singles' && match.player2 == nil && current_user != @user) %>
+    <span> <%= link_to "Join Match", '#', class: "btn btn-success btn-block" %> </span>
+  <% end %>
+
+  <% if (match.game_type == 'Doubles' && (match.player2 == nil || match.player3 == nil || match.player4 == nil) && current_user != @user) %>
+    <span> <%= link_to "Join Match", '#', class: "btn btn-success btn-block" %> </span>
+  <% end %>
+
+  <div class = "row col-md-5 pull-right">
     <% if (match.time < Time.now) && (current_user == User.find_by(id: match.player1) || current_user == User.find_by(id: match.player2) || current_user == User.find_by(id: match.player3) || current_user ==  User.find_by(id: match.player4)) %>
       <% if (match.game_type == "Singles" && match.player2 != nil) %>
         <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
@@ -45,5 +55,6 @@
         <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
       <% end %>
     <% end %>
+  </div>
 
 </li>

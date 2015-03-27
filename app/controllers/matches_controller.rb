@@ -140,7 +140,7 @@ class MatchesController < ApplicationController
     end
 
 def open
-	@singlesMatches = Match.where(open: 1, game_type: 'Singles').all.paginate(page: params[:page])
+	@singlesMatches = Match.where(open: 1, game_type: 'Singles', player2: nil).all.paginate(page: params[:page])
 	@doublesMatches = Match.where(open: 1, game_type: 'Doubles').all.paginate(page: params[:page])
 	@matches = Match.paginate(page: params[:page])
 end
