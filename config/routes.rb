@@ -27,7 +27,6 @@ Rails.application.routes.draw do
 
   get 'open' => 'matches#open'
 
-  get 'matches/join' => 'matches#join'
 
   resources :users do
     member do
@@ -37,5 +36,9 @@ Rails.application.routes.draw do
   resources :account_activations, only:  [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :relationships, only: [:create, :destroy]
-  resources :matches
+  resources :matches do
+    member do
+      get :join
+    end
+  end
 end

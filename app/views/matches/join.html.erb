@@ -1,14 +1,14 @@
 <% provide(:title, "Join Match") %>
 
-<div class="jumbotron">
+<div class="jumbotron center">
 
   <h1>Join Match</h1>
-
-    <div class="col-md-6 center">
+    
+    <div>
       <%= form_for(@match) do |f| %>
         <%#= render 'shared/error_messages' %>
         
-        <%= f.label :player2 %>
+        <%= f.label :opponent %>
         <%= f.text_field :player2, class: 'form-control' %>
 
         <%#= f.label :player3 %>
