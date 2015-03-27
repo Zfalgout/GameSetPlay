@@ -20,6 +20,10 @@ class MatchesController < ApplicationController
 		@player4 = User.find_by(id: @match.player4)
 	end
 
+	def join
+		@match = Match.find_by(id: params[:id])
+	end
+
 	def update
     @match = Match.find(params[:id])
 	    if @match.update_attributes(match_params)

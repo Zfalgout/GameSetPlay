@@ -40,7 +40,7 @@
   </span>
 
   <% if (match.game_type == 'Singles' && match.player2 == nil && current_user != @user && match.time > Time.now) %>
-    <span> <%= link_to "Join Match", '#', class: "btn btn-success btn-block" %> </span>
+    <span> <%= link_to "Join Match", matches_join_path(match), class: "btn btn-success btn-block" %> </span>
   <% end %>
 
   <% if (match.game_type == 'Doubles' && (match.player2 == nil || match.player3 == nil || match.player4 == nil) && current_user != @user && match.time > Time.now) %>

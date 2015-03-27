@@ -1,0 +1,24 @@
+<% provide(:title, "Join Match") %>
+
+<div class="jumbotron">
+
+  <h1>Join Match</h1>
+
+    <div class="col-md-6 center">
+      <%= form_for(@match) do |f| %>
+        <%#= render 'shared/error_messages' %>
+        
+        <%= f.label :player2 %>
+        <%= f.text_field :player2, class: 'form-control' %>
+
+        <%#= f.label :player3 %>
+        <%#= f.text_field :player3, class: 'form-control' %>
+
+        <%#= f.label :player4 %>
+        <%#= f.text_field :player4, class: 'form-control' %>
+
+        <%= f.submit "Join Match", class: "btn btn-primary" %>
+
+      <% end %>
+    </div>
+  </div>
