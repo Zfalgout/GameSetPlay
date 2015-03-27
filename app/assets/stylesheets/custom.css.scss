@@ -239,12 +239,12 @@ aside {
 /* matches */
 
 .matches {
-  list-style: none;
+  list-style: decimal-leading-zero;
   padding: 0;
   
   li {
     padding: 10px 0;
-    border-top: 1px solid #e8e8e8;
+    border: solid 1px #C9C9C9;
   }
   
   .location {
