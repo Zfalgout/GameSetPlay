@@ -11,6 +11,18 @@
   <% elsif (match.game_type == "Singles" && match.open == 1 && match.player2 != nil) %>
     <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
   <% elsif (match.game_type == "Doubles" && match.open == 1) %>
+    
+    <% if (match.player2 != nil) %>
+      <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
+    <% end %>
+
+    <% if (match.player3 != nil) %>
+      <span class="player3">Player 3: <%= User.find_by(id: match.player3).name %> </span>
+    <% end %>
+
+    <% if (match.player4 != nil) %>
+      <span class="player4">Player 4: <%= User.find_by(id: match.player4).name %> </span>
+    <% end %>
 
   <% end %> 
   
@@ -43,8 +55,8 @@
     <span> <%= link_to "Join Match", join_match_path(match), class: "btn btn-success btn-block" %> </span>
   <% end %>
 
-  <% if (match.game_type == 'Doubles' && (match.player2 == nil || match.player3 == nil || match.player4 == nil) && match.time > Time.now) %>
-    <span> <%= link_to "Join Match", '#', class: "btn btn-success btn-block" %> </span>
+  <% if (match.game_type == 'Doubles' && (match.player2 == nil || match.player3 == nil || match.player4 == nil) && current_user != User.find_by(id: [match.player1]) && current_user != User.find_by(id: [match.player2]) && current_user != User.find_by(id: [match.player3]) && current_user != User.find_by(id: [match.player4]) && match.time > Time.now) %>
+    <span> <%= link_to "Join Match", join_match_path(match), class: "btn btn-success btn-block" %> </span>
   <% end %>
 
     <% if (match.time < Time.now) && (current_user == User.find_by(id: match.player1) || current_user == User.find_by(id: match.player2) || current_user == User.find_by(id: match.player3) || current_user ==  User.find_by(id: match.player4)) %>

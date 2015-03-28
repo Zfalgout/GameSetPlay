@@ -8,6 +8,7 @@
           <%= gravatar_for current_user %>
           <%= current_user.name %>
         </h1>
+      </section>
 
       <section class="stats">
         <%= render 'shared/stats' %>
@@ -24,8 +25,7 @@
       <%= render 'shared/feed' %>
     </div>
 
-  </div>
-  <% else %>
+    <% else %>
     <div align = "center">
   		<link href='http://fonts.googleapis.com/css?family=Playfair+Display+SC:900italic' rel='stylesheet' type='text/css'><h1>Game! Set! Play!</h1>
   		<h2>
@@ -36,8 +36,9 @@
 
   		<%= link_to "Log In!", login_path, class: "btn btn-lg btn-primary" %>
      <% end %>
-  </div>
+    </div>
+  <%= link_to image_tag("Tennis Court.JPG", alt: "Tennis Court", :size => "120x90"),
+              'http://tennis.com/' %>
+
 </div>
 
-<%= link_to image_tag("Tennis Court.JPG", alt: "Tennis Court", :size => "120x90"),
-            'http://tennis.com/' %>

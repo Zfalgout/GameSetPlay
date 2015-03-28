@@ -10,22 +10,44 @@
       <span class="location">Location: <%= @match.location %></span></br>
       <span class="game_type">Game Type: <%= @match.game_type %></span></br>
 
-      <%= form_for(@match) do |f| %>
-        <%#= render 'shared/error_messages' %>
-        
-      <%= f.hidden_field :player2, :value => current_user.id %>
-      <%#= f.label :player2, "I would like to join this match." %>
-      <%#= f.radio_button :player2, current_user.name, :checked => true, :value => current_user.name %>
+      <%if (@match.game_type == 'Singles')%>
+        <%= form_for(@match) do |f| %>
+          
+        <%= f.hidden_field :player2, :value => current_user.id %>
 
-        <%#= f.label :player3 %>
-        <%#= f.text_field :player3, class: 'form-control' %>
-
-        <%#= f.label :player4 %>
-        <%#= f.text_field :player4, class: 'form-control' %>
-
-        <div class = 'thing'>
+        <div class = 'submit'>
           <%= f.submit "Join Match", class: "btn btn-primary btn-block" %>
         </div>
+        <% end %>
+
       <% end %>
+
+      <% if (@match.game_type == 'Doubles' && @match.player2 != current_user.id && @match.player3 != current_user.id && @match.player4 != current_user.id) %>
+        <%= form_for(@match) do |f| %>
+
+        <% if (@match.player2 == nil) %>
+          <%= f.label :player2, "I would like to join this match as the partner." %>
+          <%= f.radio_button :player2, current_user.id, :value => current_user.id %>
+        <% end %>
+
+        <% if (@match.player3 == nil || @match.player4 == nil) %>
+          
+          <% if (@match.player3 == nil) %>
+            <%= f.label :player3, "I would like to join this match as an opponent." %>
+            <%= f.radio_button :player3, current_user.id, :value => current_user.id %>
+
+          <% elsif (@match.player4 == nil) %>
+            <%= f.label :player4, "I would like to join this match as an opponent." %>
+            <%= f.radio_button :player4, current_user.id, :value => current_user.id %>
+          <% end %>
+        <% end %>
+
+        <div class = 'submit'>
+          <%= f.submit "Join Match", class: "btn btn-primary btn-block" %>
+        </div>
+
+        <% end %>
+
+      <% end %> 
 
   </div>
