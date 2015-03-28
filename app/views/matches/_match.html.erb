@@ -9,7 +9,7 @@
     <span class="player3">Player 3: <%= User.find_by(id: match.player3).name %> </span>
     <span class="player4">Player 4: <%= User.find_by(id: match.player4).name %> </span>
   <% elsif (match.game_type == "Singles" && match.open == 1 && match.player2 != nil) %>
-    <span class="player2">Player 2: <%#= User.find_by(id: match.player2).name %> </span>
+    <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
   <% elsif (match.game_type == "Doubles" && match.open == 1) %>
 
   <% end %> 
@@ -39,7 +39,7 @@
     Created <%= time_ago_in_words(match.created_at) %> ago.
   </span>
 
-  <% if (match.game_type == 'Singles' && match.player2 == nil && current_user.name != match.player1 && match.time > Time.now) %>
+  <% if (match.game_type == 'Singles' && match.player2 == nil && current_user != User.find_by(id: [match.player1]) && match.time > Time.now) %>
     <span> <%= link_to "Join Match", join_match_path(match), class: "btn btn-success btn-block" %> </span>
   <% end %>
 

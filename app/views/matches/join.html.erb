@@ -13,9 +13,9 @@
       <%= form_for(@match) do |f| %>
         <%#= render 'shared/error_messages' %>
         
-      <%#= f.hidden_field :player2, :value => current_user.name %>
-      <%= f.label :player2, "I would like to join this match." %>
-      <%= f.radio_button :player2, current_user.name, :checked => true, :value => current_user.name %>
+      <%= f.hidden_field :player2, :value => current_user.id %>
+      <%#= f.label :player2, "I would like to join this match." %>
+      <%#= f.radio_button :player2, current_user.name, :checked => true, :value => current_user.name %>
 
         <%#= f.label :player3 %>
         <%#= f.text_field :player3, class: 'form-control' %>
