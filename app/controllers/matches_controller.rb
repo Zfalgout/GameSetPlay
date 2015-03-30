@@ -145,8 +145,7 @@ class MatchesController < ApplicationController
 
 def open
 	@singlesMatches = Match.where(open: 1, game_type: 'Singles', player2: nil, time: Date.today..3.years.from_now).where.not(player1: current_user.id).all.paginate(page: params[:page])
-	#@doublesMatches = Match.where(open: 1, game_type: 'Doubles', time: Date.today..3.years.from_now, player2: nil).where.not(player1: current_user.id).all.paginate(page: params[:page])
-	@doublesMatches = Match.where("open = ? AND game_type = ? OR player2 = ? OR player3 = ? OR player4 = ?", 1, "Doubles", nil, nil, nil).where(time: Date.today..3.years.from_now).where.not(player1: current_user.id).all.paginate(page: params[:page])
+	@doublesMatches = Match.where("open = ? AND game_type = ? OR player2 = ? OR player3 = ? OR player4 = ?", 1, "Doubles", nil, nil, nil).where.not(player1: current_user.id).where(time: Date.today..3.years.from_now).all.paginate(page: params[:page])
 	@matches = Match.paginate(page: params[:page])
 end
 
