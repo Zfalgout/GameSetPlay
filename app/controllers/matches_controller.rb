@@ -128,8 +128,42 @@ class MatchesController < ApplicationController
 		
 	   #Doubles/Public  
 	   elsif (@game_type == "Doubles" && @open == 1)
-		   	@match = current_user.open_challenge(@location, @game_type, @open, @time)
 
+	   		@match.player1 = current_user.id
+
+	   		if (@match.player2 == 'NOPLAYER' && @match.player3 == 'NOPLAYER' && @match.player4 == 'NOPLAYER')
+		   	
+		   		@match = current_user.open_challenge(@location, @game_type, @open, @time)
+
+		   	elsif (@match.player2 != 'NOPLAYER' && @match.player3 == 'NOPLAYER' && @match.player4 == 'NOPLAYER')
+
+		   		@match = current_user.open_challenge_with_partner(@player2, @location, @game_type, @open, @time)
+
+		   	elsif (@match.player2 == 'NOPLAYER' && @match.player3 != 'NOPLAYER' && @match.player4 == 'NOPLAYER')
+
+		   		@match = current_user.open_challenge_one_opponent(@player3, @location, @game_type, @open, @time)
+
+		   	elsif (@match.player2 == 'NOPLAYER' && @match.player3 == 'NOPLAYER' && @match.player4 != 'NOPLAYER')
+
+		   		@match = current_user.open_challenge_one_opponent(@player4, @location, @game_type, @open, @time)
+
+		    elsif (@match.player2 != 'NOPLAYER' && @match.player3 != 'NOPLAYER' && @match.player4 == 'NOPLAYER')
+
+		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player3, @location, @game_type, @open, @time)
+		    
+		    elsif (@match.player2 != 'NOPLAYER' && @match.player3 == 'NOPLAYER' && @match.player4 != 'NOPLAYER')
+
+		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player4, @location, @game_type, @open, @time)
+		    
+		    elsif (@match.player2 == 'NOPLAYER' && @match.player3 != 'NOPLAYER' && @match.player4 != 'NOPLAYER')
+
+		    	@match = current_user.open_challenge_with_opponents(@player3, @player4, @location, @game_type, @open, @time)
+
+		    elsif (@match.player2 != 'NOPLAYER' && @match.player3 != 'NOPLAYER' && @match.player4 != 'NOPLAYER')
+		    
+		    	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time)
+
+		    end
 		   		
 		   		if @match.save  #match creation
 					#Email Setup

@@ -14,8 +14,18 @@ class Match < ActiveRecord::Base
 	after_initialize :defaults
 
     def defaults
-      self.player2 = 'NOPLAYER' if self.player2 == nil
-      self.player3 = 'NOPLAYER' if self.player3 == nil
-      self.player4 = 'NOPLAYER' if self.player4 == nil
+
+      if player2.nil?
+	      self.player2 = 'NOPLAYER' 
+	  end
+      
+      if player3.nil?
+	      self.player3 = 'NOPLAYER'
+	  end
+	    
+	  if player4.nil?
+	      self.player4 = 'NOPLAYER'
+	  end
+
     end
 end
