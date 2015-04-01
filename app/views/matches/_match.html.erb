@@ -51,7 +51,7 @@
     Created <%= time_ago_in_words(match.created_at) %> ago.
   </span>
 
-  <% if (match.game_type == 'Singles' && match.player2 == nil && current_user != User.find_by(id: [match.player1]) && match.time > Time.now) %>
+  <% if (match.game_type == 'Singles' && match.player2 == 'Player 2' && current_user != User.find_by(id: [match.player1]) && match.time > Time.now) %>
     <span> <%= link_to "Join Match", join_match_path(match), class: "btn btn-success btn-block" %> </span>
   <% end %>
 

@@ -3,21 +3,21 @@
 <div class="jumbotron">
 
   <h1>Open Matches</h1>
-  <div class = "row">
+  <%#<div class = "row">
     <div class="col-md-5 pull-left">
       <h2> Singles Matches </h2>
       <ol class="matches">
-          <%= render @singlesMatches %>
+          <%= render @singlesMatches %> <%#
       </ol>
-      <%= will_paginate @singlesMatches %>
-    </div>
+      <%= will_paginate @singlesMatches %> <%#
+    </div> %>
 
-    <div class="col-md-5 pull-right">
-    <h2> Doubles Matches </h2>
+    <div class="center">
+    <%#<h2> Doubles Matches </h2> %>
       <ol class="matches">
-          <%= render @doublesMatches %>
+          <%= render @matches %>
       </ol>
-      <%= will_paginate @doublesMatches %>
+      <%= will_paginate @matches %>
     </div>
 
   </div>
