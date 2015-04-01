@@ -9,13 +9,13 @@
 	    <%= form_for @match do |f| %>
 	      <%= render 'shared/match_error_messages' %>
 	    	
-	      <%= f.label :player2, "Your opponent (or doubles partner)" %>
+	      <%= f.label :player2, "Player 2" %>
 	      <%= f.text_field :player2, class: 'form-control' %>
 
-	      <%= f.label :player3, "Your first opponent for doubles" %>
+	      <%= f.label :player3, "Player 3 (for doubles)" %>
 	      <%= f.text_field :player3, class: 'form-control' %>
 
-	      <%= f.label :player4, "Your second opponent for doubles" %>
+	      <%= f.label :player4, "Player 4 (for doubles)" %>
 	      <%= f.text_field :player4, class: 'form-control' %>
 
 	      <%= f.label :location, "The location of the match." %>

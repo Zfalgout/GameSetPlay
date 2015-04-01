@@ -15,17 +15,12 @@ class Match < ActiveRecord::Base
 
     def defaults
 
-      if player2.nil?
-	      self.player2 = 'NOPLAYER' 
-	  end
-      
-      if player3.nil?
-	      self.player3 = 'NOPLAYER'
-	  end
-	    
-	  if player4.nil?
-	      self.player4 = 'NOPLAYER'
-	  end
+	      self.player2 ||= 'Player 2' 
+
+	      self.player3 ||= 'Player 3'
+
+	      self.player4 ||= 'Player 4'
+
 
     end
 end

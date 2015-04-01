@@ -131,35 +131,35 @@ class MatchesController < ApplicationController
 
 	   		@match.player1 = current_user.id
 
-	   		if (@match.player2 == 'NOPLAYER' && @match.player3 == 'NOPLAYER' && @match.player4 == 'NOPLAYER')
+	   		if (@match.player2 == 'Player 2' && @match.player3 == 'Player 3' && @match.player4 == 'Player 4')
 		   	
 		   		@match = current_user.open_challenge(@location, @game_type, @open, @time)
 
-		   	elsif (@match.player2 != 'NOPLAYER' && @match.player3 == 'NOPLAYER' && @match.player4 == 'NOPLAYER')
+		   	elsif (@match.player2 != 'Player 2' && @match.player3 == 'Player 3' && @match.player4 == 'Player 4')
 
 		   		@match = current_user.open_challenge_with_partner(@player2, @location, @game_type, @open, @time)
 
-		   	elsif (@match.player2 == 'NOPLAYER' && @match.player3 != 'NOPLAYER' && @match.player4 == 'NOPLAYER')
+		   	elsif (@match.player2 == 'Player 2' && @match.player3 != 'Player 3' && @match.player4 == 'Player 4')
 
 		   		@match = current_user.open_challenge_one_opponent(@player3, @location, @game_type, @open, @time)
 
-		   	elsif (@match.player2 == 'NOPLAYER' && @match.player3 == 'NOPLAYER' && @match.player4 != 'NOPLAYER')
+		   	elsif (@match.player2 == 'Player 2' && @match.player3 == 'Player 3' && @match.player4 != 'Player 4')
 
 		   		@match = current_user.open_challenge_one_opponent(@player4, @location, @game_type, @open, @time)
 
-		    elsif (@match.player2 != 'NOPLAYER' && @match.player3 != 'NOPLAYER' && @match.player4 == 'NOPLAYER')
+		    elsif (@match.player2 != 'Player 2' && @match.player3 != 'Player 3' && @match.player4 == 'Player 4')
 
 		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player3, @location, @game_type, @open, @time)
 		    
-		    elsif (@match.player2 != 'NOPLAYER' && @match.player3 == 'NOPLAYER' && @match.player4 != 'NOPLAYER')
+		    elsif (@match.player2 != 'Player 2' && @match.player3 == 'Player 3' && @match.player4 != 'Player 4')
 
 		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player4, @location, @game_type, @open, @time)
 		    
-		    elsif (@match.player2 == 'NOPLAYER' && @match.player3 != 'NOPLAYER' && @match.player4 != 'NOPLAYER')
+		    elsif (@match.player2 == 'Player 2' && @match.player3 != 'Player 3' && @match.player4 != 'Player 4')
 
 		    	@match = current_user.open_challenge_with_opponents(@player3, @player4, @location, @game_type, @open, @time)
 
-		    elsif (@match.player2 != 'NOPLAYER' && @match.player3 != 'NOPLAYER' && @match.player4 != 'NOPLAYER')
+		    elsif (@match.player2 != 'Player 2' && @match.player3 != 'Player 3' && @match.player4 != 'Player 4')
 		    
 		    	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time)
 
@@ -170,7 +170,7 @@ class MatchesController < ApplicationController
 				    #@match.send_email
 				    flash[:info] = "Your match has been created."
 				    redirect_to root_url
-				    else
+				   else
 					  render 'new' #In case of errors.
 			    end
 		  	
