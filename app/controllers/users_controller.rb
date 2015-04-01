@@ -13,8 +13,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @match = @user.matches.find_by(id: params[:id])
-    @matches = @user.matches.paginate(page: params[:page])
+    @matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").all.paginate(page: params[:page])
+    #@match = @user.matches.find_by(id: params[:id])
+    #@matches = @user.matches.paginate(page: params[:page])
   end
 
   def create

@@ -6,14 +6,17 @@
   <div class = "row">
     <div class="col-md-5 pull-left">
       <h2> Singles Matches </h2>
-      <%= render @singlesMatches %>
+      <ol class="matches">
+          <%= render @singlesMatches %>
+      </ol>
       <%= will_paginate @singlesMatches %>
     </div>
 
     <div class="col-md-5 pull-right">
     <h2> Doubles Matches </h2>
-      <%= render @doublesMatches %>
-      <%#= "#{@current_user.id}" %>
+      <ol class="matches">
+          <%= render @doublesMatches %>
+      </ol>
       <%= will_paginate @doublesMatches %>
     </div>
 

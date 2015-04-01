@@ -7,15 +7,15 @@
 
       <span class="player1">Player 1: <%= User.find_by(id: [@match.player1]).name %></span></br>
 
-      <% if (@match.player2 != 'NOPLAYER') %>
+      <% if (@match.player2 != 'Player 2') %>
         <span class="player2">Player 2: <%= User.find_by(id: @match.player2).name %> </span></br>
       <% end %>
 
-      <% if (@match.player3 != 'NOPLAYER') %>
+      <% if (@match.player3 != 'Player 3') %>
         <span class="player3">Player 3: <%= User.find_by(id: @match.player3).name %> </span></br>
       <% end %>
 
-      <% if (@match.player4 != 'NOPLAYER') %>
+      <% if (@match.player4 != 'Player 4') %>
         <span class="player4">Player 4: <%= User.find_by(id: @match.player4).name %> </span></br>
       <% end %>
 
@@ -38,18 +38,18 @@
       <% if (@match.game_type == 'Doubles' && @match.player2 != current_user.id && @match.player3 != current_user.id && @match.player4 != current_user.id) %>
         <%= form_for(@match) do |f| %>
 
-        <% if (@match.player2 == 'NOPLAYER') %>
+        <% if (@match.player2 == 'Player 2') %>
           <%= f.label :player2, "I would like to join this match as the partner." %>
           <%= f.radio_button :player2, current_user.id, :value => current_user.id %>
         <% end %>
 
-        <% if (@match.player3 == 'NOPLAYER' || @match.player4 == 'NOPLAYER') %>
+        <% if (@match.player3 == 'Player 3' || @match.player4 == 'Player 4') %>
           
-          <% if (@match.player3 == 'NOPLAYER') %>
+          <% if (@match.player3 == 'Player 3') %>
             <%= f.label :player3, "I would like to join this match as an opponent." %>
             <%= f.radio_button :player3, current_user.id, :value => current_user.id %>
 
-          <% elsif (@match.player4 == 'NOPLAYER') %>
+          <% elsif (@match.player4 == 'Player 4') %>
             <%= f.label :player4, "I would like to join this match as an opponent." %>
             <%= f.radio_button :player4, current_user.id, :value => current_user.id %>
           <% end %>
