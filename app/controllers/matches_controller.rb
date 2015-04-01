@@ -65,20 +65,32 @@ class MatchesController < ApplicationController
 	  	flash[:danger] = "You must enter a partner and another opponent to create a private doubles match."
 	  	@match.destroy
 	  	redirect_to root_url
-	  elsif (@player2 == nil && @game_type == "Doubles")  #Ensure the user exists in the database.
+	  elsif (@player2 == nil && @open == 0 && @game_type == "Doubles")  #Ensure the user exists in the database.
 	  	flash[:danger] = "Player 2 was not found in our database."
 	  	@match.destroy
 	  	redirect_to root_url
-	  elsif (@player3 == nil && @game_type == "Doubles")  #Ensure the user exists in the database.
+	  elsif (@player3 == nil && @open == 0 &&@game_type == "Doubles")  #Ensure the user exists in the database.
 	  	flash[:danger] = "Player 3 was not found in our database."
 	  	@match.destroy
 	  	redirect_to root_url
-	  elsif (@player4 == nil && @game_type == "Doubles")  #Ensure the user exists in the database.
+	  elsif (@player4 == nil && @open == 0 && @game_type == "Doubles")  #Ensure the user exists in the database.
 	  	flash[:danger] = "Player 4 was not found in our database."
 	  	@match.destroy
 	  	redirect_to root_url
 	  elsif (@player2 == nil && @open == 0)  #Ensure the user exists in the database.
 	  	flash[:danger] = "Your opponent was not found in our database."
+	  	@match.destroy
+	  	redirect_to root_url
+	  elsif (@player2 == nil && @name != 'Player 2' && @open == 1 && @game_type == "Doubles")  #Ensure the user exists in the database.
+	  	flash[:danger] = "Player 2 was not found in our database."
+	  	@match.destroy
+	  	redirect_to root_url
+	  elsif (@player3 == nil && @name3 != 'Player 3' && @open == 1 &&@game_type == "Doubles")  #Ensure the user exists in the database.
+	  	flash[:danger] = "Player 3 was not found in our database."
+	  	@match.destroy
+	  	redirect_to root_url
+	  elsif (@player4 == nil && @name4 != 'Player 4' && @open == 1 && @game_type == "Doubles")  #Ensure the user exists in the database.
+	  	flash[:danger] = "Player 4 was not found in our database."
 	  	@match.destroy
 	  	redirect_to root_url
 	  
