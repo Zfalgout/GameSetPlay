@@ -2,8 +2,8 @@
 
 one:
   user_id: 1
-  match_it: 1
+  match_id: 1
 
 two:
   user_id: 1
-  match_it: 1
+  match_id: 2

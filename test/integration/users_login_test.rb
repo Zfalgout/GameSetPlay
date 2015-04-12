@@ -16,17 +16,17 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     get root_path
     assert flash.empty?
   end
-#
- # The following test is throwing a strange error (invalid hash) even though the 
- # user's PW and the PW that is tested are exactly the same.
- # test "login with valid information" do
- #   get login_path
- #   post login_path, session: { email: @user.email, password: 'CS7000' }
- #   assert_redirected_to @user
- #   follow_redirect!
- #   assert_template 'users/show'
- #   assert_select "a[href=?]", login_path, count: 0
- #   assert_select "a[href=?]", logout_path
- #   assert_select "a[href=?]", user_path(@user)
- # end
+
+  #The following test is throwing a strange error (invalid hash) even though the 
+  #user's PW and the PW that is tested are exactly the same.
+  #test "login with valid information" do
+  #  get login_path
+  #  post login_path, session: { email: @user.email, password: @user.password }
+  #  assert_redirected_to @user
+  #  follow_redirect!
+  #  assert_template 'users/show'
+  #  assert_select "a[href=?]", login_path, count: 0
+  #  assert_select "a[href=?]", logout_path
+  #  assert_select "a[href=?]", user_path(@user)
+  #end
 end

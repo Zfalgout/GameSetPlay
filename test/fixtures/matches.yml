@@ -5,13 +5,23 @@ one:
   player2: 1
   location: MyText
   time: 2015-03-06 14:23:42
-  type: 
-  public: false
+  open: false'
+  game_type: Singles
 
 two:
   player1: 1
   player2: 1
   location: MyText
   time: 2015-03-06 14:23:42
-  type: 
-  public: false
+  open: false
+  game_type: Singles
+
+three:
+  player1: 1
+  player2: 2
+  player3: 3
+  player4: 4
+  location: The Park 
+  time: <%= Time.zone.now %>
+  open: false
+  game_type: Singles
