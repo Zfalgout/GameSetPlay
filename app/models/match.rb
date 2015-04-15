@@ -25,6 +25,8 @@ class Match < ActiveRecord::Base
     end
 
     def self.search(query)
-	  where("game_type like ?", "%#{query}%") 
+      #Have to catch in case of nil.
+      where("player1 like ?", User.find_by(name: "#{query}").id)
+	  #where("game_type like ?", "%#{query}%") 
 	end
 end
