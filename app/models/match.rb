@@ -23,4 +23,8 @@ class Match < ActiveRecord::Base
 
 
     end
+
+    def self.search(query)
+	  where("game_type like ?", "%#{query}%") 
+	end
 end

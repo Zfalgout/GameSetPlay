@@ -12,6 +12,11 @@
       <%= will_paginate @singlesMatches %> <%#
     </div> %>
 
+    <%= form_tag(open_path, :method => "get", id: "search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search Matches" %>
+      <%= submit_tag "Search", :name => nil %>
+    <% end %>
+
     <div class="center">
     <%#<h2> Doubles Matches </h2> %>
       <ol class="matches">
