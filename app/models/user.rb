@@ -192,6 +192,11 @@ class User < ActiveRecord::Base
 	                     OR user_id = :user_id", user_id: id)
 	  end
 
+	  def self.search(query)
+	      #Have to catch in case of nil.
+	      where("name like ?", User.find_by(name: "#{query}").name)
+		end
+
     #Private methods to work in account activation.
     private
 

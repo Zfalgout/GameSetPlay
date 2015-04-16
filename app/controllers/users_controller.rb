@@ -8,7 +8,12 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.paginate(page: params[:page])
+    #@users = User.paginate(page: params[:page])
+    if params[:search]
+      @users = User.search(params[:search]).paginate(page: params[:page])
+    else
+      @users = User.paginate(page: params[:page])
+    end
   end
 
   def show
