@@ -197,9 +197,17 @@ def open
 	else
 		@matches = Match.where("open = ? AND player2 = ? OR player3 = ? OR player4 = ?", 1, 'Player 2', 'Player 3', 'Player 4').where.not(player1: current_user.id, player2: current_user.id, player3: current_user.id, player4: current_user.id).where(time: Date.today..3.years.from_now).all.paginate(page: params[:page])
 	end
-	#@matches = Match.paginate(page: params[:page])
 
 end
+
+def destroy
+    @match = Match.find(params[:id])
+    @userID = @match.player1
+    @user = User.find_by(id: "#{@userID}")
+    @match.destroy
+    flash[:success] = "Match deleted"
+    redirect_to @user
+  end
 
 private
 

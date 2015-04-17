@@ -59,6 +59,11 @@
     <span> <%= link_to "Join Match", join_match_path(match), class: "btn btn-success btn-block" %> </span>
   <% end %>
 
+  <% if ((current_user == User.find_by(id: match.player1)) && match.time > Time.now) %>
+    <span> <%= link_to "Delete Match", match, method: :delete,
+                    class: "btn btn-block btn-danger", data: { confirm: "You sure?" } %> </span>
+  <% end %>
+
     <% if (match.time < Time.now) && (current_user == User.find_by(id: match.player1) || current_user == User.find_by(id: match.player2) || current_user == User.find_by(id: match.player3) || current_user ==  User.find_by(id: match.player4)) %>
       <% if (match.game_type == "Singles" && match.player2 != 'Player 2') %>
         <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
