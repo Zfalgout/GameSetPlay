@@ -18,16 +18,28 @@
 
     <div class="col-md-6 center">
       <%= form_for(@match) do |f| %>
+      <% @user1 = User.find_by(id: @match.player1) %>
+      <% @user2 = User.find_by(id: @match.player2) %>
         <%= render 'shared/error_messages' %>
         
         <%= f.label :score %>
         <%= f.text_field :score, class: 'form-control' %>
 
-        <%= f.label :winner %>
-        <%= f.text_field :winner, class: 'form-control' %>
+        <%#= f.label :winner %>
+        <%#= f.text_field :winner, class: 'form-control' %>
 
-        <%= f.label :loser %>
-        <%= f.text_field :loser, class: 'form-control' %>
+        <%#= f.label :loser %>
+        <%#= f.text_field :loser, class: 'form-control' %>
+
+      <div>
+        <%= "Winner" %>
+      </div>
+
+        <%= f.label :winner, "#{@user1.name}" %>
+        <%= f.radio_button :winner, "#{@user1.name}", :checked => true, :value => "#{@user1.name}" %>
+
+        <%= f.label :winner, "#{@user2.name}" %>
+        <%= f.radio_button :winner, "#{@user2.name}", :value => "#{@user2.name}" %>
 
         <%= f.submit "Submit Scores", class: "btn btn-primary" %>
 
