@@ -138,7 +138,7 @@ class MatchesController < ApplicationController
 		    end
 
        #Doubles/Private  
-	   elsif (@game_type == "Doubles" && (@open == 0 || (@player2 != "Player 2" && @player3 != "Player 3" && @player4 != "Player 4")))
+	   elsif (@game_type == "Doubles" && @open == 0)
 		   	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time)
 
 		   		if @match.save  #match creation
@@ -189,7 +189,6 @@ class MatchesController < ApplicationController
 		    elsif (@match.player2 != 'Player 2' && @match.player3 != 'Player 3' && @match.player4 != 'Player 4')
 		    
 		    	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time)
-
 		    end
 		   		
 		   		if @match.save  #match creation
