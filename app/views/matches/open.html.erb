@@ -5,7 +5,10 @@
   <h1>Open Matches</h1>
 
     <%= form_tag(open_path, :method => "get", id: "search-form") do %>
-      <%= text_field_tag :search, params[:search], placeholder: "Search Matches" %>
+      <%= text_field_tag :search1, params[:search1], placeholder: "Search Matches by Type" %>
+      <%= text_field_tag :search2, params[:search2], placeholder: "Search Matches by User" %>
+      <%#= text_field_tag :search3, params[:search3], placeholder: "Search Matches by Location" %>
+      <%#= date_field_tag :search4, params[:search4], placeholder: "Search Matches by Date" %>
       <%= submit_tag "Search", :name => nil %>
     <% end %>
 

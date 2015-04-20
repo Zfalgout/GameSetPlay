@@ -24,9 +24,9 @@ class Match < ActiveRecord::Base
 
     end
 
-    def self.search(query)
+    def self.search(query1, query2)
       #Have to catch in case of nil.
-      where("player1 like ?", User.find_by(name: "#{query}").id)
+      where("game_type like ? AND player1 like ?", "%#{query1}%", User.find_by(name: "#{query2}").id)
 	  #where("game_type like ?", "%#{query}%") 
 	end
 end

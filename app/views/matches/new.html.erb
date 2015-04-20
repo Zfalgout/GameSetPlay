@@ -40,11 +40,6 @@
 	      <%= f.radio_button :open, 0, :value => 0 %>
 	  	</div>
 
-	  	<%# Change an open match to a private match if all player fields are filled out %>
-	  	<% if (:open == 1 && :player2 != 'Player 2' && :player3 != 'Player 3' && :player4 != 'Player 4') %>
-	  		<%= f.hidden_field :open, :value => 0 %>
-	  	<% end %>
-
 	      <%= f.submit "Create the match", class: "btn btn-primary" %>
 	    <% end %>
 	  </div>
