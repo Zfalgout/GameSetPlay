@@ -126,7 +126,8 @@ class MatchesController < ApplicationController
 	   #Singles/Public 
 	   elsif (@game_type == "Singles" && @open == 1)
 	   	@match = current_user.open_challenge(@location, @game_type, @open, @time)
-       		
+       		@match.player3 = "ABC123"
+       		@match.player4 = "ABC123"
        		if @match.save  #match creation
 			#Email Setup
 		    #@match.send_email
@@ -137,7 +138,7 @@ class MatchesController < ApplicationController
 		    end
 
        #Doubles/Private  
-	   elsif (@game_type == "Doubles" && @open == 0)
+	   elsif (@game_type == "Doubles" && (@open == 0 || (@player2 != "Player 2" && @player3 != "Player 3" && @player4 != "Player 4")))
 		   	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time)
 
 		   		if @match.save  #match creation

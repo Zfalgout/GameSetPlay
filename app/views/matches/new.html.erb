@@ -45,12 +45,6 @@
 	  		<%= f.hidden_field :open, :value => 0 %>
 	  	<% end %>
 
-	  	<%# Set player3 and player4 fields to something if it's a singles open match to help in search%>
-	  	<% if (:open == 1 && :game_type == 'Singles') %>
-	  		<%= f.hidden_field :player3, :value => '0' %>
-	  		<%= f.hidden_field :player4, :value => '0' %>
-	  	<% end %>
-
 	      <%= f.submit "Create the match", class: "btn btn-primary" %>
 	    <% end %>
 	  </div>

@@ -11,12 +11,14 @@
         <span class="player2">Player 2: <%= User.find_by(id: @match.player2).name %> </span></br>
       <% end %>
 
-      <% if (@match.player3 != 'Player 3') %>
-        <span class="player3">Player 3: <%= User.find_by(id: @match.player3).name %> </span></br>
-      <% end %>
+      <% if (@match.game_type == "Doubles") %>
+        <% if (@match.player3 != 'Player 3') %>
+          <span class="player3">Player 3: <%= User.find_by(id: @match.player3).name %> </span></br>
+        <% end %>
 
-      <% if (@match.player4 != 'Player 4') %>
-        <span class="player4">Player 4: <%= User.find_by(id: @match.player4).name %> </span></br>
+        <% if (@match.player4 != 'Player 4') %>
+          <span class="player4">Player 4: <%= User.find_by(id: @match.player4).name %> </span></br>
+        <% end %>
       <% end %>
 
       <span class="time">Date and Time: <%= @match.time %></span></br>
