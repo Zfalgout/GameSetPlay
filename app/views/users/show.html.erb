@@ -21,7 +21,8 @@
 	  <div class="col-md-8">
 	 	<%= link_to "Create a Match", new_match_path, class: "btn btn-primary" %>
 	    <%# if @user.matches.any? %>
-	      <h3>Matches (<%= @user.matches.count %>)</h3>
+	      <h3>Matches (<%= @user.matches.count%>)</h3>
+	      <h3>Matches (<%= @user.wins%>)</h3>
 	      <ol class="matches">
 	        <%= render @matches %>
 	      </ol>

@@ -18,6 +18,7 @@ class MatchesController < ApplicationController
 		@player2 = User.find_by(id: @match.player2)
 		@player3 = User.find_by(id: @match.player3)
 		@player4 = User.find_by(id: @match.player4)
+
 	end
 
 	def join
@@ -26,8 +27,21 @@ class MatchesController < ApplicationController
 
 	def update
     @match = Match.find(params[:id])
+    @player1 = User.find_by(id: @match.player1)
+	@player2 = User.find_by(id: @match.player2)
+	@player3 = User.find_by(id: @match.player3)
+	@player4 = User.find_by(id: @match.player4)
+
 	    if @match.update_attributes(match_params)
-	      flash[:success] = "Scores updated"
+
+	    if (@match.winner == @player1.name)
+	    	#flash[:success] = "Scores updated #{@match.winner} #{@player1.name} #{@player1.wins}"
+	    	@win1 = @player1.wins
+	    	@newWins = @win1 + 1
+	    	@player1.update_attribute(:wins, @newWins)
+	    end
+	    
+	      flash[:success] = "Scores updated #{@match.winner} #{@player1.name} #{@player1.wins}"
 	      redirect_to root_url
 	    else
 	      render 'edit'
