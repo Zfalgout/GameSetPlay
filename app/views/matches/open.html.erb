@@ -8,13 +8,13 @@
     <div class="col-md-3 pull-left">
       <%= form_tag(open_path, :method => "get", id: "search-form") do %>
       <%= label :search1, "Find matches by type:" %>
-      <%= text_field_tag :search1, params[:search1], placeholder: "Search Matches by Type" %>
+      <%= text_field_tag :search1, params[:search1], placeholder: "Search Matches by Type", value: 0 %>
 
       <%= label :search2, "Find matches by creator:" %>
-      <%= text_field_tag :search2, params[:search2], placeholder: "Search Matches by User" %>
+      <%= text_field_tag :search2, params[:search2], placeholder: "Search Matches by User", value: 0 %>
 
       <%= label :search3, "Find matches by zip:" %>
-      <%= text_field_tag :search3, params[:search3], placeholder: "Search Matches by Location" %>
+      <%= number_field_tag :search3, params[:search3], placeholder: "Search Matches by Zip", value: 0 %>
 
       <%= label :search4, "Find matches by date:" %>
       <%= date_field_tag :search4, params[:search4], placeholder: "Search Matches by Date" %>

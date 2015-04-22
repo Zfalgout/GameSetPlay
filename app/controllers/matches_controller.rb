@@ -207,7 +207,11 @@ def open
 	#@singlesMatches = Match.where(open: 1, game_type: 'Singles', player2: 'Player 2', time: Date.today..3.years.from_now).where.not(player1: current_user.id).all.paginate(page: params[:page])
 	#@doublesMatches = Match.where("open = ? AND game_type = ? OR player2 = ? OR player3 = ? OR player4 = ?", 1, 'Doubles', 'Player 2', 'Player 3', 'Player 4').where.not(player1: current_user.id, player2: current_user.id, player3: current_user.id, player4: current_user.id).where(time: Date.today..3.years.from_now).all.paginate(page: params[:page])
 	if (params[:search1] && params[:search2])
+		@search1 = params[:search1]
+		@search2 = params[:search2]
 		@matches = Match.search(params[:search1], params[:search2]).where("open = ? AND player2 = ? OR player3 = ? OR player4 = ?", 1, 'Player 2', 'Player 3', 'Player 4').where.not(player1: current_user.id, player2: current_user.id, player3: current_user.id, player4: current_user.id).where(time: Date.today..3.years.from_now).all.paginate(page: params[:page])
+		flash[:info] = "#{@search1} #{@search2}"
+		#@matches = Match.where("open = ? AND player2 = ? OR player3 = ? OR player4 = ?", 1, 'Player 2', 'Player 3', 'Player 4').where.not(player1: current_user.id, player2: current_user.id, player3: current_user.id, player4: current_user.id).where(time: Date.today..3.years.from_now).all.paginate(page: params[:page])
 	else
 		@matches = Match.where("open = ? AND player2 = ? OR player3 = ? OR player4 = ?", 1, 'Player 2', 'Player 3', 'Player 4').where.not(player1: current_user.id, player2: current_user.id, player3: current_user.id, player4: current_user.id).where(time: Date.today..3.years.from_now).all.paginate(page: params[:page])
 	end
