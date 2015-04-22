@@ -65,6 +65,7 @@ class MatchesController < ApplicationController
 	  @game_type = @match.game_type
 	  @open = @match.open
 	  @time = @match.time
+	  @zip = @match.zip
 
 	  #Do not allow a match between a user and itslef.
 	  if (@player2 == current_user || (( @player3 == current_user || @player4 == current_user) && @game_type == "Doubles"))
@@ -111,8 +112,9 @@ class MatchesController < ApplicationController
 	  #Create different match types based on the user input.
 	  #Singles/Private
 	  elsif (@game_type == "Singles" && @open == 0) 
-	  	@match = current_user.challenge(@player2, @location, @game_type, @open, @time) 
-			
+	  	@match = current_user.challenge(@player2, @location, @game_type, @open, @time, @zip) 
+			@match.player3 = ""
+			@match.player4 = ""
 			if @match.save  #match creation
 			#Email Setup
 		    #@match.send_email
@@ -125,9 +127,9 @@ class MatchesController < ApplicationController
 	   
 	   #Singles/Public 
 	   elsif (@game_type == "Singles" && @open == 1)
-	   	@match = current_user.open_challenge(@location, @game_type, @open, @time)
-       		@match.player3 = "ABC123"
-       		@match.player4 = "ABC123"
+	   	@match = current_user.open_challenge(@location, @game_type, @open, @time, @zip)
+       		@match.player3 = ""
+       		@match.player4 = ""
        		if @match.save  #match creation
 			#Email Setup
 		    #@match.send_email
@@ -139,7 +141,7 @@ class MatchesController < ApplicationController
 
        #Doubles/Private  
 	   elsif (@game_type == "Doubles" && @open == 0)
-		   	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time)
+		   	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time, @zip)
 
 		   		if @match.save  #match creation
 			   		#Email Setup
@@ -160,35 +162,35 @@ class MatchesController < ApplicationController
 
 	   		if (@match.player2 == 'Player 2' && @match.player3 == 'Player 3' && @match.player4 == 'Player 4')
 		   	
-		   		@match = current_user.open_challenge(@location, @game_type, @open, @time)
+		   		@match = current_user.open_challenge(@location, @game_type, @open, @time, @zip)
 
 		   	elsif (@match.player2 != 'Player 2' && @match.player3 == 'Player 3' && @match.player4 == 'Player 4')
 
-		   		@match = current_user.open_challenge_with_partner(@player2, @location, @game_type, @open, @time)
+		   		@match = current_user.open_challenge_with_partner(@player2, @location, @game_type, @open, @time, @zip)
 
 		   	elsif (@match.player2 == 'Player 2' && @match.player3 != 'Player 3' && @match.player4 == 'Player 4')
 
-		   		@match = current_user.open_challenge_one_opponent(@player3, @location, @game_type, @open, @time)
+		   		@match = current_user.open_challenge_one_opponent(@player3, @location, @game_type, @open, @time, @zip)
 
 		   	elsif (@match.player2 == 'Player 2' && @match.player3 == 'Player 3' && @match.player4 != 'Player 4')
 
-		   		@match = current_user.open_challenge_one_opponent(@player4, @location, @game_type, @open, @time)
+		   		@match = current_user.open_challenge_one_opponent(@player4, @location, @game_type, @open, @time, @zip)
 
 		    elsif (@match.player2 != 'Player 2' && @match.player3 != 'Player 3' && @match.player4 == 'Player 4')
 
-		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player3, @location, @game_type, @open, @time)
+		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player3, @location, @game_type, @open, @time, @zip)
 		    
 		    elsif (@match.player2 != 'Player 2' && @match.player3 == 'Player 3' && @match.player4 != 'Player 4')
 
-		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player4, @location, @game_type, @open, @time)
+		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player4, @location, @game_type, @open, @time, @zip)
 		    
 		    elsif (@match.player2 == 'Player 2' && @match.player3 != 'Player 3' && @match.player4 != 'Player 4')
 
-		    	@match = current_user.open_challenge_with_opponents(@player3, @player4, @location, @game_type, @open, @time)
+		    	@match = current_user.open_challenge_with_opponents(@player3, @player4, @location, @game_type, @open, @time, @zip)
 
 		    elsif (@match.player2 != 'Player 2' && @match.player3 != 'Player 3' && @match.player4 != 'Player 4')
 		    
-		    	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time)
+		    	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time, @zip)
 		    end
 		   		
 		   		if @match.save  #match creation
@@ -231,6 +233,6 @@ private
 
 	def match_params
       params.require(:match).permit(:player1, :player2, :player3, :player4, :location,
-                                   :time, :game_type, :open, :winner, :loser, :score)
+                                   :time, :game_type, :open, :winner, :loser, :score, :zip)
     end
 end

@@ -7,6 +7,7 @@ class Match < ActiveRecord::Base
 	validates :time, presence: true
 	validates :game_type, presence: true
 	validates :open, presence: true
+	validates :zip, presence: true
 
 	#Put in descending order.
 	default_scope -> { order(created_at: :desc) }
@@ -42,8 +43,8 @@ class Match < ActiveRecord::Base
 	  #where("game_type like ?", "%#{query}%") 
 	end
 
-	def self.search1(query1)
-		where("game_type like ?", "%#{query1}%")
-	end
+	#def self.search1(query1)
+		#where("game_type like ?", "%#{query1}%")
+	#end
 
 end

@@ -150,38 +150,38 @@ class User < ActiveRecord::Base
 	  end
 
 	  # Challenges a user to a match.
-	  def challenge(other_user, location, game_type, open, time)
-	    matches.create(player1: self.id, user_id: self.id, player2: other_user.id, location: location, game_type: game_type, open: open, time: time)
+	  def challenge(other_user, location, game_type, open, time, zip)
+	    matches.create(player1: self.id, user_id: self.id, player2: other_user.id, location: location, game_type: game_type, open: open, time: time, zip: zip)
 	  end
 
 	  # Creates an open challenge.
-	  def open_challenge(location, game_type, open, time)
-	    matches.create(player1: self.id, user_id: self.id, location: location, game_type: game_type, open: open, time: time)
+	  def open_challenge(location, game_type, open, time, zip)
+	    matches.create(player1: self.id, user_id: self.id, location: location, game_type: game_type, open: open, time: time, zip: zip)
 	  end
 
 	  # Creates a private doubles challenge.
-	  def doubles_challenge(partner, opponent1, opponent2, location, game_type, open, time)
-	    matches.create(player1: self.id, user_id: self.id, player2: partner.id, player3: opponent1.id, player4: opponent2.id, location: location, game_type: game_type, open: open, time: time)
+	  def doubles_challenge(partner, opponent1, opponent2, location, game_type, open, time, zip)
+	    matches.create(player1: self.id, user_id: self.id, player2: partner.id, player3: opponent1.id, player4: opponent2.id, location: location, game_type: game_type, open: open, time: time, zip: zip)
 	  end
 
 	  # Creates an open challenge.
-	  def open_challenge_with_partner(partner, location, game_type, open, time)
-	    matches.create(player1: self.id, user_id: self.id, player2: partner.id, location: location, game_type: game_type, open: open, time: time)
+	  def open_challenge_with_partner(partner, location, game_type, open, time, zip)
+	    matches.create(player1: self.id, user_id: self.id, player2: partner.id, location: location, game_type: game_type, open: open, time: time, zip: zip)
 	  end
 
 	  # Creates an open challenge.
-	  def open_challenge_one_opponent(opponent, location, game_type, open, time)
-	    matches.create(player1: self.id, user_id: self.id, player3: opponent.id, location: location, game_type: game_type, open: open, time: time)
+	  def open_challenge_one_opponent(opponent, location, game_type, open, time, zip)
+	    matches.create(player1: self.id, user_id: self.id, player3: opponent.id, location: location, game_type: game_type, open: open, time: time, zip: zip)
 	  end
 
 	  # Creates an open challenge.
-	  def open_challenge_with_partner_and_opponent(partner, opponent, location, game_type, open, time)
-	    matches.create(player1: self.id, user_id: self.id, player2: partner.id, player3: opponent.id, location: location, game_type: game_type, open: open, time: time)
+	  def open_challenge_with_partner_and_opponent(partner, opponent, location, game_type, open, time, zip)
+	    matches.create(player1: self.id, user_id: self.id, player2: partner.id, player3: opponent.id, location: location, game_type: game_type, open: open, time: time, zip: zip)
 	  end
 
 	  # Creates an open challenge.
-	  def open_challenge_with_opponents(opponent1, opponent2, location, game_type, open, time)
-	    matches.create(player1: self.id, user_id: self.id, player3: opponent1.id, player4: opponent2.id, location: location, game_type: game_type, open: open, time: time)
+	  def open_challenge_with_opponents(opponent1, opponent2, location, game_type, open, time, zip)
+	    matches.create(player1: self.id, user_id: self.id, player3: opponent1.id, player4: opponent2.id, location: location, game_type: game_type, open: open, time: time, zip: zip)
 	  end
 
 	  # Returns a user's status feed.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318135034) do
+ActiveRecord::Schema.define(version: 20150422181348) do
 
   create_table "matches", force: :cascade do |t|
     t.integer  "player1"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20150318135034) do
     t.string   "winner"
     t.string   "loser"
     t.string   "score"
+    t.boolean  "full"
+    t.integer  "zip"
   end
 
   add_index "matches", ["user_id", "created_at"], name: "index_matches_on_user_id_and_created_at"
