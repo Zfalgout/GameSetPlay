@@ -29,15 +29,21 @@ class Match < ActiveRecord::Base
     	@query2 = query2
 
       #Have to catch in case of nil.
-  		if (@query1 != 0 && @query2 != 0)
+  		if (query1 != "" && query2 != "")
   			where("game_type like ? AND player1 like ?", "%#{query1}%", User.find_by(name: "#{query2}").id)
-  		elsif (@query1 != 0)
+  			#where("game_type like ?", "%#{query1}%")
+  		elsif (query1 != "")
   			where("game_type like ?", "%#{query1}%")
-  		elsif (@query2 != 0)
+  		elsif (query2 != "")
   			where("player1 like ?", User.find_by(name: "#{query2}").id)
-  		#else
-      		#where("game_type like ? AND player1 like ?", "%#{query1}%", User.find_by(name: "#{query2}").id)
+  		else
+      		where("open = ?", 1)
       	end
 	  #where("game_type like ?", "%#{query}%") 
 	end
+
+	def self.search1(query1)
+		where("game_type like ?", "%#{query1}%")
+	end
+
 end
