@@ -10,7 +10,8 @@ class Match < ActiveRecord::Base
 	validates :zip, presence: true
 
 	#Put in descending order.
-	default_scope -> { order(created_at: :desc) }
+
+#default_scope -> { order(:time) }
 
 	after_initialize :defaults
 
@@ -33,7 +34,7 @@ class Match < ActiveRecord::Base
   		if (query1 != "" && query2 != "" && query3 != "" && query4 != "") #A user uses all search criteria.
   				where("game_type like ? AND player1 like ? AND zip like ? AND time like ?", "%#{query1}%", User.find_by(name: "#{query2}").id, "%#{query3}%", "%#{query4}%")
 
-  		elsif (query1 != "" && query2 == "" && query3 == "") #A user searches for a match by type.
+  		elsif (query1 != "" && query2 == "" && query3 == "" && query4 == "") #A user searches for a match by type.
   			where("game_type like ?", "%#{query1}%")
   		
   		elsif (query1 == "" && query2 != "" && query3 == "" && query4 == "") #A user searches for a match by creator

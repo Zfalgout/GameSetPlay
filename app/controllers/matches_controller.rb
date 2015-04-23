@@ -44,6 +44,7 @@ class MatchesController < ApplicationController
 	      flash[:success] = "Scores updated #{@match.winner} #{@player1.name} #{@player1.wins}"
 	      redirect_to root_url
 	    else
+	    	flash[:danger] = "Swing and a miss...."
 	      render 'edit'
 	    end
 	end
@@ -210,13 +211,14 @@ def open
 	#@doublesMatches = Match.where("open = ? AND game_type = ? OR player2 = ? OR player3 = ? OR player4 = ?", 1, 'Doubles', 'Player 2', 'Player 3', 'Player 4').where.not(player1: current_user.id, player2: current_user.id, player3: current_user.id, player4: current_user.id).where(time: Date.today..3.years.from_now).all.paginate(page: params[:page])
 	if (params[:search1] && params[:search2] && params[:search3] && params[:search4])
 		@creator = User.find_by(name: params[:search2])
-		#if (@creator == nil)
-		#	flash[:info] = "That user was not found in our database."
-		#else
-			@matches = Match.search(params[:search1], params[:search2], params[:search3], params[:search4]).where("open = ? AND player2 = ? OR player3 = ? OR player4 = ?", 1, 'Player 2', 'Player 3', 'Player 4').where.not(player1: current_user.id, player2: current_user.id, player3: current_user.id, player4: current_user.id).where(time: Date.today..3.years.from_now).all.paginate(page: params[:page])
-		#end
+		if (@creator == nil && params[:search2] != "")
+			flash[:danger] = "That user was not found in our database."
+			 redirect_to open_url
+		else
+			@matches = Match.search(params[:search1], params[:search2], params[:search3], params[:search4]).where("open = ? AND player2 = ? OR player3 = ? OR player4 = ?", 1, 'Player 2', 'Player 3', 'Player 4').where.not(player1: current_user.id, player2: current_user.id, player3: current_user.id, player4: current_user.id).where(time: Date.today..3.years.from_now).order(time: :asc).all.paginate(page: params[:page]).order(time: :asc)
+		end
 	else
-		@matches = Match.where("open = ? AND player2 = ? OR player3 = ? OR player4 = ?", 1, 'Player 2', 'Player 3', 'Player 4').where.not(player1: current_user.id, player2: current_user.id, player3: current_user.id, player4: current_user.id).where(time: Date.today..3.years.from_now).all.paginate(page: params[:page])
+		@matches = Match.where("open = ? AND player2 = ? OR player3 = ? OR player4 = ?", 1, 'Player 2', 'Player 3', 'Player 4').where.not(player1: current_user.id, player2: current_user.id, player3: current_user.id, player4: current_user.id).where(time: Date.today..3.years.from_now).all.paginate(page: params[:page]).order(time: :asc)
 	end
 
 end
