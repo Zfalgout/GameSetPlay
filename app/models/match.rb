@@ -26,12 +26,13 @@ class Match < ActiveRecord::Base
     end
 
     def self.search(query1, query2, query3, query4)
-    	@query1 = query1
     	@query2 = query2
+    	@creator = User.find_by(name: "#{@query2}")
 
       #Have to catch in case of nil.
   		if (query1 != "" && query2 != "" && query3 != "" && query4 != "") #A user uses all search criteria.
-  			where("game_type like ? AND player1 like ? AND zip like ? AND time like ?", "%#{query1}%", User.find_by(name: "#{query2}").id, "%#{query3}%", "%#{query4}%")
+  				where("game_type like ? AND player1 like ? AND zip like ? AND time like ?", "%#{query1}%", User.find_by(name: "#{query2}").id, "%#{query3}%", "%#{query4}%")
+
   		elsif (query1 != "" && query2 == "" && query3 == "") #A user searches for a match by type.
   			where("game_type like ?", "%#{query1}%")
   		
@@ -70,6 +71,10 @@ class Match < ActiveRecord::Base
 
   		elsif (query1 != "" && query2 != "" && query3 == "" && query4 != "") #A user searches for a match by type, creator and date.
   			where("game_type like ? AND player1 like ? AND time like ?", "%#{query1}%", User.find_by(name: "#{query2}").id, "%#{query4}%")
+  		
+  		elsif (query1 == "" && query2 != "" && query3 != "" && query4 != "") #A user searches for a match by creator, zip and date.
+  			where("player1 like ? AND zip like ? AND time like ?", User.find_by(name: "#{query2}").id, "%#{query3}%", "%#{query4}%")
+
   		else
       		where("open = ?", 1)
       	end
