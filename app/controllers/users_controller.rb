@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @deletedMatches = Match.where("player2 = ? OR player3 = ? OR player4 = ?",  "Player 2", "Player 3", "Player 4").where(time: 3.years.ago..Date.today)
     @matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").all.paginate(page: params[:page]).order(time: :desc)
     #@match = @user.matches.find_by(id: params[:id])
     #@matches = @user.matches.paginate(page: params[:page])
