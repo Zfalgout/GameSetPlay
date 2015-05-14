@@ -33,13 +33,27 @@ class MatchesController < ApplicationController
 	@player4 = User.find_by(id: @match.player4)
 
 	    if @match.update_attributes(match_params)
-
-	    if (@match.winner == @player1.name)
-	    	#flash[:success] = "Scores updated #{@match.winner} #{@player1.name} #{@player1.wins}"
-	    	@win1 = @player1.wins
-	    	@newWins = @win1 + 1
-	    	@player1.update_attribute(:wins, @newWins)
-	    end
+	    	if (@match.game_type == "Singles") #Have to differentiate between singles and doubles matches.
+			    if (@match.winner == @player1.name) #Player one is the winner
+			    	#flash[:success] = "Scores updated #{@match.winner} #{@player1.name} #{@player1.wins}"
+			    	#@win1 = @player1.wins
+			    	#@newWins = @win1 + 1
+			    	#@player1.update_attribute(:wins, @newWins)
+			    	updateWinner(@match.player1)
+			    	updateLoser(@match.player2)
+			    else #Player two is the winner.
+			    	updateWinner(@match.player2)
+			    	updateLoser(@match.player1)
+			    end
+			elsif (@match.game_type == "Doubles")
+				if (@match.winner == "Team One") #The creator of the match and his or her partner won.
+					updateWinners(@player1, @player2)
+					updateLosers(@player3, @player4)
+				else #The opponents won.
+					updateWinners(@player3, @player4)
+					updateLosers(@player1, @player2)
+				end
+			end
 	    
 	      flash[:success] = "Scores updated #{@match.winner} #{@player1.name} #{@player1.wins}"
 	      redirect_to root_url
@@ -224,13 +238,37 @@ def open
 end
 
 def destroy
-    @match = Match.find(params[:id])
+	@match = Match.find(params[:id])
     @userID = @match.player1
-    @user = User.find_by(id: "#{@userID}")
-    @match.destroy
-    flash[:success] = "Match deleted"
-    redirect_to @user
-  end
+	@user = User.find_by(id: "#{@userID}")
+	@match.destroy
+	flash[:success] = "Match deleted"
+	redirect_to @user
+end
+
+def updateWinner(winner)
+	@theWinner = User.find_by(id: winner)
+	@win = @theWinner.wins
+	@newWins = @win + 1
+	#flash[:info] = "#{@theWinner}"
+	@theWinner.update_attribute(:wins, @newWins)
+end
+
+def updateLoser(loser)
+	@theLoser = User.find_by(id: loser)
+	@loss = @theLoser.losses
+	@newLosses = @loss + 1
+	@theLoser.update_attribute(:losses, @newLosses)
+end
+
+def updateWinners(winner1, winner2)
+
+end
+
+def updateLosers(loser1, loser2)
+
+end
+
 
 private
 
