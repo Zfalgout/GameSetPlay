@@ -35,10 +35,6 @@ class MatchesController < ApplicationController
 	    if @match.update_attributes(match_params)
 	    	if (@match.game_type == "Singles") #Have to differentiate between singles and doubles matches.
 			    if (@match.winner == @player1.name) #Player one is the winner
-			    	#flash[:success] = "Scores updated #{@match.winner} #{@player1.name} #{@player1.wins}"
-			    	#@win1 = @player1.wins
-			    	#@newWins = @win1 + 1
-			    	#@player1.update_attribute(:wins, @newWins)
 			    	updateWinner(@match.player1)
 			    	updateLoser(@match.player2)
 			    else #Player two is the winner.
@@ -46,12 +42,16 @@ class MatchesController < ApplicationController
 			    	updateLoser(@match.player1)
 			    end
 			elsif (@match.game_type == "Doubles")
-				if (@match.winner == "Team One") #The creator of the match and his or her partner won.
-					updateWinners(@player1, @player2)
-					updateLosers(@player3, @player4)
+				if (@match.winner == "#{@player1.name} & #{@player2.name}") #The creator of the match and his or her partner won.
+					updateWinner(@match.player1)
+					updateWinner(@match.player2)
+					updateLoser(@match.player3)
+					updateLoser(@match.player4)
 				else #The opponents won.
-					updateWinners(@player3, @player4)
-					updateLosers(@player1, @player2)
+					updateWinner(@match.player4)
+					updateWinner(@match.player3)
+					updateLoser(@match.player2)
+					updateLoser(@match.player1)
 				end
 			end
 	    
@@ -248,27 +248,19 @@ end
 
 def updateWinner(winner)
 	@theWinner = User.find_by(id: winner)
-	@win = @theWinner.wins
-	@newWins = @win + 1
-	#flash[:info] = "#{@theWinner}"
-	@theWinner.update_attribute(:wins, @newWins)
+	@newWins = @theWinner.wins + 1.0
+	@newTotal = @theWinner.total_matches_played + 1.0
+	@newWinPct = (@newWins / @newTotal) * 100.0
+	@theWinner.update_attributes(:wins => @newWins, :total_matches_played => @newTotal, :win_pct => @newWinPct)
 end
 
 def updateLoser(loser)
 	@theLoser = User.find_by(id: loser)
-	@loss = @theLoser.losses
-	@newLosses = @loss + 1
-	@theLoser.update_attribute(:losses, @newLosses)
+	@newLosses = @theLoser.losses + 1.0
+	@newTotal = @theLoser.total_matches_played + 1.0
+	@newWinPct = (@theLoser.wins / @newTotal) * 100.0
+	@theLoser.update_attributes(:losses => @newLosses, :total_matches_played => @newTotal, :win_pct => @newWinPct)
 end
-
-def updateWinners(winner1, winner2)
-
-end
-
-def updateLosers(loser1, loser2)
-
-end
-
 
 private
 

@@ -6,54 +6,88 @@
   
 
   <div class="row">
-    <player class="col-md-3 pull-left">
+    <player class="col-md-4 pull-left">
       <section>
         <% @user = @player1 %>
-        <h1> <%= @user.name %> </h1>
+        <h2> <%= @user.name %> </h2>
       </section>
       <section class="user_stats">
           <%= render 'users/user_stats' %>
       </section>
+      <% if (@match.game_type == "Doubles") %>
+      <section>
+        <% @user = @player2 %>
+        <h2> <%= @user.name %> </h2>
+      </section>
+      <section class="user_stats">
+          <%= render 'users/user_stats' %>
+      </section>
+      <% end %>
     </player>
 
-    <div class="col-md-6 center">
+    <div class="col-md-4 center">
       <%= form_for(@match) do |f| %>
       <% @user1 = User.find_by(id: @match.player1) %>
       <% @user2 = User.find_by(id: @match.player2) %>
+      <% if (@match.game_type == "Doubles") %>
+        <% @user3 = User.find_by(id: @match.player3) %>
+        <% @user4 = User.find_by(id: @match.player4) %>
+      <% end %>
         <%= render 'shared/error_messages' %>
         
         <%= f.label :score %>
         <%= f.text_field :score, class: 'form-control' %>
 
-        <%#= f.label :winner %>
-        <%#= f.text_field :winner, class: 'form-control' %>
-
-        <%#= f.label :loser %>
-        <%#= f.text_field :loser, class: 'form-control' %>
-
       <div>
         <%= "Winner" %>
       </div>
-
+      <% if (@match.game_type == "Singles") %>
         <%= f.label :winner, "#{@user1.name}" %>
         <%= f.radio_button :winner, "#{@user1.name}", :checked => true, :value => "#{@user1.name}" %>
 
         <%= f.label :winner, "#{@user2.name}" %>
         <%= f.radio_button :winner, "#{@user2.name}", :value => "#{@user2.name}" %>
 
+      <% else %>
+
+        <%= f.label :winner, "#{@user1.name} & #{@user2.name}" %>
+        <%= f.radio_button :winner, "#{@user1.name} & #{@user2.name}", :checked => true, :value => "#{@user1.name} & #{@user2.name}" %>
+
+        <%= f.label :winner, "#{@user3.name} & #{@user4.name}" %>
+        <%= f.radio_button :winner, "#{@user3.name} & #{@user4.name}", :value => "#{@user3.name} & #{@user4.name}" %>
+
+      <% end %>  
+
         <%= f.submit "Submit Scores", class: "btn btn-primary" %>
 
       <% end %>
     </div>
 
-        <player class="col-md-3 pull-right">
-          <% @user = @player2 %>
-          <section>
-            <h1> <%= @user.name %> </h1>
-          </section>
-          <section class="user_stats">
-              <%= render 'users/user_stats' %>
-          </section>
+        <player class="col-md-4 pull-right">
+        <% if (@match.game_type == "Singles") %>
+            <% @user = @player2 %>
+            <section>
+              <h2> <%= @user.name %> </h2>
+            </section>
+            <section class="user_stats">
+                <%= render 'users/user_stats' %>
+            </section>
+        <% else %>
+            <% @user = @player3 %>
+            <section>
+              <h2> <%= @user.name %> </h2>
+            </section>
+            <section class="user_stats">
+                <%= render 'users/user_stats' %>
+            </section>
+            <% @user = @player4 %>
+            <section>
+              <h2> <%= @user.name %> </h2>
+            </section>
+            <section class="user_stats">
+                <%= render 'users/user_stats' %>
+            </section>
+          <% end %>
         </player>
       </div>
 

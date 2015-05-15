@@ -5,16 +5,16 @@
 <li> Years Played: <%= current_user.years_played %> </li>
 <li> Gender: <%= current_user.gender %> </li> 
 <li> About: <%= current_user.about %> </li>
-<li> Total Wins: <%= current_user.wins %>
-<li> Total Losses: <%= current_user.losses %>
-<li> Win Percentage: <%= current_user.win_pct %>
-<li> Total Matches Played: <%= current_user.total_matches_played %>
-<li> Tournament Matches Won: <%= current_user.tournament_matches_won %>
-<li> Tournament Matches Lost: <%= current_user.tournament_matches_lost %>
-<li> Tournaments Won: <%= current_user.tournaments_won %>
-<li> Challenges Won: <%= current_user.challenge_matches_won %>
-<li> Challenges Lost: <%= current_user.challenge_matches_lost %>
-<li> Posted Challenges: <%= current_user.challenges_posted %>
-<li> Challenges Accepted: <%= current_user.challenges_accepted %>
+<li> Challenge Matches Won: <%= current_user.wins %> </li>
+<li> Challenge Matches Lost: <%= current_user.losses %> </li>
+<li> Total Challenge Matches Played: <%= current_user.total_matches_played %></li>
+<li> Win Percentage: <%= number_with_precision(current_user.win_pct, :precision => 2) %>%</li>
+<li> Tournament Matches Won: <%= current_user.tournament_matches_won %></li>
+<li> Tournament Matches Lost: <%= current_user.tournament_matches_lost %></li>
+<li> Tournaments Won: <%= current_user.tournaments_won %></li>
+<%# <li> Challenges Won: <%= current_user.challenge_matches_won </li> 
+<li> Challenges Lost: <%= current_user.challenge_matches_lost </li> 
+<li> Posted Challenges: <%= current_user.challenges_posted </li>
+<li> Challenges Accepted: <%= current_user.challenges_accepted </li>%>
 
 
