@@ -41,7 +41,7 @@ class MatchesController < ApplicationController
 			    	updateWinner(@match.player2)
 			    	updateLoser(@match.player1)
 			    end
-			elsif (@match.game_type == "Doubles")
+			elsif (@match.game_type == "Doubles"  && @player2 != nil)
 				if (@match.winner == "#{@player1.name} & #{@player2.name}") #The creator of the match and his or her partner won.
 					updateWinner(@match.player1)
 					updateWinner(@match.player2)
