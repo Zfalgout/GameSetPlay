@@ -5,10 +5,11 @@ class MatchMailer < ApplicationMailer
   #
   #   en.match_mailer.singlesMatch.subject
   #
-  def singlesMatch
-    @greeting = "Hi"
+  def matchEmail(opponent)
+    #@user = opponent
 
-    mail to: "to@example.org"
+    mail to: opponent.email, subject: "Game Set Play Match Challenge!"
+
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -16,8 +17,8 @@ class MatchMailer < ApplicationMailer
   #
   #   en.match_mailer.doublesMatch.subject
   #
-  def doublesMatch
-    @greeting = "Hi"
+  def doublesMatch(player2, player3, player4)
+
 
     mail to: "to@example.org"
   end

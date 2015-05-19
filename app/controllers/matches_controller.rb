@@ -133,7 +133,7 @@ class MatchesController < ApplicationController
 			@match.player4 = ""
 			if @match.save  #match creation
 			#Email Setup
-		    #@match.send_email
+		    @match.send_challenge_email(@player2)
 		    flash[:info] = "Your opponent has been notified."
 		    redirect_to root_url
 		    else

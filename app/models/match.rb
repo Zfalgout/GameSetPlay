@@ -82,8 +82,11 @@ class Match < ActiveRecord::Base
 
 	end
 
-	#def self.search1(query1)
-		#where("game_type like ?", "%#{query1}%")
-	#end
+	# Sends challenge email.
+	def send_challenge_email(opponent)
+	  #@opponent = User.find_by(name: "Lauren Falgout")
+	  @opponent = opponent
+	  MatchMailer.matchEmail(@opponent).deliver_now
+	end
 
 end
