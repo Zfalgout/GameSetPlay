@@ -43,6 +43,10 @@
 	      <%= f.radio_button :open, 0, :value => 0 %>
 	  	</div>
 
+	  	<%= f.hidden_field :p2Active, :value => 0 %>
+        <%= f.hidden_field :p3Active, :value => 0 %>
+        <%= f.hidden_field :p4Active, :value => 0 %>
+
 	      <%= f.submit "Create the match", class: "btn btn-primary" %>
 	    <% end %>
 	  </div>

@@ -69,6 +69,7 @@ class MatchesController < ApplicationController
 
 	def create
 	  @match = Match.new(match_params)
+	  @player1 = current_user
 
 	  #Set the variables.
 	  @name = @match.player2
@@ -136,7 +137,7 @@ class MatchesController < ApplicationController
 			@match.player4 = ""
 			if @match.save  #match creation
 			#Email Setup
-		    @match.send_challenge_email(@player2)
+		    @match.send_challenge_email(@player2, @match, @player1)
 		    flash[:info] = "Your opponent has been notified."
 		    redirect_to root_url
 		    else
@@ -163,9 +164,9 @@ class MatchesController < ApplicationController
 
 		   		if @match.save  #match creation
 			   		#Email Setup
-				    @match.send_challenge_email(@player2)
-				    @match.send_challenge_email(@player3)
-				    @match.send_challenge_email(@player4)
+				    @match.send_challenge_email(@player2, @match, @player1)
+				    @match.send_challenge_email(@player3, @match, @player1)
+				    @match.send_challenge_email(@player4, @match, @player1)
 				    flash[:info] = "Your partner and opponents have been notified."
 				    redirect_to root_url
 			    else
@@ -198,7 +199,7 @@ class MatchesController < ApplicationController
 
 		   		if @match.save  #match creation
 					#Email Setup
-				    @match.send_challenge_email(@player2)
+				    @match.send_challenge_email(@player2, @match, @player1)
 				    flash[:info] = "Your partner has been notified"
 				    redirect_to root_url
 				   else
@@ -211,7 +212,7 @@ class MatchesController < ApplicationController
 
 		   		if @match.save  #match creation
 					#Email Setup
-				    @match.send_challenge_email(@player3)
+				    @match.send_challenge_email(@player3, @match, @player1)
 				    flash[:info] = "Your opponent has been notified."
 				    redirect_to root_url
 				   else
@@ -224,7 +225,7 @@ class MatchesController < ApplicationController
 
 		   		if @match.save  #match creation
 					#Email Setup
-				    @match.send_challenge_email(@player4)
+				    @match.send_challenge_email(@player4, @match, @player1)
 				    flash[:info] = "Your opponent has been notified"
 				    redirect_to root_url
 				   else
@@ -237,8 +238,8 @@ class MatchesController < ApplicationController
 
 		    	if @match.save  #match creation
 					#Email Setup
-				    @match.send_challenge_email(@player2)
-				    @match.send_challenge_email(@player3)
+				    @match.send_challenge_email(@player2, @match, @player1)
+				    @match.send_challenge_email(@player3, @match, @player1)
 				    flash[:info] = "Your partner and opponent have been notified."
 				    redirect_to root_url
 				   else
@@ -251,8 +252,8 @@ class MatchesController < ApplicationController
 
 		    	if @match.save  #match creation
 					#Email Setup
-				    @match.send_challenge_email(@player2)
-				    @match.send_challenge_email(@player4)
+				    @match.send_challenge_email(@player2, @match, @player1)
+				    @match.send_challenge_email(@player4, @match, @player1)
 				    flash[:info] = "Your partner and opponent have been notified."
 				    redirect_to root_url
 				   else
@@ -265,8 +266,8 @@ class MatchesController < ApplicationController
 
 		    	if @match.save  #match creation
 					#Email Setup
-				    @match.send_challenge_email(@player3)
-				    @match.send_challenge_email(@player4)
+				    @match.send_challenge_email(@player3, @match, @player1)
+				    @match.send_challenge_email(@player4, @match, @player1)
 				    flash[:info] = "Your opponents have been notified."
 				    redirect_to root_url
 				   else
@@ -279,9 +280,9 @@ class MatchesController < ApplicationController
 
 		    	if @match.save  #match creation
 					#Email Setup
-				    @match.send_challenge_email(@player2)
-				    @match.send_challenge_email(@player3)
-				    @match.send_challenge_email(@player4)
+				    @match.send_challenge_email(@player2, @match, @player1)
+				    @match.send_challenge_email(@player3, @match, @player1)
+				    @match.send_challenge_email(@player4, @match, @player1)
 				    flash[:info] = "Your partner and opponents have been notified."
 				    redirect_to root_url
 				   else
@@ -340,6 +341,6 @@ private
 
 	def match_params
       params.require(:match).permit(:player1, :player2, :player3, :player4, :location,
-                                   :time, :game_type, :open, :winner, :loser, :score, :zip)
+                                   :time, :game_type, :open, :winner, :loser, :score, :zip, :p2Active, :p3Active, :p4Active, :player2Active, :player3Active, :player4Active)
     end
 end

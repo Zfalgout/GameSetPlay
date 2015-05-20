@@ -1,7 +1,9 @@
 <h1>GameSetPlay</h1>
 
-<p>Hi ,</p>
+<p>Hi <%= @user.name %>,</p>
 
 <p>
-You have been challenged!
+You have been challenged to a <%= @match.game_type %> match on <%= @match.time %> at <%= @match.location %> by <%= @challenger.name %>!
 </p>
+
+<%= link_to "View Match", "http://localhost:3000/#{match_path(@match)}" %>

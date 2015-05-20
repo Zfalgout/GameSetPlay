@@ -1,4 +1,5 @@
-Hi ,
+Hi <%= @user.name %>,
 
-You have been Challenged!!
+You have been challenged to a <%= @match.game_type %> match on <%= @match.time %> at <%= @match.location %> by <%= @challenger.name %>!
 
+ http://localhost:3000<%= match_path(@match) %>

@@ -2,76 +2,76 @@
   
   <span class="player1">Player 1: <%= User.find_by(id: [match.player1]).name %></span>
   
-  <% if (match.game_type == "Singles" && match.open == 0) %>
-    <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
-  <% elsif (match.game_type == "Doubles" && match.open == 0) %>
-    <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
-    <span class="player3">Player 3: <%= User.find_by(id: match.player3).name %> </span>
-    <span class="player4">Player 4: <%= User.find_by(id: match.player4).name %> </span>
-  <% elsif (match.game_type == "Singles" && match.open == 1 && match.player2 != 'Player 2' && match.player2 != nil) %>
-    <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
-  <% elsif (match.game_type == "Doubles" && match.open == 1) %>
-
-    <% if (match.player2 != 'Player 2' && match.player2 != nil) %>
+    <% if (match.game_type == "Singles" && match.open == 0) %>
       <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
-    <% end %>
-
-    <% if (match.player3 != 'Player 3' && match.player3 != nil) %>
+    <% elsif (match.game_type == "Doubles" && match.open == 0) %>
+      <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
       <span class="player3">Player 3: <%= User.find_by(id: match.player3).name %> </span>
-    <% end %>
-
-    <% if (match.player4 != 'Player 4' && match.player4 != nil) %>
       <span class="player4">Player 4: <%= User.find_by(id: match.player4).name %> </span>
-    <% end %>
+    <% elsif (match.game_type == "Singles" && match.open == 1 && match.player2 != 'Player 2' && match.player2 != nil) %>
+      <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
+    <% elsif (match.game_type == "Doubles" && match.open == 1) %>
 
-  <% end %> 
-  
-  <span class="time">Date and Time: <%= match.time %></span>
-
-  <span class="location">Zip Code: <%= match.zip %></span>
-  
-  <span class="location">Location: <%= match.location %></span>
-  
-  <span class="game_type">Game Type: <%= match.game_type %></span>
-  
-  <% if (match.time < Time.now) %>
-    <% if (match.score != nil) %>
-      <span class="score">Score: <%= match.score %></span>
-    <% end %>
-
-    <% if (match.winner != nil) %>
-      <span class="winner">Winner: <%= match.winner %></span>
-    <% end %>
-
-    <% if (match.loser != nil) %>
-      <span class="loser">Loser: <%= match.loser %></span>
-    <% end %>
-
-  <% end %>
-
-  <span class="timestamp">
-    Created <%= time_ago_in_words(match.created_at) %> ago.
-  </span>
-
-  <% if (match.game_type == 'Singles' && match.player2 == 'Player 2' && current_user != User.find_by(id: [match.player1]) && match.time > Time.now) %>
-    <span> <%= link_to "Join Match", join_match_path(match), class: "btn btn-success btn-block" %> </span>
-  <% end %>
-
-  <% if (match.game_type == 'Doubles' && (match.player2 == 'Player 2' || match.player3 == 'Player 3' || match.player4 == 'Player 4') && current_user != User.find_by(id: [match.player1]) && current_user != User.find_by(id: [match.player2]) && current_user != User.find_by(id: [match.player3]) && current_user != User.find_by(id: [match.player4]) && match.time > Time.now) %>
-    <span> <%= link_to "Join Match", join_match_path(match), class: "btn btn-success btn-block" %> </span>
-  <% end %>
-
-  <% if ((current_user == User.find_by(id: match.player1)) && match.time > Time.now) %>
-    <span> <%= link_to "Delete Match", match, method: :delete,
-                    class: "btn btn-block btn-danger", data: { confirm: "You sure?" } %> </span>
-  <% end %>
-
-    <% if (match.time < Time.now) && (current_user == User.find_by(id: match.player1) || current_user == User.find_by(id: match.player2) || current_user == User.find_by(id: match.player3) || current_user ==  User.find_by(id: match.player4)) %>
-      <% if (match.game_type == "Singles" && match.player2 != 'Player 2') %>
-        <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
-      <% elsif (match.game_type == "Doubles" && match.player2 != 'Player 2' && match.player3 != 'Player 3' && match.player4 != 'Player 4') %>
-        <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
+      <% if (match.player2 != 'Player 2' && match.player2 != nil) %>
+        <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
       <% end %>
+
+      <% if (match.player3 != 'Player 3' && match.player3 != nil) %>
+        <span class="player3">Player 3: <%= User.find_by(id: match.player3).name %> </span>
+      <% end %>
+
+      <% if (match.player4 != 'Player 4' && match.player4 != nil) %>
+        <span class="player4">Player 4: <%= User.find_by(id: match.player4).name %> </span>
+      <% end %>
+
+    <% end %> 
+    
+    <span class="time">Date and Time: <%= match.time %></span>
+
+    <span class="location">Zip Code: <%= match.zip %></span>
+    
+    <span class="location">Location: <%= match.location %></span>
+    
+    <span class="game_type">Game Type: <%= match.game_type %></span>
+    
+    <% if (match.time < Time.now) %>
+      <% if (match.score != nil) %>
+        <span class="score">Score: <%= match.score %></span>
+      <% end %>
+
+      <% if (match.winner != nil) %>
+        <span class="winner">Winner: <%= match.winner %></span>
+      <% end %>
+
+      <% if (match.loser != nil) %>
+        <span class="loser">Loser: <%= match.loser %></span>
+      <% end %>
+
     <% end %>
+
+    <span class="timestamp">
+      Created <%= time_ago_in_words(match.created_at) %> ago.
+    </span>
+
+    <% if (match.game_type == 'Singles' && match.player2 == 'Player 2' && current_user != User.find_by(id: [match.player1]) && match.time > Time.now) %>
+      <span> <%= link_to "Join Match", join_match_path(match), class: "btn btn-success btn-block" %> </span>
+    <% end %>
+
+    <% if (match.game_type == 'Doubles' && (match.player2 == 'Player 2' || match.player3 == 'Player 3' || match.player4 == 'Player 4') && current_user != User.find_by(id: [match.player1]) && current_user != User.find_by(id: [match.player2]) && current_user != User.find_by(id: [match.player3]) && current_user != User.find_by(id: [match.player4]) && match.time > Time.now) %>
+      <span> <%= link_to "Join Match", join_match_path(match), class: "btn btn-success btn-block" %> </span>
+    <% end %>
+
+    <% if ((current_user == User.find_by(id: match.player1)) && match.time > Time.now) %>
+      <span> <%= link_to "Delete Match", match, method: :delete,
+                      class: "btn btn-block btn-danger", data: { confirm: "You sure?" } %> </span>
+    <% end %>
+
+      <% if (match.time < Time.now) && (current_user == User.find_by(id: match.player1) || current_user == User.find_by(id: match.player2) || current_user == User.find_by(id: match.player3) || current_user ==  User.find_by(id: match.player4)) %>
+        <% if (match.game_type == "Singles" && match.player2 != 'Player 2') %>
+          <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
+        <% elsif (match.game_type == "Doubles" && match.player2 != 'Player 2' && match.player3 != 'Player 3' && match.player4 != 'Player 4') %>
+          <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
+        <% end %>
+      <% end %>
 
 </li>

@@ -83,10 +83,11 @@ class Match < ActiveRecord::Base
 	end
 
 	# Sends challenge email.
-	def send_challenge_email(opponent)
-	  #@opponent = User.find_by(name: "Lauren Falgout")
+	def send_challenge_email(opponent, match, challenger)
 	  @opponent = opponent
-	  MatchMailer.matchEmail(@opponent).deliver_now
+    @match = match
+    @challenger = challenger
+	  MatchMailer.matchEmail(@opponent, @match, @challenger).deliver_now
 	end
 
 end

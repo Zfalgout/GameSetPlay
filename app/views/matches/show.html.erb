@@ -1,0 +1,49 @@
+<% provide(:title, "Join Match") %>
+
+<div class="jumbotron center">
+
+  <h1>Join Match</h1>
+    <h2>Match Information</h2>
+
+      <span class="player1">Player 1: <%= User.find_by(id: [@match.player1]).name %></span></br>
+
+      <% if (@match.player2 != 'Player 2') %>
+        <span class="player2">Player 2: <%= User.find_by(id: @match.player2).name %> </span></br>
+      <% end %>
+
+      <% if (@match.game_type == "Doubles") %>
+        <% if (@match.player3 != 'Player 3') %>
+          <span class="player3">Player 3: <%= User.find_by(id: @match.player3).name %> </span></br>
+        <% end %>
+
+        <% if (@match.player4 != 'Player 4') %>
+          <span class="player4">Player 4: <%= User.find_by(id: @match.player4).name %> </span></br>
+        <% end %>
+      <% end %>
+
+      <span class="time">Date and Time: <%= @match.time %></span></br>
+      <span class="zip">Zip Code: <%=@match.zip %></span></br>
+      <span class="location">Location: <%= @match.location %></span></br>
+      <span class="game_type">Game Type: <%= @match.game_type %></span></br>
+
+      <% if (@match.player2 == "#{current_user.id}" || @match.player3 == "#{current_user.id}" || @match.player4 == "#{current_user.id}") %>
+        <%= form_for(@match) do |f| %>
+        
+        <% if (@match.player2 == "#{current_user.id}") %>
+          <%= f.hidden_field :p2Active, :value => 1 %>
+        <% elsif (@match.player3 == "#{current_user.id}") %>
+          <%= f.hidden_field :p3Active, :value => 1 %>
+        <% elsif (@match.player2 == "#{current_user.id}") %>
+          <%= f.hidden_field :p4Active, :value => 1 %>
+        <% end %>
+          
+
+        <div class = 'submit'>
+          <%= f.submit "Join Match", class: "btn btn-primary btn-block" %>
+        </div>
+        
+
+        <% end %>
+      <% end %>
+
+  </div>

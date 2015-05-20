@@ -5,8 +5,10 @@ class MatchMailer < ApplicationMailer
   #
   #   en.match_mailer.singlesMatch.subject
   #
-  def matchEmail(opponent)
-    #@user = opponent
+  def matchEmail(opponent, match, challenger)
+    @user = opponent
+    @match = match
+    @challenger = challenger
 
     mail to: opponent.email, subject: "Game Set Play Match Challenge!"
 
