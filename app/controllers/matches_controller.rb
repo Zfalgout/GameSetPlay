@@ -38,9 +38,11 @@ class MatchesController < ApplicationController
 				    if (@match.winner == @player1.name) #Player one is the winner
 				    	updateWinner(@match.player1)
 				    	updateLoser(@match.player2)
+				    	flash[:success] = "Scores updated Congratulations #{@match.winner}!!"
 				    else #Player two is the winner.
 				    	updateWinner(@match.player2)
 				    	updateLoser(@match.player1)
+				    	flash[:success] = "Scores updated Congratulations #{@match.winner}!!"
 				    end
 				elsif (@match.game_type == "Doubles" && @player2 != nil && @player3 != nil && @player4 != nil)
 					if (@match.winner == "#{@player1.name} & #{@player2.name}") #The creator of the match and his or her partner won.
@@ -48,18 +50,19 @@ class MatchesController < ApplicationController
 						updateWinner(@match.player2)
 						updateLoser(@match.player3)
 						updateLoser(@match.player4)
+						flash[:success] = "Scores updated Congratulations #{@match.winner}!!"
 					else #The opponents won.
 						updateWinner(@match.player4)
 						updateWinner(@match.player3)
 						updateLoser(@match.player2)
 						updateLoser(@match.player1)
+						flash[:success] = "Scores updated Congratulations #{@match.winner}!!"
 					end
 			end
-	    
-	      flash[:success] = "Scores updated #{@match.winner} #{@player1.name} #{@player1.wins}"
+	   
 	      redirect_to root_url
 	    else
-	    	flash[:danger] = "Swing and a miss...."
+
 	      render 'edit'
 	    end
 	end
@@ -147,8 +150,7 @@ class MatchesController < ApplicationController
        		@match.player3 = ""
        		@match.player4 = ""
        		if @match.save  #match creation
-			#Email Setup
-		    #@match.send_email
+			#No email since it is an open match.
 		    flash[:info] = "Your match has been created."
 		    redirect_to root_url
 		    else
@@ -161,7 +163,9 @@ class MatchesController < ApplicationController
 
 		   		if @match.save  #match creation
 			   		#Email Setup
-				    #@match.send_email
+				    @match.send_challenge_email(@player2)
+				    @match.send_challenge_email(@player3)
+				    @match.send_challenge_email(@player4)
 				    flash[:info] = "Your partner and opponents have been notified."
 				    redirect_to root_url
 			    else
@@ -180,43 +184,112 @@ class MatchesController < ApplicationController
 		   	
 		   		@match = current_user.open_challenge(@location, @game_type, @open, @time, @zip)
 
-		   	elsif (@match.player2 != 'Player 2' && @match.player3 == 'Player 3' && @match.player4 == 'Player 4')
-
-		   		@match = current_user.open_challenge_with_partner(@player2, @location, @game_type, @open, @time, @zip)
-
-		   	elsif (@match.player2 == 'Player 2' && @match.player3 != 'Player 3' && @match.player4 == 'Player 4')
-
-		   		@match = current_user.open_challenge_one_opponent(@player3, @location, @game_type, @open, @time, @zip)
-
-		   	elsif (@match.player2 == 'Player 2' && @match.player3 == 'Player 3' && @match.player4 != 'Player 4')
-
-		   		@match = current_user.open_challenge_one_opponent(@player4, @location, @game_type, @open, @time, @zip)
-
-		    elsif (@match.player2 != 'Player 2' && @match.player3 != 'Player 3' && @match.player4 == 'Player 4')
-
-		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player3, @location, @game_type, @open, @time, @zip)
-		    
-		    elsif (@match.player2 != 'Player 2' && @match.player3 == 'Player 3' && @match.player4 != 'Player 4')
-
-		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player4, @location, @game_type, @open, @time, @zip)
-		    
-		    elsif (@match.player2 == 'Player 2' && @match.player3 != 'Player 3' && @match.player4 != 'Player 4')
-
-		    	@match = current_user.open_challenge_with_opponents(@player3, @player4, @location, @game_type, @open, @time, @zip)
-
-		    elsif (@match.player2 != 'Player 2' && @match.player3 != 'Player 3' && @match.player4 != 'Player 4')
-		    
-		    	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time, @zip)
-		    end
-		   		
 		   		if @match.save  #match creation
-					#Email Setup
-				    #@match.send_email
+					#No email because there are no opponents.
 				    flash[:info] = "Your match has been created."
 				    redirect_to root_url
 				   else
 					  render 'new' #In case of errors.
 			    end
+
+		   	elsif (@match.player2 != 'Player 2' && @match.player3 == 'Player 3' && @match.player4 == 'Player 4')
+
+		   		@match = current_user.open_challenge_with_partner(@player2, @location, @game_type, @open, @time, @zip)
+
+		   		if @match.save  #match creation
+					#Email Setup
+				    @match.send_challenge_email(@player2)
+				    flash[:info] = "Your partner has been notified"
+				    redirect_to root_url
+				   else
+					  render 'new' #In case of errors.
+			    end
+
+		   	elsif (@match.player2 == 'Player 2' && @match.player3 != 'Player 3' && @match.player4 == 'Player 4')
+
+		   		@match = current_user.open_challenge_one_opponent(@player3, @location, @game_type, @open, @time, @zip)
+
+		   		if @match.save  #match creation
+					#Email Setup
+				    @match.send_challenge_email(@player3)
+				    flash[:info] = "Your opponent has been notified."
+				    redirect_to root_url
+				   else
+					  render 'new' #In case of errors.
+			    end
+
+		   	elsif (@match.player2 == 'Player 2' && @match.player3 == 'Player 3' && @match.player4 != 'Player 4')
+
+		   		@match = current_user.open_challenge_one_opponent(@player4, @location, @game_type, @open, @time, @zip)
+
+		   		if @match.save  #match creation
+					#Email Setup
+				    @match.send_challenge_email(@player4)
+				    flash[:info] = "Your opponent has been notified"
+				    redirect_to root_url
+				   else
+					  render 'new' #In case of errors.
+			    end
+
+		    elsif (@match.player2 != 'Player 2' && @match.player3 != 'Player 3' && @match.player4 == 'Player 4')
+
+		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player3, @location, @game_type, @open, @time, @zip)
+
+		    	if @match.save  #match creation
+					#Email Setup
+				    @match.send_challenge_email(@player2)
+				    @match.send_challenge_email(@player3)
+				    flash[:info] = "Your partner and opponent have been notified."
+				    redirect_to root_url
+				   else
+					  render 'new' #In case of errors.
+			    end
+		    
+		    elsif (@match.player2 != 'Player 2' && @match.player3 == 'Player 3' && @match.player4 != 'Player 4')
+
+		    	@match = current_user.open_challenge_with_partner_and_opponent(@player2, @player4, @location, @game_type, @open, @time, @zip)
+
+		    	if @match.save  #match creation
+					#Email Setup
+				    @match.send_challenge_email(@player2)
+				    @match.send_challenge_email(@player4)
+				    flash[:info] = "Your partner and opponent have been notified."
+				    redirect_to root_url
+				   else
+					  render 'new' #In case of errors.
+			    end
+		    
+		    elsif (@match.player2 == 'Player 2' && @match.player3 != 'Player 3' && @match.player4 != 'Player 4')
+
+		    	@match = current_user.open_challenge_with_opponents(@player3, @player4, @location, @game_type, @open, @time, @zip)
+
+		    	if @match.save  #match creation
+					#Email Setup
+				    @match.send_challenge_email(@player3)
+				    @match.send_challenge_email(@player4)
+				    flash[:info] = "Your opponents have been notified."
+				    redirect_to root_url
+				   else
+					  render 'new' #In case of errors.
+			    end
+
+		    elsif (@match.player2 != 'Player 2' && @match.player3 != 'Player 3' && @match.player4 != 'Player 4')
+		    
+		    	@match = current_user.doubles_challenge(@player2, @player3, @player4, @location, @game_type, @open, @time, @zip)
+
+		    	if @match.save  #match creation
+					#Email Setup
+				    @match.send_challenge_email(@player2)
+				    @match.send_challenge_email(@player3)
+				    @match.send_challenge_email(@player4)
+				    flash[:info] = "Your partner and opponents have been notified."
+				    redirect_to root_url
+				   else
+					  render 'new' #In case of errors.
+			    end
+		    end
+		   		
+		   		
 		  	
 	   end
     end
