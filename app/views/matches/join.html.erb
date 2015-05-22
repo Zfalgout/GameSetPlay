@@ -73,24 +73,6 @@
         <% end %>
 
 
-        <%#FOR DECLINE USE A SELECT FORM AND SOMETHING LIKE :p2Active, options_for_select([['ACCEPT', '1'], ['DECLINE', '2']]) AND BASE ALL EMAILS AND DESTRUCTION OF MATCHES ON THOSE VALUES %>
-        <% if (@match.p2Active == 0 && @match.player2 == "#{current_user.id}") %>
-
-          <%= f.hidden_field :player2, :value => current_user.id %>
-          <%= f.hidden_field :p2Active, :value => 1 %>
-
-        <% elsif (@match.p3Active == 0 && @match.player3 == "#{current_user.id}") %>
-
-          <%= f.hidden_field :player3, :value => current_user.id %>
-          <%= f.hidden_field :p3Active, :value => 1 %>
-
-        <% elsif (@match.p4Active == 0 && @match.player4 == "#{current_user.id}") %>
-
-          <%= f.hidden_field :player4, :value => current_user.id %>
-          <%= f.hidden_field :p4Active, :value => 1 %>
-
-        <% end %>
-
         <div class = 'submit'>
           <%= f.submit "Submit", class: "btn btn-primary btn-block" %>
         </div>

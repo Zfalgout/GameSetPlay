@@ -63,6 +63,9 @@ class MatchesController < ApplicationController
 						updateLoser(@match.player1)
 						flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
 					end
+				elsif (@match.player2Accept == 0 || @match.player3Accept == 0 || @match.player4Accept == 0)
+					flash[:danger] = "You have declined the challenge.  The match creator has been notified."
+					@match.send_decline_email(@player1, @match)
 				elsif (@match.time > Time.now)
 					flash[:success] = "You have been added to the match!  Good luck!"
 			end
@@ -142,6 +145,8 @@ class MatchesController < ApplicationController
 	  	@match = current_user.challenge(@player2, @location, @game_type, @open, @time, @zip) 
 			@match.player3 = ""
 			@match.player4 = ""
+			@match.p3Active = 1
+			@match.p4Active = 1
 			if @match.save  #match creation
 			#Email Setup
 		    @match.send_challenge_email(@player2, @match, @player1)
@@ -157,6 +162,8 @@ class MatchesController < ApplicationController
 	   	@match = current_user.open_challenge(@location, @game_type, @open, @time, @zip)
        		@match.player3 = ""
        		@match.player4 = ""
+       		@match.p3Active = 1
+			@match.p4Active = 1
        		if @match.save  #match creation
 			#No email since it is an open match.
 		    flash[:info] = "Your match has been created."
@@ -348,6 +355,6 @@ private
 
 	def match_params
       params.require(:match).permit(:player1, :player2, :player3, :player4, :location,
-                                   :time, :game_type, :open, :winner, :loser, :score, :zip, :p2Active, :p3Active, :p4Active, :player2Active, :player3Active, :player4Active)
+                                   :time, :game_type, :open, :winner, :loser, :score, :zip, :p2Active, :p3Active, :p4Active, :player2Active, :player3Active, :player4Active, :player2Accept, :player3Accept, :player4Accept)
     end
 end

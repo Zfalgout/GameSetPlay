@@ -19,9 +19,10 @@ class MatchMailer < ApplicationMailer
   #
   #   en.match_mailer.doublesMatch.subject
   #
-  def doublesMatch(player2, player3, player4)
+  def declineEmail(creator, match)
+    @user = creator
+    @match = match
 
-
-    mail to: "to@example.org"
+    mail to: creator.email, subject: "Your challenge has been declined!"
   end
 end

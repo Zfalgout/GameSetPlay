@@ -97,4 +97,10 @@ class Match < ActiveRecord::Base
 	  MatchMailer.matchEmail(@opponent, @match, @challenger).deliver_now
 	end
 
+  # Sends and email to the match creator letting him or her know a match was declined.
+  def send_decline_email(creator, match)
+    @user = creator
+    @match = match
+    MatchMailer.declineEmail(@user, @match).deliver_now
+  end
 end

@@ -28,26 +28,25 @@
 
       <% if (@match.player2 == "#{current_user.id}" || @match.player3 == "#{current_user.id}" || @match.player4 == "#{current_user.id}") %>
         <%= form_for(@match) do |f| %>
-        
-        <% if (@match.player2 == "#{current_user.id}") %>
+
+        <% if (@match.p2Active == 0 && @match.player2 == "#{current_user.id}") %>
           <%= f.hidden_field :p2Active, :value => 1 %>
-          
-          <% if (@match.game_type == "Singles") %> <%# Have to set p3Active and p4Active to 1 for valid search results %>
-            <%= f.hidden_field :p3Active, :value => 1 %>
-            <%= f.hidden_field :p4Active, :value => 1 %>
-          <% end %>
+          <%= f.select(:player2Accept, options_for_select([['ACCEPT', '1'], ['DECLINE', '0']]), {}, :style => "width:240px") %>
 
-        <% elsif (@match.player3 == "#{current_user.id}") %>
+        <% elsif (@match.p3Active == 0 && @match.player3 == "#{current_user.id}") %>
           <%= f.hidden_field :p3Active, :value => 1 %>
+            
+          <%= f.select(:player3Accept, options_for_select([['ACCEPT', '1'], ['DECLINE', '0']]), {}, :style => "width:240px") %>
 
-        <% elsif (@match.player4 == "#{current_user.id}") %>
+        <% elsif (@match.p4Active == 0 && @match.player4 == "#{current_user.id}") %>
           <%= f.hidden_field :p4Active, :value => 1 %>
+            
+          <%= f.select(:player4Accept, options_for_select([['ACCEPT', '1'], ['DECLINE', '0']]), {}, :style => "width:240px") %>
 
         <% end %>
-          
 
         <div class = 'submit'>
-          <%= f.submit "Join Match", class: "btn btn-primary btn-block" %>
+          <%= f.submit "Submit", class: "btn btn-primary btn-block" %>
         </div>
         
 

@@ -54,7 +54,7 @@
     </span>
 
     <% if ((match.p2Active == 0 && match.player2 == "#{current_user.id}") || (match.p3Active == 0 && match.player3 == "#{current_user.id}") || (match.p4Active == 0 && match.player4 == "#{current_user.id}")) %>
-      <span> <%= link_to "Accept or Decline Challenge", join_match_path(match), class: "btn btn-success btn-block" %> </span>
+      <span> <%= link_to "Accept or Decline Challenge", match_path(match), class: "btn btn-success btn-block" %> </span>
     <% end %>
 
     <% if (match.game_type == 'Singles' && match.player2 == 'Player 2' && current_user != User.find_by(id: [match.player1]) && match.time > Time.now) %>
