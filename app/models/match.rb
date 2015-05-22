@@ -23,6 +23,13 @@ class Match < ActiveRecord::Base
 
 	      self.player4 ||= 'Player 4'
 
+        self.p2Active ||= 0
+
+        self.p3Active ||= 0
+
+        self.p4Active ||= 0
+
+
 
     end
 

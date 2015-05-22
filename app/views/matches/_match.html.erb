@@ -13,7 +13,7 @@
     <% elsif (match.game_type == "Doubles" && match.open == 1) %>
 
       <% if (match.player2 != 'Player 2' && match.player2 != nil) %>
-        <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %> </span>
+        <span class="player2">Player 2: <%= User.find_by(id: match.player2).name %></span>
       <% end %>
 
       <% if (match.player3 != 'Player 3' && match.player3 != nil) %>
@@ -52,6 +52,10 @@
     <span class="timestamp">
       Created <%= time_ago_in_words(match.created_at) %> ago.
     </span>
+
+    <% if ((match.p2Active == 0 && match.player2 == "#{current_user.id}") || (match.p3Active == 0 && match.player3 == "#{current_user.id}") || (match.p4Active == 0 && match.player4 == "#{current_user.id}")) %>
+      <span> <%= link_to "Accept or Decline Challenge", join_match_path(match), class: "btn btn-success btn-block" %> </span>
+    <% end %>
 
     <% if (match.game_type == 'Singles' && match.player2 == 'Player 2' && current_user != User.find_by(id: [match.player1]) && match.time > Time.now) %>
       <span> <%= link_to "Join Match", join_match_path(match), class: "btn btn-success btn-block" %> </span>

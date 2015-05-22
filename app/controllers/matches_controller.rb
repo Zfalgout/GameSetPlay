@@ -25,6 +25,11 @@ class MatchesController < ApplicationController
 		@match = Match.find_by(id: params[:id])
 	end
 
+	def challenges
+		@user = User.find_by(id: current_user.id)
+		@matches = Match.where("p2Active = ? AND player2 = ? OR p3Active = ? AND player3 = ? OR p4Active = ? AND player4 = ?", 0, "#{current_user.id}", 0, "#{current_user.id}", 0, "#{current_user.id}",).paginate(page: params[:page])
+	end
+
 	def update
     @match = Match.find(params[:id])
     @player1 = User.find_by(id: @match.player1)

@@ -44,7 +44,10 @@
 
         <% if (@match.player2 == 'Player 2') %>
           <%= f.label :player2, "I would like to join this match as the partner." %>
-          <%= f.checkbox :player2, current_user.id, :value => current_user.id %>
+          <%#= f.radio_button :player2, current_user.id, :value => current_user.id %>
+          <%= f.check_box :player2, { checked: false }, "#{@current_user.id}", 'Player 2'  %>
+          <%#= f.check_box :player2, current_user.id, :value => current_user.id %>
+          <%#= f.select(:player2, options_for_select([['Partner', "#{@current_user.id}"]])) %>
           <%= f.hidden_field :p2Active, :value => 1 %>
         <% end %>
 
@@ -52,20 +55,44 @@
           
           <% if (@match.player3 == 'Player 3') %>
             <%= f.label :player3, "I would like to join this match as an opponent." %>
-            <%= f.checkbox :player3, current_user.id, :value => current_user.id %>
+            <%#= f.radio_button :player3, current_user.id, :value => current_user.id %>
+            <%#= f.select(:player3, options_for_select([['Opponent 1', "#{@current_user.id}"]])) %>
+            <%= f.check_box :player3, { checked: false }, "#{@current_user.id}", 'Player 3'  %>
             <%= f.hidden_field :p3Active, :value => 1 %>
 
           <% elsif (@match.player4 == 'Player 4') %>
             <%= f.label :player4, "I would like to join this match as an opponent." %>
-            <%= f.checkbox :player4, current_user.id, :value => current_user.id %>
+            <%#= f.radio_button :player4, current_user.id, :value => current_user.id %>
+            <%#= f.select(:player4, options_for_select([['Opponent 2', "#{@current_user.id}"]])) %>
+            <%= f.check_box :player4, { checked: false }, "#{@current_user.id}", 'Player 4'  %>
+            <%#= f.check_box :player4, current_user.id :value => current_user.id %>
             <%= f.hidden_field :p4Active, :value => 1 %>
 
           <% end %>
 
         <% end %>
 
+
+        <%#FOR DECLINE USE A SELECT FORM AND SOMETHING LIKE :p2Active, options_for_select([['ACCEPT', '1'], ['DECLINE', '2']]) AND BASE ALL EMAILS AND DESTRUCTION OF MATCHES ON THOSE VALUES %>
+        <% if (@match.p2Active == 0 && @match.player2 == "#{current_user.id}") %>
+
+          <%= f.hidden_field :player2, :value => current_user.id %>
+          <%= f.hidden_field :p2Active, :value => 1 %>
+
+        <% elsif (@match.p3Active == 0 && @match.player3 == "#{current_user.id}") %>
+
+          <%= f.hidden_field :player3, :value => current_user.id %>
+          <%= f.hidden_field :p3Active, :value => 1 %>
+
+        <% elsif (@match.p4Active == 0 && @match.player4 == "#{current_user.id}") %>
+
+          <%= f.hidden_field :player4, :value => current_user.id %>
+          <%= f.hidden_field :p4Active, :value => 1 %>
+
+        <% end %>
+
         <div class = 'submit'>
-          <%= f.submit "Join Match", class: "btn btn-primary btn-block" %>
+          <%= f.submit "Submit", class: "btn btn-primary btn-block" %>
         </div>
 
         <% end %>

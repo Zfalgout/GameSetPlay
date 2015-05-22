@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   get 'open' => 'matches#open'
 
+  get 'challenges' => 'matches#challenges'
+
 
   resources :users do
     member do

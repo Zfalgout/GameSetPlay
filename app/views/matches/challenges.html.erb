@@ -11,22 +11,15 @@
 	      </h1>
 	    </section>
 	    <section class="stats">
-	      <%= render 'follow_form' if logged_in? %>
+	      <%= render 'users/follow_form' if logged_in? %>
 	      <%= render 'shared/stats' %>
 	    </section>
 	    <section class="user_stats">
-	      	<%= render 'user_stats' %>
+	      	<%= render 'users/user_stats' %>
 	    </section>
 	  </aside>
 	  <div class="col-md-8">
-	  	<div class="col-md-3">
-	 		<%= link_to "Create a Match", new_match_path, class: "btn btn-primary" %>
-	 	</div>
-	 	<div class="col-md-4">
-	 		<%= link_to "View Challenges", challenges_path, class: "btn btn-primary" %>
-	 	</div>
-	    <%# if @user.matches.any? %> </br></br>
-	      <h3>Matches</h3>
+	      <h3>Challenges</h3>
 	      <ol class="matches">
 	        <%= render @matches %>
 	        <%#= render @deletedMatches %>
