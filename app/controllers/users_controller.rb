@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @deletedMatches = Match.where("player2 = ? OR player3 = ? OR player4 = ?",  "Player 2", "Player 3", "Player 4").where(time: 3.years.ago..Time.now).destroy_all
     #@matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").where("game_type = ? AND p2Active = ? AND p3Active = ? AND p4Active = ?", "Doubles", 1, 1, 1).where("game_type = ? AND p2Active = ?", "Singles", 1).all.paginate(page: params[:page]).order(time: :desc)
-    @matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").where("game_type = ? AND p2Active = ?", "Singles", 1).all.paginate(page: params[:page]).order(time: :desc)
+    @matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").where("p2Active = ? AND p3Active = ? AND p4Active = ?", 1, 1, 1).all.paginate(page: params[:page]).order(time: :desc)
   end
 
   def create

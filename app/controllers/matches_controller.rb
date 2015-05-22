@@ -34,30 +34,32 @@ class MatchesController < ApplicationController
 
 	    if @match.update_attributes(match_params)
 
-		    	if (@match.game_type == "Singles" && @player2 != nil) #Have to differentiate between singles and doubles matches.
+		    	if (@match.game_type == "Singles" && @player2 != nil && @match.time < Time.now) #Have to differentiate between singles and doubles matches.
 				    if (@match.winner == @player1.name) #Player one is the winner
 				    	updateWinner(@match.player1)
 				    	updateLoser(@match.player2)
-				    	flash[:success] = "Scores updated Congratulations #{@match.winner}!!"
+				    	flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
 				    else #Player two is the winner.
 				    	updateWinner(@match.player2)
 				    	updateLoser(@match.player1)
-				    	flash[:success] = "Scores updated Congratulations #{@match.winner}!!"
+				    	flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
 				    end
-				elsif (@match.game_type == "Doubles" && @player2 != nil && @player3 != nil && @player4 != nil)
+				elsif (@match.game_type == "Doubles" && @player2 != nil && @player3 != nil && @player4 != nil && @match.time < Time.now)
 					if (@match.winner == "#{@player1.name} & #{@player2.name}") #The creator of the match and his or her partner won.
 						updateWinner(@match.player1)
 						updateWinner(@match.player2)
 						updateLoser(@match.player3)
 						updateLoser(@match.player4)
-						flash[:success] = "Scores updated Congratulations #{@match.winner}!!"
+						flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
 					else #The opponents won.
 						updateWinner(@match.player4)
 						updateWinner(@match.player3)
 						updateLoser(@match.player2)
 						updateLoser(@match.player1)
-						flash[:success] = "Scores updated Congratulations #{@match.winner}!!"
+						flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
 					end
+				elsif (@match.time > Time.now)
+					flash[:success] = "You have been added to the match!  Good luck!"
 			end
 	   
 	      redirect_to root_url

@@ -31,10 +31,18 @@
         
         <% if (@match.player2 == "#{current_user.id}") %>
           <%= f.hidden_field :p2Active, :value => 1 %>
+          
+          <% if (@match.game_type == "Singles") %> <%# Have to set p3Active and p4Active to 1 for valid search results %>
+            <%= f.hidden_field :p3Active, :value => 1 %>
+            <%= f.hidden_field :p4Active, :value => 1 %>
+          <% end %>
+
         <% elsif (@match.player3 == "#{current_user.id}") %>
           <%= f.hidden_field :p3Active, :value => 1 %>
-        <% elsif (@match.player2 == "#{current_user.id}") %>
+
+        <% elsif (@match.player4 == "#{current_user.id}") %>
           <%= f.hidden_field :p4Active, :value => 1 %>
+
         <% end %>
           
 
