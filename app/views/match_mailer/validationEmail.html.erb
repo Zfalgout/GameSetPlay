@@ -1,0 +1,10 @@
+<h1>GameSetPlay</h1>
+
+<p>Hi <%= @user.name %>,</p>
+
+<p>
+Please validate the scores for the match on <%= @match.time %> at <%= @match.location %>!
+</p>
+
+<%#= link_to "View Match", "http://localhost:3000/#{match_path(@match)}" %>
+<%= link_to "View Match", match_url(@match) %>

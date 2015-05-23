@@ -18,8 +18,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @deletedMatches = Match.where("player2 = ? OR player3 = ? OR player4 = ? OR p2Active = ? OR p3Active = ? OR p4Active = ? OR player2Accept = ? OR player3Accept = ? OR player4Accept = ?",  "Player 2", "Player 3", "Player 4", 0, 0, 0, 0, 0, 0).where(time: 3.years.ago..Time.now).destroy_all
-    @matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").where("p2Active = ? AND p3Active = ? AND p4Active = ?", 1, 1, 1).all.paginate(page: params[:page]).order(time: :desc)
+    #@deletedMatches = Match.where("player2 = ? OR player3 = ? OR player4 = ? OR p2Active = ? OR p3Active = ? OR p4Active = ? OR player2Accept = ? OR player3Accept = ? OR player4Accept = ?",  "Player 2", "Player 3", "Player 4", 0, 0, 0, 0, 0, 0).where(time: 3.years.ago..Time.now).destroy_all
+    #@matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").where("p2Active = ? AND p3Active = ? AND p4Active = ?", 1, 1, 1).all.paginate(page: params[:page]).order(time: :desc)
+    @matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").all.paginate(page: params[:page]).order(time: :desc)
   end
 
   def create
@@ -76,7 +77,7 @@ class UsersController < ApplicationController
                                    :user_rating, :wins, :losses, :win_pct, :total_matches_played,
                                    :tournament_matches_won, :tournament_matches_lost, 
                                    :tournaments_won, :challenge_matches_won, :challenge_matches_lost,
-                                   :challenges_posted, :challenges_accepted, :num_friends)
+                                   :challenges_posted, :challenges_accepted, :num_friends, :invalids)
     end
 
     def logged_in_user

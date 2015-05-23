@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522185334) do
+ActiveRecord::Schema.define(version: 20150523182356) do
 
   create_table "matches", force: :cascade do |t|
     t.integer  "player1"
@@ -42,6 +42,11 @@ ActiveRecord::Schema.define(version: 20150522185334) do
     t.integer  "player2Accept"
     t.integer  "player3Accept"
     t.integer  "player4Accept"
+    t.integer  "validator1"
+    t.integer  "validator2"
+    t.integer  "validator3"
+    t.integer  "scoreValid"
+    t.integer  "validated"
   end
 
   add_index "matches", ["user_id", "created_at"], name: "index_matches_on_user_id_and_created_at"
@@ -102,6 +107,7 @@ ActiveRecord::Schema.define(version: 20150522185334) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.integer  "invalids"
   end
 
 end

@@ -1,0 +1,9 @@
+<h1>GameSetPlay</h1>
+
+<p>Hi <%= @user.name %>,</p>
+
+<p>
+Scores for the match on <%= @match.time %> at <%= @match.location %> were deemed invalid!
+</p>
+
+<%= link_to "View Match", match_url(@match) %>

@@ -29,7 +29,9 @@ class Match < ActiveRecord::Base
 
         self.p4Active ||= 0
 
+        self.scoreValid ||= 0
 
+        self.validated ||= 3
 
     end
 
@@ -97,10 +99,24 @@ class Match < ActiveRecord::Base
 	  MatchMailer.matchEmail(@opponent, @match, @challenger).deliver_now
 	end
 
-  # Sends and email to the match creator letting him or her know a match was declined.
+  # Sends an email to the match creator letting him or her know a match was declined.
   def send_decline_email(creator, match)
     @user = creator
     @match = match
     MatchMailer.declineEmail(@user, @match).deliver_now
+  end
+
+  # Sends an email for singles' score validation.
+  def send_validation_email(player, match)
+    @user = player
+    @match = match
+    MatchMailer.validationEmail(@user, @match).deliver_now
+  end
+
+  # Sends an email in the event of an invalid score.
+  def send_invalid_score_email(player, match)
+    @user = player
+    @match = match
+    MatchMailer.invalidScoreEmail(@user, @match).deliver_now
   end
 end

@@ -40,29 +40,102 @@ class MatchesController < ApplicationController
 	    if @match.update_attributes(match_params)
 
 		    	if (@match.game_type == "Singles" && @player2 != nil && @match.time < Time.now) #Have to differentiate between singles and doubles matches.
-				    if (@match.winner == @player1.name) #Player one is the winner
-				    	updateWinner(@match.player1)
-				    	updateLoser(@match.player2)
-				    	flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
-				    else #Player two is the winner.
-				    	updateWinner(@match.player2)
-				    	updateLoser(@match.player1)
-				    	flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
-				    end
-				elsif (@match.game_type == "Doubles" && @player2 != nil && @player3 != nil && @player4 != nil && @match.time < Time.now)
-					if (@match.winner == "#{@player1.name} & #{@player2.name}") #The creator of the match and his or her partner won.
-						updateWinner(@match.player1)
-						updateWinner(@match.player2)
-						updateLoser(@match.player3)
-						updateLoser(@match.player4)
-						flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
-					else #The opponents won.
-						updateWinner(@match.player4)
-						updateWinner(@match.player3)
-						updateLoser(@match.player2)
-						updateLoser(@match.player1)
-						flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
+					if (@match.scoreValid == 1 && @match.validated == 3) #send an email to the other player requesting validation.
+						# email sent
+						if (@player1.id == current_user.id)
+							@match.validator1 == @player2.id
+							@match.send_validation_email(@player2, @match)
+							flash[:success] = "Your opponent has been notified."
+						else
+							@match.validator1 == @player1.id
+							@match.send_validation_email(@player1, @match)
+							flash[:success] = "Your opponent has been notified."
+						end
+					elsif (@match.scoreValid == 1 && @match.validator1 == current_user.id)  #The scores entered are valied
+							if (@match.validated == 1)
+							    if (@match.winner == @player1.name) #Player one is the winner
+							    	updateWinner(@match.player1)
+							    	updateLoser(@match.player2)
+							    	flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
+							    else #Player two is the winner.
+							    	updateWinner(@match.player2)
+							    	updateLoser(@match.player1)
+							    	flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
+							    end
+							elsif (@match.validated == 0)
+								#Send an email to the both players and increase both player's invalid score count by one.
+								@match.send_invalid_score_email(@player1, @match)
+								@match.send_invalid_score_email(@player2, @match)
+								updateInvalids(@match.player1)
+								updateInvalids(@match.player2)
+								flash[:danger] = "Your opponent has been notified of the invalid scores."
+							end	
+						
 					end
+				elsif (@match.game_type == "Doubles" && @player2 != nil && @player3 != nil && @player4 != nil && @match.time < Time.now)
+					# if (@match.scoreValid == 1 && @match.validated == 3), send an email to the other players requesting validation.
+						#email sent
+						#set @match.validator to each other player's id.
+						# if (@player1.id == current_user.id)
+							# @match.validator1 == @player2.id
+							# @match.validator2 == @player3.id
+							# @match.validator3 == @player4.id
+							# @match.send_validation_email(@player2, @match)
+							# @match.send_validation_email(@player3, @match)
+							# @match.send_validation_email(@player4, @match)
+							# flash[:success] = "Your opponents have been notified."
+						# elsif (@player2.id == current_user.id)
+							# @match.validator1 == @player1.id
+							# @match.validator2 == @player3.id
+							# @match.validator3 == @player4.id
+							# @match.send_validation_email(@player2, @match)
+							# @match.send_validation_email(@player3, @match)
+							# @match.send_validation_email(@player4, @match)
+							# flash[:success] = "Your opponents have been notified."
+						# elsif (@player3.id == current_user.id)
+							# @match.validator1 == @player2.id
+							# @match.validator2 == @player1.id
+							# @match.validator3 == @player4.id
+							# @match.send_validation_email(@player2, @match)
+							# @match.send_validation_email(@player3, @match)
+							# @match.send_validation_email(@player4, @match)
+							# flash[:success] = "Your opponents have been notified."
+						# elsif (@player4.id == current_user.id)
+							# @match.validator1 == @player2.id
+							# @match.validator2 == @player3.id
+							# @match.validator3 == @player1.id
+							# @match.send_validation_email(@player2, @match)
+							# @match.send_validation_email(@player3, @match)
+							# @match.send_validation_email(@player 4, @match)
+							# flash[:success] = "Your opponents have been notified."
+						# end
+					# elsif (@match.scoreValid == 1 && (@match.validator1 == current_user.id || @match.validator2 == current_user.id || @match.validator3 == current_user.id)  The scores entered are valied
+						# if (@match.validated == 1)
+							if (@match.winner == "#{@player1.name} & #{@player2.name}") #The creator of the match and his or her partner won.
+								updateWinner(@match.player1)
+								updateWinner(@match.player2)
+								updateLoser(@match.player3)
+								updateLoser(@match.player4)
+								flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
+							else #The opponents won.
+								updateWinner(@match.player4)
+								updateWinner(@match.player3)
+								updateLoser(@match.player2)
+								updateLoser(@match.player1)
+								flash[:success] = "Scores updated. Congratulations #{@match.winner}!!"
+							end
+						# elsif (@match.validated == 0)
+							# Send an email to the match creator and increase all player's invalid score count by one.
+							# @match.send_invalid_score_email(@player1)
+							# @match.send_invalid_score_email(@player2)
+							# @match.send_invalid_score_email(@player3)
+							# @match.send_invalid_score_email(@player4)
+							# @player1.invalids = @player1.invalids + 1
+							# @player2.invalids = @player2.invalids + 1
+							# @player3.invalids = @player3.invalids + 1
+							# @player4.invalids = @player4.invalids + 1
+						# end
+					# end
 				elsif (@match.player2Accept == 0 || @match.player3Accept == 0 || @match.player4Accept == 0)
 					flash[:danger] = "You have declined the challenge.  The match creator has been notified."
 					@match.send_decline_email(@player1, @match)
@@ -351,10 +424,18 @@ def updateLoser(loser)
 	@theLoser.update_attributes(:losses => @newLosses, :total_matches_played => @newTotal, :win_pct => @newWinPct)
 end
 
+def updateInvalids(player)
+	@player = User.find_by(id: player)
+	@newInvalids = @player.invalids + 1
+	@player.update_attributes(:invalids => @newInvalids)
+end
+
 private
 
 	def match_params
       params.require(:match).permit(:player1, :player2, :player3, :player4, :location,
-                                   :time, :game_type, :open, :winner, :loser, :score, :zip, :p2Active, :p3Active, :p4Active, :player2Active, :player3Active, :player4Active, :player2Accept, :player3Accept, :player4Accept)
+                                   :time, :game_type, :open, :winner, :loser, :score, :zip, :p2Active, :p3Active, :p4Active, 
+                                   :player2Active, :player3Active, :player4Active, :player2Accept, :player3Accept, :player4Accept,
+                                   :validator1, :validator2, :validator3, :scoreValid, :validated)
     end
 end

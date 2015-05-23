@@ -25,4 +25,20 @@ class MatchMailer < ApplicationMailer
 
     mail to: creator.email, subject: "Your challenge has been declined!"
   end
+
+  # Sends an email for singles' score validation.
+  def validationEmail(player, match)
+    @user = player
+    @match = match
+    
+    mail to: player.email, subject: "Please validate score update."
+  end
+
+  # Sends an email in the event of an invalid score.
+  def invalidScoreEmail(player, match)
+    @user = player
+    @match = match
+    
+    mail to: player.email, subject: "Scores deemed invalid!"
+  end
 end
