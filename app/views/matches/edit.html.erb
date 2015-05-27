@@ -26,88 +26,89 @@
     </player>
 
     <div class="col-md-4 center">
-      <%= form_for(@match) do |f| %>
-        <% @user1 = User.find_by(id: @match.player1) %>
-        <% @user2 = User.find_by(id: @match.player2) %>
-          <% if (@match.game_type == "Doubles") %>
-            <% @user3 = User.find_by(id: @match.player3) %>
-            <% @user4 = User.find_by(id: @match.player4) %>
-          <% end %>
-        <%= render 'shared/error_messages' %>
-
-        <% if (@match.scoreValid == 0) %>
-            <%= f.label :score %>
-            <%= f.text_field :score, class: 'form-control' %>
-        <% else %>
-            <%= @match.score %>
-        <% end %>
-
-        <div>
-          <%= "Winner" %>
-        </div>
-        <% if (@match.game_type == "Singles" && @match.scoreValid == 0) %>
-          <%= f.label :winner, "#{@user1.name}" %>
-          <%= f.radio_button :winner, "#{@user1.name}", :checked => true, :value => "#{@user1.name}" %>
-
-          <%= f.label :winner, "#{@user2.name}" %>
-          <%= f.radio_button :winner, "#{@user2.name}", :value => "#{@user2.name}" %>
-
-        <% elsif (@match.game_type == "Doubles" && @match.scoreValid == 0) %>
-
-          <%= f.label :winner, "#{@user1.name} & #{@user2.name}" %>
-          <%= f.radio_button :winner, "#{@user1.name} & #{@user2.name}", :checked => true, :value => "#{@user1.name} & #{@user2.name}" %>
-
-          <%= f.label :winner, "#{@user3.name} & #{@user4.name}" %>
-          <%= f.radio_button :winner, "#{@user3.name} & #{@user4.name}", :value => "#{@user3.name} & #{@user4.name}" %>
-
-        <% elsif (@match.scoreValid == 1) %>
-
-        <strong><%= @match.winner %></strong>
-          
-        <% end %>  
-
-        <% if (@match.scoreValid == 0) %>
-          <%= f.hidden_field :scoreValid, :value => 1 %>
-
-          <% if (@user1.id == current_user.id) %>
-            <%= f.hidden_field :validator1, :value => @user2.id %> 
-            
+      <%# if (@match.validated == 0) %>
+        <%= form_for(@match) do |f| %>
+          <% @user1 = User.find_by(id: @match.player1) %>
+          <% @user2 = User.find_by(id: @match.player2) %>
             <% if (@match.game_type == "Doubles") %>
-              <%= f.hidden_field :validator2, :value => @user3.id %>
-              <%= f.hidden_field :validator3, :value => @user4.id %>
+              <% @user3 = User.find_by(id: @match.player3) %>
+              <% @user4 = User.find_by(id: @match.player4) %>
             <% end %>
-          
-          <% elsif (@user2.id == current_user.id) %>
-             <%= f.hidden_field :validator1, :value => @user1.id %> 
-            
-            <% if (@match.game_type == "Doubles") %>
-              <%= f.hidden_field :validator2, :value => @user3.id %>
-              <%= f.hidden_field :validator3, :value => @user4.id %>
-            <% end %>
+          <%= render 'shared/error_messages' %>
 
-          <% elsif (@match.game_type == "Doubles" && @user3.id == current_user.id) %>
-            <%= f.hidden_field :validator1, :value => @user1.id %>
-            <%= f.hidden_field :validator2, :value => @user2.id %>
-            <%= f.hidden_field :validator3, :value => @user4.id %>
-
-          <% elsif (@match.game_type == "Doubles" && @user4.id == current_user.id) %>
-            <%= f.hidden_field :validator1, :value => @user1.id %>
-            <%= f.hidden_field :validator2, :value => @user2.id %>
-            <%= f.hidden_field :validator3, :value => @user3.id %>
+          <% if (@match.scoreValid == 0) %>
+              <%= f.label :score %>
+              <%= f.text_field :score, class: 'form-control' %>
+          <% else %>
+              <%= @match.score %>
           <% end %>
+
+          <div>
+            <%= "Winner" %>
+          </div>
+          <% if (@match.game_type == "Singles" && @match.scoreValid == 0) %>
+            <%= f.label :winner, "#{@user1.name}" %>
+            <%= f.radio_button :winner, "#{@user1.name}", :checked => true, :value => "#{@user1.name}" %>
+
+            <%= f.label :winner, "#{@user2.name}" %>
+            <%= f.radio_button :winner, "#{@user2.name}", :value => "#{@user2.name}" %>
+
+          <% elsif (@match.game_type == "Doubles" && @match.scoreValid == 0) %>
+
+            <%= f.label :winner, "#{@user1.name} & #{@user2.name}" %>
+            <%= f.radio_button :winner, "#{@user1.name} & #{@user2.name}", :checked => true, :value => "#{@user1.name} & #{@user2.name}" %>
+
+            <%= f.label :winner, "#{@user3.name} & #{@user4.name}" %>
+            <%= f.radio_button :winner, "#{@user3.name} & #{@user4.name}", :value => "#{@user3.name} & #{@user4.name}" %>
+
+          <% elsif (@match.scoreValid == 1) %>
+
+          <strong><%= @match.winner %></strong>
+            
+          <% end %>  
+
+          <% if (@match.scoreValid == 0) %>
+            <%= f.hidden_field :scoreValid, :value => 1 %>
+
+            <% if (@user1.id == current_user.id) %>
+              <%= f.hidden_field :validator1, :value => @user2.id %> 
+              
+              <% if (@match.game_type == "Doubles") %>
+                <%= f.hidden_field :validator2, :value => @user3.id %>
+                <%= f.hidden_field :validator3, :value => @user4.id %>
+              <% end %>
+            
+            <% elsif (@user2.id == current_user.id) %>
+               <%= f.hidden_field :validator1, :value => @user1.id %> 
+              
+              <% if (@match.game_type == "Doubles") %>
+                <%= f.hidden_field :validator2, :value => @user3.id %>
+                <%= f.hidden_field :validator3, :value => @user4.id %>
+              <% end %>
+
+            <% elsif (@match.game_type == "Doubles" && @user3.id == current_user.id) %>
+              <%= f.hidden_field :validator1, :value => @user1.id %>
+              <%= f.hidden_field :validator2, :value => @user2.id %>
+              <%= f.hidden_field :validator3, :value => @user4.id %>
+
+            <% elsif (@match.game_type == "Doubles" && @user4.id == current_user.id) %>
+              <%= f.hidden_field :validator1, :value => @user1.id %>
+              <%= f.hidden_field :validator2, :value => @user2.id %>
+              <%= f.hidden_field :validator3, :value => @user3.id %>
+            <% end %>
+          <% end %>
+
+
+          <% if (@match.scoreValid == 1 && (@match.validator1 == current_user.id || @match.validator2 == current_user.id || @match.validator3 == current_user.id)) %>
+            <%= f.label :validated, "This is the correct score and winner." %>
+            <%= f.select(:validated, options_for_select([['Yes', '1'], ['No', '0']]), {}, :style => "width:240px") %>
+            <%= f.hidden_field :scoreValid, :value => 4 %> <%# Set the scoreValid parameter to 4 to disable score updating such that one player cannot enter the match scores more than once %>
+          <% end %>
+
+            <%= f.submit "Submit Scores", class: "btn btn-primary" %>
+
         <% end %>
-
-
-        <% if (@match.scoreValid == 1 && (@match.validator1 == current_user.id || @match.validator2 == current_user.id || @match.validator3 == current_user.id)) %>
-          <%= f.label :validated, "This is the correct score and winner." %>
-          <%= f.select(:validated, options_for_select([['Yes', '1'], ['No', '0']]), {}, :style => "width:240px") %>
-          <%= f.hidden_field :scoreValid, :value => 4 %> <%# Set the scoreValid parameter to 4 to disable score updating such that one player cannot enter the match scores more than once %>
-        <% end %>
-
-          <%= f.submit "Submit Scores", class: "btn btn-primary" %>
-
-      <% end %>
-
+      <%# end %>
     </div>
 
         <player class="col-md-4 pull-right">

@@ -72,9 +72,17 @@
 
       <% if (match.time < Time.now) && (current_user == User.find_by(id: match.player1) || current_user == User.find_by(id: match.player2) || current_user == User.find_by(id: match.player3) || current_user ==  User.find_by(id: match.player4)) %>
         <% if (match.game_type == "Singles" && match.player2 != 'Player 2') %> <%#Add in button checks  Change it for after validation %>
-          <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
-        <% elsif (match.game_type == "Doubles" && match.player2 != 'Player 2' && match.player3 != 'Player 3' && match.player4 != 'Player 4' && match.scoreValid != 1 && match.scoreValid != 0) %> <%#Add in button checks.  Change it for after validation %>
-          <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
+          <% if (match.scoreValid == 0) %>
+            <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
+          <% elsif (match.scoreValid == 1 && match.validator1 == current_user.id) %>
+            <span> <%= link_to "Validate match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
+          <% end %>
+        <% elsif (match.game_type == "Doubles" && match.player2 != 'Player 2' && match.player3 != 'Player 3' && match.player4 != 'Player 4') %> <%#Add in button checks.  Change it for after validation %>
+          <% if (match.scoreValid == 0) %>
+            <span> <%= link_to "Enter match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
+          <% elsif (match.scoreValid == 1 && (match.validator1 == current_user.id || match.validator2 == current_user.id || match.validator3 == current_user.id)) %>
+            <span> <%= link_to "Validate match scores", edit_match_path(match), class: "btn btn-success btn-block" %> </span>
+          <% end %>
         <% end %>
       <% end %>
 
