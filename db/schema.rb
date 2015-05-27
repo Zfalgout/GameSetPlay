@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20150523182356) do
     t.text     "location"
     t.datetime "time"
     t.integer  "user_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "game_type"
     t.integer  "open"
     t.string   "player2"
@@ -30,12 +30,12 @@ ActiveRecord::Schema.define(version: 20150523182356) do
     t.string   "score"
     t.boolean  "full"
     t.integer  "zip"
-    t.boolean  "player2Active"
-    t.boolean  "player3Active"
-    t.boolean  "player4Active"
-    t.integer  "p2Active"
-    t.integer  "p3Active"
-    t.integer  "p4Active"
+    t.boolean  "player2Active", default: false
+    t.boolean  "player3Active", default: false
+    t.boolean  "player4Active", default: false
+    t.integer  "p2Active",      default: 0
+    t.integer  "p3Active",      default: 0
+    t.integer  "p4Active",      default: 0
     t.string   "p2Accept"
     t.string   "p3Accept"
     t.string   "p4Accept"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20150523182356) do
     t.integer  "validator1"
     t.integer  "validator2"
     t.integer  "validator3"
-    t.integer  "scoreValid"
+    t.integer  "scoreValid",    default: 0
     t.integer  "validated"
   end
 
