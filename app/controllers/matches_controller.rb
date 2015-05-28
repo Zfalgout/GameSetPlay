@@ -52,7 +52,7 @@ class MatchesController < ApplicationController
 							flash[:success] = "Your opponent has been notified."
 						end
 
-					elsif (@match.scoreValid == 1 && @match.validator1 == current_user.id)  #The scores entered are valied
+					elsif (@match.scoreValid == 4 && @match.validator1 == current_user.id)  #The scores entered are valid
 							if (@match.validated == 1)
 							    if (@match.winner == @player1.name) #Player one is the winner
 							    	updateWinner(@match.player1)
@@ -109,7 +109,7 @@ class MatchesController < ApplicationController
 							@match.send_validation_email(@player4, @match) #email sent
 							flash[:success] = "Your opponents have been notified."
 						end
-					elsif (@match.scoreValid == 1 && (@match.validator1 == current_user.id || @match.validator2 == current_user.id || @match.validator3 == current_user.id)) #The scores entered are valied
+					elsif (@match.scoreValid == 4 && (@match.validator1 == current_user.id || @match.validator2 == current_user.id || @match.validator3 == current_user.id)) #The scores entered are valied
 						if (@match.validated == 1)
 							if (@match.winner == "#{@player1.name} & #{@player2.name}") #The creator of the match and his or her partner won.
 								updateWinner(@match.player1)
