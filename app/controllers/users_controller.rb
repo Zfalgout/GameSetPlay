@@ -18,9 +18,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    #@deletedMatches = Match.where("player2 = ? OR player3 = ? OR player4 = ? OR p2Active = ? OR p3Active = ? OR p4Active = ? OR player2Accept = ? OR player3Accept = ? OR player4Accept = ?",  "Player 2", "Player 3", "Player 4", 0, 0, 0, 0, 0, 0).where(time: 3.years.ago..Time.now).destroy_all
-    #@matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").where("p2Active = ? AND p3Active = ? AND p4Active = ?", 1, 1, 1).all.paginate(page: params[:page]).order(time: :desc)
-    @matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").all.paginate(page: params[:page]).order(time: :desc)
+    @deletedMatchesPast = Match.where("player2 = ? OR player3 = ? OR player4 = ?",  "Player 2", "Player 3", "Player 4").where(time: 3.years.ago..Time.now).destroy_all #Delete matches in the past that have not been joined.
+    @deletedMatchesFuture = Match.where("player2Accept = ? OR player3Accept = ? OR player4Accept = ?",  0, 0, 0).where(time: Time.now..3.years.from_now).destroy_all #Delete future unaccepted matches.
+    @matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").where("p2Active = ? AND p3Active = ? AND p4Active = ?", 1, 1, 1).all.paginate(page: params[:page]).order(time: :desc) #Only show matches that the user is in that all players have accepted an invite to.
+    #@matches = Match.where("player1 = ? OR player2 = ? OR player3 = ? OR player4 = ?",  "#{@user.id}", "#{@user.id}", "#{@user.id}", "#{@user.id}").all.paginate(page: params[:page]).order(time: :desc)
   end
 
   def create
