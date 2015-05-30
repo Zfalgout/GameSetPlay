@@ -61,7 +61,7 @@ Match.create!(player1: 1,
               player3Accept: nil,
               player4Accept: nil,
               scoreValid: 0,
-              validated: 0,
+              validated: 3,
               time: Date.yesterday,
               location: "Beaumont")
 
@@ -80,7 +80,7 @@ Match.create!(player1: 1,
               player3Accept: nil,
               player4Accept: nil,
               scoreValid: 0,
-              validated: 0,
+              validated: 3,
               time: 3.days.ago,
               location: "Beaumont")
 
@@ -99,6 +99,6 @@ Match.create!(player1: 1,
               player3Accept: nil,
               player4Accept: nil,
               scoreValid: 0,
-              validated: 0,
+              validated: 3,
               time: 3.days.from_now,
               location: "Beaumont")

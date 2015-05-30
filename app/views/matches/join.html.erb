@@ -44,29 +44,21 @@
 
         <% if (@match.player2 == 'Player 2') %>
           <%= f.label :player2, "I would like to join this match as the partner." %>
-          <%#= f.radio_button :player2, current_user.id, :value => current_user.id %>
           <%= f.check_box :player2, { checked: false }, "#{@current_user.id}", 'Player 2'  %>
-          <%#= f.check_box :player2, current_user.id, :value => current_user.id %>
-          <%#= f.select(:player2, options_for_select([['Partner', "#{@current_user.id}"]])) %>
-          <%= f.hidden_field :p2Active, :value => 1 %>
+          <%#= f.hidden_field :p2Active, :value => 1 %>
         <% end %>
 
         <% if (@match.player3 == 'Player 3' || @match.player4 == 'Player 4') %>
           
           <% if (@match.player3 == 'Player 3') %>
             <%= f.label :player3, "I would like to join this match as an opponent." %>
-            <%#= f.radio_button :player3, current_user.id, :value => current_user.id %>
-            <%#= f.select(:player3, options_for_select([['Opponent 1', "#{@current_user.id}"]])) %>
             <%= f.check_box :player3, { checked: false }, "#{@current_user.id}", 'Player 3'  %>
-            <%= f.hidden_field :p3Active, :value => 1 %>
+            <%#= f.hidden_field :p3Active, :value => 1 %>
 
           <% elsif (@match.player4 == 'Player 4') %>
             <%= f.label :player4, "I would like to join this match as an opponent." %>
-            <%#= f.radio_button :player4, current_user.id, :value => current_user.id %>
-            <%#= f.select(:player4, options_for_select([['Opponent 2', "#{@current_user.id}"]])) %>
             <%= f.check_box :player4, { checked: false }, "#{@current_user.id}", 'Player 4'  %>
-            <%#= f.check_box :player4, current_user.id :value => current_user.id %>
-            <%= f.hidden_field :p4Active, :value => 1 %>
+            <%#= f.hidden_field :p4Active, :value => 1 %>
 
           <% end %>
 

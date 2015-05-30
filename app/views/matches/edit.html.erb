@@ -2,7 +2,15 @@
 
 <div class="jumbotron">
 
-<h1>Enter Match Scores</h1>
+<% if (@match.scoreValid != 4) %>
+
+  <h1>Enter Match Scores</h1>
+
+<% else %>
+
+  <h1>Match Stats</h1>
+
+<% end %>
   
 
   <div class="row">
@@ -26,7 +34,7 @@
     </player>
 
     <div class="col-md-4 center">
-      <%# if (@match.validated == 0) %>
+      <% if (@match.scoreValid != 4) %>
         <%= form_for(@match) do |f| %>
           <% @user1 = User.find_by(id: @match.player1) %>
           <% @user2 = User.find_by(id: @match.player2) %>
@@ -108,7 +116,20 @@
             <%= f.submit "Submit Scores", class: "btn btn-primary" %>
 
         <% end %>
-      <%# end %>
+
+        <% else %>
+
+          <span class="winner">Winner: <strong><%= @match.winner %></strong></span></br>
+
+          <span class="game_type">Game Type: <%= @match.game_type %></span></br>
+          
+          <span class="time">Date and Time: <%= @match.time %></span></br>
+
+          <span class="location">Zip Code: <%= @match.zip %></span></br>
+          
+          <span class="location">Location: <%= @match.location %></span></br>
+
+      <% end %>
     </div>
 
         <player class="col-md-4 pull-right">

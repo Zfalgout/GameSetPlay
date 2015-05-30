@@ -32,12 +32,17 @@ class MatchesController < ApplicationController
 
 	def update
     @match = Match.find(params[:id])
+    @id = params[:id]
     @player1 = User.find_by(id: @match.player1)
 	@player2 = User.find_by(id: @match.player2)
 	@player3 = User.find_by(id: @match.player3)
 	@player4 = User.find_by(id: @match.player4)
 
 	    if @match.update_attributes(match_params)
+
+	    	if (@match.player2 != "Player 2" && @match.player3 != "Player 3" && @match.player4 != "Player 4")
+	    		activatePlayers(@id)
+	    	end
 
 		    	if (@match.game_type == "Singles" && @player2 != nil && @match.time < Time.now) #Have to differentiate between singles and doubles matches.
 					if (@match.scoreValid == 1 && @match.validated == 3) #send an email to the other player requesting validation.
@@ -74,6 +79,7 @@ class MatchesController < ApplicationController
 						
 					end
 				elsif (@match.game_type == "Doubles" && @player2 != nil && @player3 != nil && @player4 != nil && @match.time < Time.now)
+
 					if (@match.scoreValid == 1 && @match.validated == 3) #send an email to the other players requesting validation.
 						#set @match.validator to each other player's id.
 						if (@player1.id == current_user.id)
@@ -126,14 +132,15 @@ class MatchesController < ApplicationController
 							end
 						elsif (@match.validated == 0)
 							# Send an email to the match creator and increase all player's invalid score count by one.
-							@match.send_invalid_score_email(@player1) #email sent
-							@match.send_invalid_score_email(@player2) #email sent
-							@match.send_invalid_score_email(@player3) #email sent
-							@match.send_invalid_score_email(@player4) #email sent
+							@match.send_invalid_score_email(@player1, @match) #email sent
+							@match.send_invalid_score_email(@player2, @match) #email sent
+							@match.send_invalid_score_email(@player3, @match) #email sent
+							@match.send_invalid_score_email(@player4, @match) #email sent
 							updateInvalids(@match.player1)
 							updateInvalids(@match.player2)
 							updateInvalids(@match.player3)
 							updateInvalids(@match.player4)
+							flash[:danger] = "The other players have been notified of the invalid scores."
 						end
 					end
 				elsif (@match.player2Accept == 0 || @match.player3Accept == 0 || @match.player4Accept == 0)
@@ -428,6 +435,11 @@ def updateInvalids(player)
 	@player = User.find_by(id: player)
 	@newInvalids = @player.invalids + 1
 	@player.update_attributes(:invalids => @newInvalids)
+end
+
+def activatePlayers(id)
+	@match = Match.find_by(id: id)
+	@match.update_attributes(:p2Active => 1, :p3Active => 1, :p4Active => 1)
 end
 
 private
