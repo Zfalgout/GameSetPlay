@@ -27,21 +27,22 @@
 	      <%= f.label :time, "The date and time for the match" %>
 	      <%= f.datetime_local_field :time, class: 'form-control' %>
 
-	    <div class="center">
-		  <%= f.label :game_type, "This is a singles match." %>
-		  <%= f.radio_button :game_type, "Singles", :checked => true, :value => "Singles" %>
+	    
+		  <%= f.label :game_type, "What type of match is this?" %>
+		  <%#= f.radio_button :game_type, "Singles", :checked => true, :value => "Singles" %>
 
-	      <%= f.label :game_type, "This is a doubles match." %>
-	      <%= f.radio_button :game_type, "Doubles", :value => "Doubles" %>
-	  	</div>
+	      <%#= f.label :game_type, "This is a doubles match." %>
+	      <%#= f.radio_button :game_type, "Doubles", :value => "Doubles" %>
+	      <%= f.select(:game_type, options_for_select([['Singles', 'Singles'], ['Doubles', 'Doubles']]), {}) %>
+	  	
+	    
+		  <%= f.label :open, "Can other players join this match?" %>
+		  <%#= f.radio_button :open, 1, :checked => true, :value => 1 %>
 
-	    <div class="center">
-		  <%= f.label :open, "This is a public match." %>
-		  <%= f.radio_button :open, 1, :checked => true, :value => 1 %>
-
-	      <%= f.label :open, "This is a private match." %>
-	      <%= f.radio_button :open, 0, :value => 0 %>
-	  	</div>
+	      <%#= f.label :open, "This is a private match." %>
+	      <%#= f.radio_button :open, 0, :value => 0 %>
+	      <%= f.select(:open, options_for_select([['Yes', 1], ['No', 0]]), {}) %>
+	  	
 
 	  	<%= f.hidden_field :p2Active, :value => 0 %>
         <%= f.hidden_field :p3Active, :value => 0 %>

@@ -8,8 +8,8 @@
     <div class="col-md-3 pull-left">
       <%= form_tag(open_path, :method => "get", id: "search-form") do %>
       <%= label :search1, "Find matches by type:" %>
-      <%#= select :search1, options_for_select("Singles", "Doubles"), { prompt: "No Limit" } %>
-      <%= text_field_tag :search1, params[:search1], placeholder: "Search Matches by Type"%>
+      <%= select_tag(:search1, options_for_select(["Singles", "Doubles"]), :include_blank => true) %>
+      <%#= text_field_tag :search1, params[:search1], placeholder: "Search Matches by Type"%>
 
       <%= label :search2, "Find matches by creator:" %>
       <%= text_field_tag :search2, params[:search2], placeholder: "Search Matches by User"%>

@@ -451,12 +451,12 @@ end
 
 def fixPlayers1(match)
 	@match = match
-	@match.update_attributes(:player2 => "Player 2", :player3 => "Player 3")
+	@match.update_attributes(:player2 => "Player 2", :player3 => "Player 3", :p2Active => 0, :p3Active => 0)
 end
 
 def fixPlayers2(match)
 	@match = match
-	@match.update_attributes(:player2 => "Player 2", :player4 => "Player 4")
+	@match.update_attributes(:player2 => "Player 2", :player4 => "Player 4", :p2Active => 0, :p4Active => 0)
 end
 
 private
