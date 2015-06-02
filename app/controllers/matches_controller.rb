@@ -38,7 +38,7 @@ class MatchesController < ApplicationController
 	@player3 = User.find_by(id: @match.player3)
 	@player4 = User.find_by(id: @match.player4)
 
-	    if @match.update_attributes(match_params)
+	    if (@match.update_attributes(match_params))
 
 	    	if (@match.player2 != "Player 2" && @match.player3 != "Player 3" && @match.player4 != "Player 4")
 	    		activatePlayers(@id)
@@ -146,6 +146,13 @@ class MatchesController < ApplicationController
 				elsif (@match.player2Accept == 0 || @match.player3Accept == 0 || @match.player4Accept == 0)
 					flash[:danger] = "You have declined the challenge.  The match creator has been notified."
 					@match.send_decline_email(@player1, @match)
+
+				elsif (@match.player2 == @match.player3)
+	    			flash[:danger] = "You cannot join as both a partner and an opponent."
+	    			fixPlayers1(@match)
+	    		elsif (@match.player2 == @match.player4)
+	    			flash[:danger] = "You cannot join as both a partner and an opponent."
+	    			fixPlayers2(@match)
 				elsif (@match.time > Time.now)
 					flash[:success] = "You have been added to the match!  Good luck!"
 			end
@@ -440,6 +447,16 @@ end
 def activatePlayers(id)
 	@match = Match.find_by(id: id)
 	@match.update_attributes(:p2Active => 1, :p3Active => 1, :p4Active => 1)
+end
+
+def fixPlayers1(match)
+	@match = match
+	@match.update_attributes(:player2 => "Player 2", :player3 => "Player 3")
+end
+
+def fixPlayers2(match)
+	@match = match
+	@match.update_attributes(:player2 => "Player 2", :player4 => "Player 4")
 end
 
 private
