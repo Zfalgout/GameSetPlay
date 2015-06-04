@@ -26,7 +26,7 @@
 
     <% end %> 
     
-    <span class="time">Date and Time: <%= match.time %></span>
+    <span class="time">Date and Time: <%= match.time.strftime("%x") %> at <%= match.time.strftime("%I:%M %p") %></span>
 
     <span class="location">Zip Code: <%= match.zip %></span>
     
