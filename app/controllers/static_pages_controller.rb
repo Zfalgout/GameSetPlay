@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
     if logged_in?
-      @feed_items = current_user.feed.paginate(page: params[:page]).order(time: :asc)
+      @feed_items = current_user.feed.where("p2Active = ? AND p3Active = ? AND p4Active = ?", 1, 1, 1).paginate(page: params[:page]).order(time: :desc)
     end
   end
 

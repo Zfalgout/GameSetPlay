@@ -19,13 +19,9 @@
 	    </section>
 	  </aside>
 	  <div class="col-md-8">
-	  	<div class="col-md-3">
 	 		<%= link_to "Create a Match", new_match_path, class: "btn btn-primary" %>
-	 	</div>
-	 	<div class="col-md-4">
 	 		<%= link_to "View Challenges", challenges_path, class: "btn btn-primary" %>
-	 	</div>
-	    <%# if @user.matches.any? %> </br></br>
+	    <%# if @user.matches.any? %>
 	      <h3>Matches</h3>
 	      <ol class="matches">
 	        <%= render @matches %>
