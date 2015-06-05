@@ -82,37 +82,13 @@ class MatchesController < ApplicationController
 
 					if (@match.scoreValid == 1 && @match.validated == 3) #send an email to the other players requesting validation.
 						#set @match.validator to each other player's id.
-						if (@player1.id == current_user.id)
-							@match.validator1 == @player2.id
-							@match.validator2 == @player3.id
-							@match.validator3 == @player4.id
-							@match.send_validation_email(@player2, @match) #email sent
+						if (@player1.id == current_user.id || @player2.id == current_user.id)  #Only allow players from the other team to validate scores.
 							@match.send_validation_email(@player3, @match) #email sent
 							@match.send_validation_email(@player4, @match) #email sent
 							flash[:success] = "Your opponents have been notified."
-						elsif (@player2.id == current_user.id)
-							@match.validator1 == @player1.id
-							@match.validator2 == @player3.id
-							@match.validator3 == @player4.id
+						elsif (@player3.id == current_user.id || @player4.id == current_user.id)
 							@match.send_validation_email(@player2, @match) #email sent
 							@match.send_validation_email(@player3, @match) #email sent
-							@match.send_validation_email(@player4, @match) #email sent
-							flash[:success] = "Your opponents have been notified."
-						elsif (@player3.id == current_user.id)
-							@match.validator1 == @player2.id
-							@match.validator2 == @player1.id
-							@match.validator3 == @player4.id
-							@match.send_validation_email(@player2, @match) #email sent
-							@match.send_validation_email(@player3, @match) #email sent
-							@match.send_validation_email(@player4, @match) #email sent
-							flash[:success] = "Your opponents have been notified."
-						elsif (@player4.id == current_user.id)
-							@match.validator1 == @player2.id
-							@match.validator2 == @player3.id
-							@match.validator3 == @player1.id
-							@match.send_validation_email(@player2, @match) #email sent
-							@match.send_validation_email(@player3, @match) #email sent
-							@match.send_validation_email(@player4, @match) #email sent
 							flash[:success] = "Your opponents have been notified."
 						end
 					elsif (@match.scoreValid == 4 && (@match.validator1 == current_user.id || @match.validator2 == current_user.id || @match.validator3 == current_user.id)) #The scores entered are valied

@@ -78,31 +78,29 @@
           <% if (@match.scoreValid == 0) %>
             <%= f.hidden_field :scoreValid, :value => 1 %>
 
-            <% if (@user1.id == current_user.id) %>
+            <% if (@user1.id == current_user.id && @match.game_type == "Singles") %>
               <%= f.hidden_field :validator1, :value => @user2.id %> 
               
-              <% if (@match.game_type == "Doubles") %>
-                <%= f.hidden_field :validator2, :value => @user3.id %>
-                <%= f.hidden_field :validator3, :value => @user4.id %>
-              <% end %>
+            <% elsif (@user1.id == current_user.id && @match.game_type == "Doubles") %>
+              <%= f.hidden_field :validator2, :value => @user3.id %>
+              <%= f.hidden_field :validator3, :value => @user4.id %>
             
-            <% elsif (@user2.id == current_user.id) %>
-               <%= f.hidden_field :validator1, :value => @user1.id %> 
-              
-              <% if (@match.game_type == "Doubles") %>
-                <%= f.hidden_field :validator2, :value => @user3.id %>
-                <%= f.hidden_field :validator3, :value => @user4.id %>
-              <% end %>
+            <% elsif (@user2.id == current_user.id && @match.game_type == "Singles") %>
+               <%= f.hidden_field :validator1, :value => @user1.id %>
+
+            <% elsif (@user2.id == current_user.id && @match.game_type == "Doubles") %>
+              <%= f.hidden_field :validator2, :value => @user3.id %>
+              <%= f.hidden_field :validator3, :value => @user4.id %> 
 
             <% elsif (@match.game_type == "Doubles" && @user3.id == current_user.id) %>
               <%= f.hidden_field :validator1, :value => @user1.id %>
               <%= f.hidden_field :validator2, :value => @user2.id %>
-              <%= f.hidden_field :validator3, :value => @user4.id %>
+              <%#= f.hidden_field :validator3, :value => @user4.id %>
 
             <% elsif (@match.game_type == "Doubles" && @user4.id == current_user.id) %>
               <%= f.hidden_field :validator1, :value => @user1.id %>
               <%= f.hidden_field :validator2, :value => @user2.id %>
-              <%= f.hidden_field :validator3, :value => @user3.id %>
+              <%#= f.hidden_field :validator3, :value => @user3.id %>
             <% end %>
           <% end %>
 
