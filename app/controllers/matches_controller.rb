@@ -88,7 +88,7 @@ class MatchesController < ApplicationController
 							flash[:success] = "Your opponents have been notified."
 						elsif (@player3.id == current_user.id || @player4.id == current_user.id)
 							@match.send_validation_email(@player2, @match) #email sent
-							@match.send_validation_email(@player3, @match) #email sent
+							@match.send_validation_email(@player1, @match) #email sent
 							flash[:success] = "Your opponents have been notified."
 						end
 					elsif (@match.scoreValid == 4 && (@match.validator1 == current_user.id || @match.validator2 == current_user.id || @match.validator3 == current_user.id)) #The scores entered are valied
