@@ -206,10 +206,10 @@ class MatchesController < ApplicationController
 	  #Singles/Private
 	  elsif (@game_type == "Singles" && @open == 0) 
 	  	@match = current_user.challenge(@player2, @location, @game_type, @open, @time, @zip) 
-			# @match.player3 = ""
-			# @match.player4 = ""
-			# @match.p3Active = 1
-			# @match.p4Active = 1
+			@match.player3 = ""
+			@match.player4 = ""
+			@match.p3Active = 1
+			@match.p4Active = 1
 			if @match.save  #match creation
 			#Email Setup
 		    @match.send_challenge_email(@player2, @match, @player1)
