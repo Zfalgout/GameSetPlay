@@ -145,13 +145,13 @@ class MatchesController < ApplicationController
 	  @player1 = current_user
 
 	  #Set the variables.
-	  @name = @match.player2
+	  @name = @match.player2.titleize
 	  @player2 = User.find_by(name: "#{@name}")
 	  
-	  @name3 = @match.player3
+	  @name3 = @match.player3.titleize
 	  @player3 = User.find_by(name: "#{@name3}")
 	  
-	  @name4 = @match.player4
+	  @name4 = @match.player4.titleize
 	  @player4 = User.find_by(name: "#{@name4}")
 	  
 	  @location = @match.location
