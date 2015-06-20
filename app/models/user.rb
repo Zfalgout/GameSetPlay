@@ -78,12 +78,6 @@ class User < ActiveRecord::Base
    	 	update_attribute(:remember_digest, nil)
  	 end
 
-	# Returns true if the given token matches the digest.
-    #def authenticated?(remember_token)
-    #  return false if remember_digest.nil?
-    #  BCrypt::Password.new(remember_digest).is_password?(remember_token)
-    #end
-
      # Returns true if the given token matches the digest.
 	  def authenticated?(attribute, token)
 	    digest = send("#{attribute}_digest")
@@ -93,7 +87,7 @@ class User < ActiveRecord::Base
 
 	# Activates an account.
 	  def activate
-	    update_attribute(:activated,    true)
+	    update_attribute(:activated, true)
 	    update_attribute(:activated_at, Time.zone.now)
 	  end
 
@@ -105,7 +99,7 @@ class User < ActiveRecord::Base
 	 # Sets the password reset attributes.
 	  def create_reset_digest
 	    self.reset_token = User.new_token
-	    update_attribute(:reset_digest,  User.digest(reset_token))
+	    update_attribute(:reset_digest, User.digest(reset_token))
 	    update_attribute(:reset_sent_at, Time.zone.now)
 	  end
 

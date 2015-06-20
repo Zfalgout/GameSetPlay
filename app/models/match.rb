@@ -9,10 +9,6 @@ class Match < ActiveRecord::Base
 	validates :open, presence: true
 	validates :zip, presence: true
 
-	#Put in descending order.
-
-#default_scope -> { order(:time) }
-
 	after_initialize :defaults
 
     def defaults
